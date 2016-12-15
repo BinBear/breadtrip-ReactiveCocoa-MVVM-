@@ -14,7 +14,6 @@
 		CE2308671DDC39E40001ECFA /* HTCityTravelViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2308661DDC39E40001ECFA /* HTCityTravelViewModel.m */; };
 		CE2546021DA9E8CF00491FAD /* UIImage+HTRoundImage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2546011DA9E8CF00491FAD /* UIImage+HTRoundImage.m */; };
 		CE2546051DA9EA4C00491FAD /* UIImageView+HTRoundImage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2546041DA9EA4C00491FAD /* UIImageView+HTRoundImage.m */; };
-		CE263C781DD4525D00F5033F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE263C771DD4525D00F5033F /* Images.xcassets */; };
 		CE30C4A41D82CA2E0028CB73 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE30C4A31D82CA2E0028CB73 /* main.m */; };
 		CE30C4C21D82CABF0028CB73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE30C4BC1D82CABF0028CB73 /* Assets.xcassets */; };
 		CE30C4C31D82CABF0028CB73 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE30C4BD1D82CABF0028CB73 /* LaunchScreen.storyboard */; };
@@ -88,7 +87,6 @@
 		CE2546011DA9E8CF00491FAD /* UIImage+HTRoundImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+HTRoundImage.m"; sourceTree = "<group>"; };
 		CE2546031DA9EA4C00491FAD /* UIImageView+HTRoundImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+HTRoundImage.h"; sourceTree = "<group>"; };
 		CE2546041DA9EA4C00491FAD /* UIImageView+HTRoundImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+HTRoundImage.m"; sourceTree = "<group>"; };
-		CE263C771DD4525D00F5033F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CE30C49F1D82CA2E0028CB73 /* HeartTrip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeartTrip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE30C4A31D82CA2E0028CB73 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CE30C4B31D82CA2E0028CB73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -262,7 +260,6 @@
 				CE30C4C61D82CB4B0028CB73 /* Resource */,
 				CE30C4C71D82CB4B0028CB73 /* Tool */,
 				CE30C4CC1D82CB4B0028CB73 /* Vendor */,
-				CE263C771DD4525D00F5033F /* Images.xcassets */,
 				CE30C4A21D82CA2E0028CB73 /* Supporting Files */,
 			);
 			path = HeartTrip;
@@ -831,7 +828,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE30C4C41D82CABF0028CB73 /* Main.storyboard in Resources */,
-				CE263C781DD4525D00F5033F /* Images.xcassets in Resources */,
 				CE30C4C21D82CABF0028CB73 /* Assets.xcassets in Resources */,
 				CE30C4C31D82CABF0028CB73 /* LaunchScreen.storyboard in Resources */,
 			);
