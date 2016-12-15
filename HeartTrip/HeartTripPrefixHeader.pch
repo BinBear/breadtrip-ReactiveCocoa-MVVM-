@@ -1,0 +1,32 @@
+//
+//  HeartTripPrefixHeader.pch
+//  HeartTrip
+//
+//  Created by 熊彬 on 16/9/12.
+//  Copyright © 2016年 BinBear. All rights reserved.
+//
+
+#ifndef HeartTripPrefixHeader_pch
+#define HeartTripPrefixHeader_pch
+
+#import "VKURLAction.h"
+#import "HTMediatorAction.h"
+#import "HTConfig.h"
+#import "HTConst.h"
+#import "HTShowMessageView.h"
+#import "HTNetWorking.h"
+#import "UINavigationController+FDFullscreenPopGesture.h"
+#import "HTUtilsMethod.h"
+#import "HTRefreshGifHeader.h"
+#import "HTRefreshGifFooter.h"
+
+#import <CommonElement.h>
+#import <Masonry.h>
+#import <ReactiveCocoa.h>
+#import <MJExtension.h>
+#import <MJRefresh.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <SDWebImage/UIButton+WebCache.h>
+#import <SDWebImage/SDWebImageManager.h>
+
+#endif /* HeartTripPrefixHeader_pch */

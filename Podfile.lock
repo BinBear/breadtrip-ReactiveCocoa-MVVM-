@@ -1,0 +1,61 @@
+PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
+  - CommonElement (0.2.2)
+  - iCarousel (1.8.3)
+  - IQKeyboardManager (4.0.7)
+  - Masonry (1.0.2)
+  - MJExtension (3.0.13)
+  - MJRefresh (3.1.12)
+  - MMProgressHUD (0.3.2)
+  - ReactiveCocoa (2.5):
+    - ReactiveCocoa/UI (= 2.5)
+  - ReactiveCocoa/Core (2.5):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.5)
+  - ReactiveCocoa/UI (2.5):
+    - ReactiveCocoa/Core
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
+
+DEPENDENCIES:
+  - AFNetworking (= 3.1.0)
+  - CommonElement (= 0.2.2)
+  - iCarousel (= 1.8.3)
+  - IQKeyboardManager (= 4.0.7)
+  - Masonry (= 1.0.2)
+  - MJExtension (= 3.0.13)
+  - MJRefresh (= 3.1.12)
+  - MMProgressHUD (= 0.3.2)
+  - ReactiveCocoa (= 2.5)
+  - SDWebImage (= 3.8.2)
+
+SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  CommonElement: fec09913db4c3a170ff5ecafece69a383f404323
+  iCarousel: d782f635afac190c49bb8ee455882284cff8b85f
+  IQKeyboardManager: 69002bb4fea60596b710e57d426abc00e5063630
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  MJExtension: 5932755f451458eefa24239358817f8d291240c7
+  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  MMProgressHUD: a913b116ba6791d67d37f9fb4211079200fb7595
+  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+
+PODFILE CHECKSUM: 6bf2be7ab7ea2f810eb84e3fcc37fe2ae50cd480
+
+COCOAPODS: 1.2.0.beta.1
