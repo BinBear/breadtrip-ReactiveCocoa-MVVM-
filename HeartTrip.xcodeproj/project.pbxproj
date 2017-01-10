@@ -234,6 +234,27 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		CE1254821E24C05A001D6183 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		CE1254831E24C05A001D6183 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CE1254841E24C05A001D6183 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		CE30C4961D82CA2E0028CB73 = {
 			isa = PBXGroup;
 			children = (
@@ -399,13 +420,6 @@
 			sourceTree = "<group>";
 		};
 		CE3EA4FA1DAB6AC3008337C7 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		CE3EA4FB1DAB6ADB008337C7 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -635,26 +649,12 @@
 		CE5657491D8E6AD30026230C /* CityHunter */ = {
 			isa = PBXGroup;
 			children = (
-				CE56574A1D8E6AD30026230C /* Controller */,
-				CE56574B1D8E6AD30026230C /* Model */,
+				CE1254821E24C05A001D6183 /* Controller */,
+				CE1254831E24C05A001D6183 /* Model */,
+				CE1254841E24C05A001D6183 /* ViewModel */,
 				CE56574C1D8E6AD30026230C /* Views */,
-				CE3EA4FB1DAB6ADB008337C7 /* ViewModel */,
 			);
 			path = CityHunter;
-			sourceTree = "<group>";
-		};
-		CE56574A1D8E6AD30026230C /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		CE56574B1D8E6AD30026230C /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		CE56574C1D8E6AD30026230C /* Views */ = {
