@@ -19,6 +19,7 @@
 		CE30C4C31D82CABF0028CB73 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE30C4BD1D82CABF0028CB73 /* LaunchScreen.storyboard */; };
 		CE30C4C41D82CABF0028CB73 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE30C4BF1D82CABF0028CB73 /* Main.storyboard */; };
 		CE38C7921D9441AA003F3FDE /* HTAppDotNetAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CE38C7911D9441AA003F3FDE /* HTAppDotNetAPIClient.m */; };
+		CE3A636B1E2E246200A9A41D /* UIViewController+HTHideBottomLine.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3A636A1E2E246200A9A41D /* UIViewController+HTHideBottomLine.m */; };
 		CE3D39411E01199E003A4AA0 /* HTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3D39401E01199E003A4AA0 /* HTAppDelegate.m */; };
 		CE3D39441E011FBB003A4AA0 /* HTInfiniteCarouselView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3D39431E011FBB003A4AA0 /* HTInfiniteCarouselView.m */; };
 		CE48523E1D86C7AB00C7DC9D /* HTMediatorAction.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4852371D86C7AB00C7DC9D /* HTMediatorAction.m */; };
@@ -95,6 +96,8 @@
 		CE30C4C01D82CABF0028CB73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CE38C7901D9441AA003F3FDE /* HTAppDotNetAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTAppDotNetAPIClient.h; sourceTree = "<group>"; };
 		CE38C7911D9441AA003F3FDE /* HTAppDotNetAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTAppDotNetAPIClient.m; sourceTree = "<group>"; };
+		CE3A63691E2E246200A9A41D /* UIViewController+HTHideBottomLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HTHideBottomLine.h"; sourceTree = "<group>"; };
+		CE3A636A1E2E246200A9A41D /* UIViewController+HTHideBottomLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HTHideBottomLine.m"; sourceTree = "<group>"; };
 		CE3D393F1E01199E003A4AA0 /* HTAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTAppDelegate.h; sourceTree = "<group>"; };
 		CE3D39401E01199E003A4AA0 /* HTAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTAppDelegate.m; sourceTree = "<group>"; };
 		CE3D39421E011FBB003A4AA0 /* HTInfiniteCarouselView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTInfiniteCarouselView.h; sourceTree = "<group>"; };
@@ -351,6 +354,8 @@
 				CE2546041DA9EA4C00491FAD /* UIImageView+HTRoundImage.m */,
 				CE50C6BD1DEC0F6A0005F44B /* UISearchBar+HTAdd.h */,
 				CE50C6BE1DEC0F6A0005F44B /* UISearchBar+HTAdd.m */,
+				CE3A63691E2E246200A9A41D /* UIViewController+HTHideBottomLine.h */,
+				CE3A636A1E2E246200A9A41D /* UIViewController+HTHideBottomLine.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -941,6 +946,7 @@
 				CE5657981D8E92480026230C /* HTMeViewController.m in Sources */,
 				CE48523E1D86C7AB00C7DC9D /* HTMediatorAction.m in Sources */,
 				CE772A5E1DED354900BE0F0D /* HTTableViewCell.m in Sources */,
+				CE3A636B1E2E246200A9A41D /* UIViewController+HTHideBottomLine.m in Sources */,
 				CEDBA9651DE43D3F00EBAF32 /* HTUserModel.m in Sources */,
 				CE56579E1D8E92EF0026230C /* UIBarButtonItem+HTBarButtonCustom.m in Sources */,
 				CEEEBAE91DFFC4C400CE172A /* HTWebViewController.m in Sources */,

@@ -11,7 +11,9 @@
 #import "HTFindVideosModel.h"
 #import "UIImageView+HTRoundImage.h"
 #import "UIImage+HTRoundImage.h"
-
+#import "HTWebViewModel.h"
+#import "HTWebProtocolImpl.h"
+#import "HTMediatorAction+HTWebViewController.h"
 @interface HTFindVideoView ()<iCarouselDelegate,iCarouselDataSource>
 
 @property (nonatomic,strong) iCarousel *carousel;
@@ -128,7 +130,16 @@
 }
 - (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index
 {
-    
+   
+    HTFindVideosModel *Model = self.modelGroup[index];
+    if ([Model.show_url isNotBlank]) {
+        
+        HTWebViewModel *viewModel = [[HTWebViewModel alloc] initWithServices:nil params:@{WebTitlekey:@"",RequestURLkey:Model.show_url,WebNavBarStyleTypekey:@(kWebNavBarStyleHidden)}];
+        [[HTMediatorAction sharedInstance] pushWebViewControllerWithViewModel:viewModel];
+        
+    }else{
+        
+    }
 }
 - (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel
 {

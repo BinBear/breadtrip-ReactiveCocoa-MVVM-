@@ -9,6 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "HTViewModelService.h"
 
+
+typedef NS_ENUM(NSUInteger, HTWebNavBarStyleType) {
+    
+    kWebNavBarStyleNomal   = 1, // 默认
+    kWebNavBarStyleHidden  = 2, // 隐藏
+    
+};
+
 @interface HTWebViewModel : NSObject
 
 /**
@@ -19,6 +27,10 @@
  *  标题
  */
 @property (copy, nonatomic) NSString *title;
+/**
+ *  NavBar类型
+ */
+@property (assign , nonatomic) HTWebNavBarStyleType navBarStyleType;
 
 - (instancetype)initWithServices:(id<HTViewModelService>)services params:(NSDictionary *)params;
 

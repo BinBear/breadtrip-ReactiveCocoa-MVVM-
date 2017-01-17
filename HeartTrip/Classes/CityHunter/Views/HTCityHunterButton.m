@@ -63,7 +63,7 @@
 {
     self.isChangeImage = !self.isChangeImage;
     HTCustomTabBarController *tabBarController = [self HT_tabBarController];
-//    UIViewController *viewController = tabBarController.selectedViewController;
+    UIViewController *viewController = tabBarController.selectedViewController;
     if (self.isChangeImage) {
         [self setBackgroundImage:[UIImage imageNamed:@"root_tab_add_btn_select"] forState:UIControlStateNormal];
     }else{

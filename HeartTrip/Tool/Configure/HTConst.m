@@ -28,7 +28,8 @@ NSString *const  CityNamekey = @"CityNamekey";
 NSString *const  WebTitlekey = @"WebTitlekey";
 // 网页请求地址key
 NSString *const  RequestURLkey = @"RequestURLkey";
-
+// WebViewNav的导航类型key
+NSString *const  WebNavBarStyleTypekey = @"WebNavBarStyleTypekey";
 
 /********** 网络请求地址 ***********/
 

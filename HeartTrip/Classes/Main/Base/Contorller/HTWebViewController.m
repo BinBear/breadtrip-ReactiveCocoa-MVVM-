@@ -9,6 +9,7 @@
 #import "HTWebViewController.h"
 #import "FTDIntegrationWebView.h"
 #import "HTWebViewModel.h"
+#import "UIViewController+HTHideBottomLine.h"
 
 @interface HTWebViewController ()<FTDIntegrationWebViewDelegate>
 /**
@@ -19,6 +20,10 @@
  *  webview
  */
 @property (strong, nonatomic) FTDIntegrationWebView *webView;
+/**
+ *  NavBar
+ */
+@property (strong, nonatomic) UINavigationBar *navBar;
 @end
 
 @implementation HTWebViewController
@@ -112,6 +117,76 @@
     
     self.webView.delegate = self;
 }
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBar.userInteractionEnabled = NO;
+    [self removeFakeNavBar];
+    if (self.viewModel.navBarStyleType == kWebNavBarStyleHidden) {
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+        [self HT_hideBottomLineInView:self.navigationController.navigationBar];
+    
+        [self addFakeNavBar];
+    }
+}
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    self.navigationController.navigationBar.userInteractionEnabled = YES;
+    [self removeFakeNavBar];
+    
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self removeFakeNavBar];
+    if (self.viewModel.navBarStyleType == kWebNavBarStyleHidden) {
+        [self addFakeNavBar];
+        self.navigationController.navigationBar.barStyle = UINavigationBar.appearance.barStyle;
+        self.navigationController.navigationBar.translucent = YES;
+        [self.navigationController.navigationBar setBackgroundImage:[UINavigationBar.appearance backgroundImageForBarMetrics:UIBarMetricsDefault] forBarMetrics:UIBarMetricsDefault];
+        [self HT_showBottomLineInView:self.navigationController.navigationBar];
+    }
+}
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [self removeFakeNavBar];
+}
+- (void)addFakeNavBar {
+
+    if (self.viewModel.navBarStyleType == kWebNavBarStyleHidden) {
+        [self.navBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+        [self HT_hideBottomLineInView:self.navBar];
+        
+    }else {
+        [self.navBar setBackgroundImage:[UINavigationBar.appearance backgroundImageForBarMetrics:UIBarMetricsDefault] forBarMetrics:UIBarMetricsDefault];
+        [self HT_showBottomLineInView:self.navBar];
+        
+    }
+}
+
+- (void)removeFakeNavBar {
+    if (self.navBar.superview) {
+        [self.navBar removeFromSuperview];
+    }
+}
+- (void)updateViewConstraints
+{
+    [self.webView mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        if (self.viewModel.navBarStyleType == kWebNavBarStyleHidden) {
+            make.left.right.bottom.equalTo(self.view);
+            make.top.equalTo(self.view).offset(-64);
+        }
+    }];
+    
+    [super updateViewConstraints];
+}
 #pragma mark - getter
 - (FTDIntegrationWebView *)webView
 {
@@ -122,5 +197,16 @@
         view;
     }));
 }
-
+- (UINavigationBar *)navBar
+{
+    return HT_LAZY(_navBar, ({
+    
+        UINavigationBar *bar = [[UINavigationBar alloc] init];
+        bar.barStyle = UINavigationBar.appearance.barStyle;
+        bar.translucent = YES;
+        [self.view addSubview:bar];
+        [bar setFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
+        bar;
+    }));
+}
 @end

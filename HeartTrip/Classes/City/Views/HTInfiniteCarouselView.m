@@ -173,7 +173,7 @@
 - (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index
 {
     HTBannerModel *model = self.imageURLStringsGroup[index];
-    HTWebViewModel *viewModel = [[HTWebViewModel alloc] initWithServices:nil params:@{WebTitlekey:@"",RequestURLkey:model.html_url}];
+    HTWebViewModel *viewModel = [[HTWebViewModel alloc] initWithServices:nil params:@{WebTitlekey:@"",RequestURLkey:model.html_url,WebNavBarStyleTypekey:@(kWebNavBarStyleNomal)}];
     [[HTMediatorAction sharedInstance] pushWebViewControllerWithViewModel:viewModel];
     
     if (self.clickItemOperationBlock) {

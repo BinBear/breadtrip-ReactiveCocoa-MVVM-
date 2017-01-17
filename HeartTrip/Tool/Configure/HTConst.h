@@ -29,6 +29,8 @@ FOUNDATION_EXTERN NSString *const CityNamekey;
 FOUNDATION_EXTERN NSString *const WebTitlekey;
 // 网页请求地址key
 FOUNDATION_EXTERN NSString *const RequestURLkey;
+// WebViewNav的导航类型key
+FOUNDATION_EXTERN NSString *const WebNavBarStyleTypekey;
 
 /********** 网络请求地址 ***********/
 
