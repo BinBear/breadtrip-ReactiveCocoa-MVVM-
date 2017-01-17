@@ -14,6 +14,13 @@ MVVM是一个UI设计模式。它是MV*模式集合中的一员。MV*模式还�
 
 MVVM模式依赖于数据绑定，由于iOS没有数据绑定框架。但幸运的是ReactiveCocoa可以很方便的实现这个，所以ReactiveCocoa是实现MVVM的最佳方式。不通过ReactiveCocoa也可以实现MVVM一样可以实现，感兴趣的可以看这篇[博客](http://limboy.me/tech/2015/09/27/ios-mvvm-without-reactivecocoa.html)。
 
+## 更新日志
+
+### 1.17
+
+* 增加发现模块的视频播放页面
+* 增加webview导航栏类型
+
 ## 运行效果
 
 ### 首页
