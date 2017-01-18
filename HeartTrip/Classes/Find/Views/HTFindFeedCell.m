@@ -8,6 +8,7 @@
 
 #import "HTFindFeedCell.h"
 #import "HTFindFeedModel.h"
+#import "HTFindViewModel.h"
 #import "HTFindUserModel.h"
 #import "HTFindProductModel.h"
 #import "UIImageView+HTRoundImage.h"
@@ -89,6 +90,14 @@
  *  灰色view
  */
 @property (strong, nonatomic) UIView *grayView;
+/**
+ *  评论
+ */
+@property (strong, nonatomic) UIButton *commentLink;
+/**
+ *  viewModel
+ */
+@property (strong, nonatomic) HTFindViewModel *viewModel;
 @end
 
 @implementation HTFindFeedCell
@@ -239,10 +248,18 @@
         make.left.equalTo(self.contentView.mas_left).offset(0);
         make.height.equalTo(@10);
     }];
+    [self.commentLink mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.transverseLineView.mas_bottom).offset(0);
+        make.left.equalTo(self.verticalLineView.mas_right).offset(0);
+        make.right.equalTo(self.contentView.mas_right).offset(0);
+        make.bottom.equalTo(self.grayView.mas_top).offset(0);
+    }];
 }
-- (void)bindViewModel:(id)viewModel
+- (void)bindViewModel:(id)viewModel withParams:(NSDictionary *)params
 {
-    HTFindFeedModel *model = viewModel;
+    HTFindViewModel *findViewModel = viewModel;
+    HTFindFeedModel *model = findViewModel.feedData[[params[@"Index"] integerValue]];
     
     [self.avatarView HT_setImageWithCornerRadius:20 imageURL:[NSURL URLWithString:model.user.avatar_s] placeholder:@"im_avatar_placeholder_46x46_" size:CGSizeMake(40,40)];
     self.avatarLabel.text = model.user.username;
@@ -282,7 +299,23 @@
         }
     }];
     
+    
+    [[[[self.commentLink rac_signalForControlEvents:UIControlEventTouchUpInside]
+     doNext:^(id x) {
+         self.commentLink.enabled = NO;
+    }] flattenMap:^RACStream *(id value) {
+        
+        return [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+            [findViewModel.commentLinkCommand execute:model.product_id];
+            [subscriber sendNext:nil];
+            [subscriber sendCompleted];
+            return nil;
+        }];
+    }] subscribeNext:^(id x) {
+        self.commentLink.enabled = YES;
+    }];
 }
+
 #pragma mark - getter
 - (UIImageView *)backgroundImageView
 {
@@ -482,6 +515,15 @@
         view.backgroundColor = SetColor(250, 250, 250);
         [self.contentView addSubview:view];
         view;
+    }));
+}
+- (UIButton *)commentLink
+{
+    return HT_LAZY(_commentLink, ({
+    
+        UIButton *button = [UIButton new];
+        [self.contentView addSubview:button];
+        button;
     }));
 }
 @end

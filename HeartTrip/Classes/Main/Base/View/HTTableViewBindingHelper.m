@@ -27,17 +27,22 @@
  *  cell重用标识
  */
 @property (copy, nonatomic) NSString *cellIdentifier;
+/**
+ *  viewModel
+ */
+@property (strong, nonatomic) id viewModel;
 @end
 
 @implementation HTTableViewBindingHelper
 #pragma mark - init
-- (instancetype)initWithTableView:(UITableView *)tableView sourceSignal:(RACSignal *)source selectionCommand:(RACCommand *)didSelectionCommand templateCell:(NSString *)templateCell
+- (instancetype)initWithTableView:(UITableView *)tableView sourceSignal:(RACSignal *)source selectionCommand:(RACCommand *)didSelectionCommand templateCell:(NSString *)templateCell withViewModel:(id)viewModel
 {
     if (self = [super init]) {
         
         _tableView = tableView;
         _data = [NSArray array];
         _didSelectionCommand = didSelectionCommand;
+        _viewModel = viewModel;
         
         @weakify(self);
         [source subscribeNext:^(id x) {
@@ -58,12 +63,13 @@
     }
     return self;
 }
-+ (instancetype)bindingHelperForTableView:(UITableView *)tableView sourceSignal:(RACSignal *)source selectionCommand:(RACCommand *)didSelectionCommand templateCell:(NSString *)templateCell
++ (instancetype)bindingHelperForTableView:(UITableView *)tableView sourceSignal:(RACSignal *)source selectionCommand:(RACCommand *)didSelectionCommand templateCell:(NSString *)templateCell  withViewModel:(id)viewModel
 {
     return [[HTTableViewBindingHelper alloc] initWithTableView:tableView
                                                   sourceSignal:source
                                               selectionCommand:didSelectionCommand
-                                                  templateCell:templateCell];
+                                                  templateCell:templateCell
+                                                 withViewModel:viewModel];
 }
 - (void)dealloc
 {
@@ -81,11 +87,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     id<HTReactiveView> cell = [tableView dequeueReusableCellWithIdentifier:self.cellIdentifier];
 
-    [cell bindViewModel:self.data[indexPath.row]];
+    [cell bindViewModel:self.viewModel withParams:@{@"Index":@(indexPath.row)}];
     return (UITableViewCell *)cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     [self.didSelectionCommand execute:self.data[indexPath.row]];
     

@@ -47,6 +47,7 @@
             
         }];
     }];
+    
     _feedDetailCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
         
         HTFindFeedModel *feedModel = input;
@@ -57,6 +58,16 @@
         
         [[HTMediatorAction sharedInstance] pushWebViewControllerWithViewModel:viewModel];
         
+        return [RACSignal empty];
+    }];
+    
+    _commentLinkCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(NSNumber *product_id) {
+        
+    
+        NSString *requestURL = [NSString stringWithFormat:@"http://web.breadtrip.com/hunter/product/%@/comments/",product_id];
+        HTWebViewModel *viewModel = [[HTWebViewModel alloc] initWithServices:_services params:@{WebTitlekey:@"全部评价",RequestURLkey:requestURL,WebNavBarStyleTypekey:@(kWebNavBarStyleNomal)}];
+        
+        [[HTMediatorAction sharedInstance] pushWebViewControllerWithViewModel:viewModel];
         return [RACSignal empty];
     }];
     _feedConnectionErrors = _feedDataCommand.errors;

@@ -32,6 +32,10 @@
  */
 @property (strong, nonatomic) RACCommand *feedDetailCommand;
 /**
+ *  评论详情
+ */
+@property (strong, nonatomic) RACCommand *commentLinkCommand;
+/**
  *  活动流数组
  */
 @property (strong, nonatomic) NSArray *feedData;

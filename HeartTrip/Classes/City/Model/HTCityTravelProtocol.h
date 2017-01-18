@@ -10,6 +10,7 @@
 
 @protocol HTCityTravelProtocol <NSObject>
 
+@optional
 // 加载首页数据
 - (RACSignal *)requestCityTravelDataSignal:(NSString *)requestUrl;
 

@@ -36,7 +36,7 @@
  */
 @property (strong, nonatomic) NSArray *travelData;
 /**
- *  游记数据
+ *  banner数据
  */
 @property (strong, nonatomic) NSArray *bannerData;
 /**

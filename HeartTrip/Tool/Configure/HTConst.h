@@ -44,4 +44,5 @@ FOUNDATION_EXTERN NSString *const CityTravel_URL;
 
 // 发现
 FOUNDATION_EXTERN NSString *const Find_URL;
-
+// 更多视频
+FOUNDATION_EXTERN NSString *const ExploreMore_URL;

@@ -10,6 +10,10 @@
 
 @interface HTFindVideosModel : NSObject
 /**
+ *  视频拍摄地址
+ */
+@property (copy, nonatomic) NSString *address;
+/**
  *  背景图片地址
  */
 @property (copy, nonatomic) NSString *cover;

@@ -15,6 +15,6 @@
 
  @param viewModel Viewmodel
  */
-- (void)bindViewModel:(id)viewModel;
+- (void)bindViewModel:(id)viewModel withParams:(NSDictionary *)params;
 
 @end

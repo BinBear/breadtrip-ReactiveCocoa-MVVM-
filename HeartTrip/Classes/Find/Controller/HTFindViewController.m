@@ -58,7 +58,7 @@
 - (void)bindViewModel
 {
     // findTableView
-    self.findBindingHelper = [HTTableViewBindingHelper bindingHelperForTableView:self.findTableView sourceSignal:RACObserve(self.viewModel, feedData) selectionCommand:self.viewModel.feedDetailCommand templateCell:@"HTFindFeedCell"];
+    self.findBindingHelper = [HTTableViewBindingHelper bindingHelperForTableView:self.findTableView sourceSignal:RACObserve(self.viewModel, feedData) selectionCommand:self.viewModel.feedDetailCommand templateCell:@"HTFindFeedCell" withViewModel:self.viewModel];
     
     // 刷新viedeoView
     self.videoView.modelSignal = RACObserve(self.viewModel, videoData);

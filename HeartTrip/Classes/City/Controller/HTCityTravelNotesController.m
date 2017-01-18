@@ -92,7 +92,7 @@
     
     self.bannerView.imageURLSignal = RACObserve(self.viewModel, bannerData);
     
-    self.tripBindingHelper = [HTTableViewBindingHelper bindingHelperForTableView:self.tripTableView sourceSignal:RACObserve(self.viewModel, travelData) selectionCommand:nil templateCell:@"HTCityTravelCell"];
+    self.tripBindingHelper = [HTTableViewBindingHelper bindingHelperForTableView:self.tripTableView sourceSignal:RACObserve(self.viewModel, travelData) selectionCommand:nil templateCell:@"HTCityTravelCell" withViewModel:self.viewModel];
     
     
     @weakify(self);

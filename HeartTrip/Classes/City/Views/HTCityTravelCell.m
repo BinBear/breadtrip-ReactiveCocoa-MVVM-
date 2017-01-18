@@ -8,6 +8,7 @@
 
 #import "HTCityTravelCell.h"
 #import "HTCityTravelItemModel.h"
+#import "HTCityTravelViewModel.h"
 #import "UIImageView+HTRoundImage.h"
 #import "HTUserModel.h"
 
@@ -105,10 +106,10 @@
         make.height.equalTo(@20);
     }];
 }
-- (void)bindViewModel:(id)viewModel
+- (void)bindViewModel:(id)viewModel withParams:(NSDictionary *)params
 {
-    HTCityTravelItemModel *model = viewModel;
-    
+    HTCityTravelViewModel *cityViewModel = viewModel;
+    HTCityTravelItemModel *model = cityViewModel.travelData[[params[@"Index"] integerValue]];
     [self.backgroundImageView HT_setImageWithCornerRadius:5 imageURL:[NSURL URLWithString:model.cover_image] placeholder:@"tripdisplay_photocell_placeholder" size:CGSizeMake(SCREEN_WIDTH-20,170)];
     self.titleLabel.text = model.name;
     self.blueLine.image = [UIImage HT_setRadius:1 size:CGSizeMake(3, 23) borderColor:nil borderWidth:0 backgroundColor:SetColor(80, 189, 203)];
