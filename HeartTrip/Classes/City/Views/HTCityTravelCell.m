@@ -109,7 +109,7 @@
 - (void)bindViewModel:(id)viewModel withParams:(NSDictionary *)params
 {
     HTCityTravelViewModel *cityViewModel = viewModel;
-    HTCityTravelItemModel *model = cityViewModel.travelData[[params[@"Index"] integerValue]];
+    HTCityTravelItemModel *model = cityViewModel.travelData[[params[DataIndex] integerValue]];
     [self.backgroundImageView HT_setImageWithCornerRadius:5 imageURL:[NSURL URLWithString:model.cover_image] placeholder:@"tripdisplay_photocell_placeholder" size:CGSizeMake(SCREEN_WIDTH-20,170)];
     self.titleLabel.text = model.name;
     self.blueLine.image = [UIImage HT_setRadius:1 size:CGSizeMake(3, 23) borderColor:nil borderWidth:0 backgroundColor:SetColor(80, 189, 203)];

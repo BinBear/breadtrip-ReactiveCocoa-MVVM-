@@ -259,7 +259,7 @@
 - (void)bindViewModel:(id)viewModel withParams:(NSDictionary *)params
 {
     HTFindViewModel *findViewModel = viewModel;
-    HTFindFeedModel *model = findViewModel.feedData[[params[@"Index"] integerValue]];
+    HTFindFeedModel *model = findViewModel.feedData[[params[DataIndex] integerValue]];
     
     [self.avatarView HT_setImageWithCornerRadius:20 imageURL:[NSURL URLWithString:model.user.avatar_s] placeholder:@"im_avatar_placeholder_46x46_" size:CGSizeMake(40,40)];
     self.avatarLabel.text = model.user.username;

@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class HTExploreMoreViewModel;
+
 @interface HTExploreMoreViewController : UIViewController
+
+- (instancetype)initWithViewModel:(HTExploreMoreViewModel *)viewModel;
 
 @end

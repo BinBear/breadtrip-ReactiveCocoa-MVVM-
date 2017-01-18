@@ -87,7 +87,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     id<HTReactiveView> cell = [tableView dequeueReusableCellWithIdentifier:self.cellIdentifier];
 
-    [cell bindViewModel:self.viewModel withParams:@{@"Index":@(indexPath.row)}];
+    [cell bindViewModel:self.viewModel withParams:@{DataIndex:@(indexPath.row)}];
     return (UITableViewCell *)cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

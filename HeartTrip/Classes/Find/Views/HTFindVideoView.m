@@ -14,6 +14,10 @@
 #import "HTWebViewModel.h"
 #import "HTWebProtocolImpl.h"
 #import "HTMediatorAction+HTWebViewController.h"
+#import "HTViewModelServicesImpl.h"
+#import "HTExploreMoreViewModel.h"
+#import "HTMediatorAction+HTExploreMoreViewController.h"
+
 @interface HTFindVideoView ()<iCarouselDelegate,iCarouselDataSource>
 
 @property (nonatomic,strong) iCarousel *carousel;
@@ -139,6 +143,9 @@
         
     }else{
         
+        HTViewModelServicesImpl *servicesImpl = [[HTViewModelServicesImpl alloc] initModelServiceImpl];
+        HTExploreMoreViewModel *viewModel = [[HTExploreMoreViewModel alloc] initWithServices:servicesImpl];
+        [[HTMediatorAction sharedInstance] pushExploreMoreViewControllerWithViewModel:viewModel];
     }
 }
 - (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel

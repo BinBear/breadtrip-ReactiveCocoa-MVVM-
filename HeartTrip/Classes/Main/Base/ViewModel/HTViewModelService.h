@@ -18,6 +18,8 @@
 
 // 获取发现服务
 - (id<HTFindProtocol>) getFindService;
+// 获取探索视频服务
+- (id<HTFindProtocol>) getExploreMoreService;
 
 // 获取目的地服务
 

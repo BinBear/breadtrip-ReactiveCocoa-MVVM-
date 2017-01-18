@@ -41,4 +41,8 @@
  *  观看人数
  */
 @property (strong, nonatomic) NSNumber *views;
+/**
+ *  距离
+ */
+@property (copy, nonatomic) NSString *distance;
 @end
