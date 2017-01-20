@@ -146,6 +146,7 @@
         HTViewModelServicesImpl *servicesImpl = [[HTViewModelServicesImpl alloc] initModelServiceImpl];
         HTExploreMoreViewModel *viewModel = [[HTExploreMoreViewModel alloc] initWithServices:servicesImpl];
         [[HTMediatorAction sharedInstance] pushExploreMoreViewControllerWithViewModel:viewModel];
+        
     }
 }
 - (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel

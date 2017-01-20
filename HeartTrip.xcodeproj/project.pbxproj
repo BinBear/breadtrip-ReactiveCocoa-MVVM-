@@ -71,6 +71,7 @@
 		CED6D2671DBDEE3F00209DFB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED6D2661DBDEE3F00209DFB /* WebKit.framework */; };
 		CEDBA9651DE43D3F00EBAF32 /* HTUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA9641DE43D3F00EBAF32 /* HTUserModel.m */; };
 		CEDBA9681DE44F8300EBAF32 /* HTCityTravelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA9671DE44F8300EBAF32 /* HTCityTravelCell.m */; };
+		CEE7B1371E30672F007A034B /* HTExplainAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE7B1361E30672F007A034B /* HTExplainAlertView.m */; };
 		CEEEBAE61DFFA52300CE172A /* HTMediatorAction+HTWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEEBAE51DFFA52300CE172A /* HTMediatorAction+HTWebViewController.m */; };
 		CEEEBAE91DFFC4C400CE172A /* HTWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEEBAE81DFFC4C400CE172A /* HTWebViewController.m */; };
 		CEEEBAEC1DFFC61400CE172A /* HTWebViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEEBAEB1DFFC61400CE172A /* HTWebViewModel.m */; };
@@ -209,6 +210,8 @@
 		CEDBA9641DE43D3F00EBAF32 /* HTUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTUserModel.m; sourceTree = "<group>"; };
 		CEDBA9661DE44F8300EBAF32 /* HTCityTravelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTCityTravelCell.h; sourceTree = "<group>"; };
 		CEDBA9671DE44F8300EBAF32 /* HTCityTravelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCityTravelCell.m; sourceTree = "<group>"; };
+		CEE7B1351E30672F007A034B /* HTExplainAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTExplainAlertView.h; sourceTree = "<group>"; };
+		CEE7B1361E30672F007A034B /* HTExplainAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTExplainAlertView.m; sourceTree = "<group>"; };
 		CEEEBAE41DFFA52300CE172A /* HTMediatorAction+HTWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTMediatorAction+HTWebViewController.h"; sourceTree = "<group>"; };
 		CEEEBAE51DFFA52300CE172A /* HTMediatorAction+HTWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HTMediatorAction+HTWebViewController.m"; sourceTree = "<group>"; };
 		CEEEBAE71DFFC4C400CE172A /* HTWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTWebViewController.h; sourceTree = "<group>"; };
@@ -628,6 +631,8 @@
 				CE5D5E4D1DF1759700184D24 /* HTFindFeedCell.m */,
 				CE323B091E2F0A9C00D8E088 /* HTExploreMoreViewCell.h */,
 				CE323B0A1E2F0A9C00D8E088 /* HTExploreMoreViewCell.m */,
+				CEE7B1351E30672F007A034B /* HTExplainAlertView.h */,
+				CEE7B1361E30672F007A034B /* HTExplainAlertView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -965,6 +970,7 @@
 				CE6A29801DE7003300F99511 /* HTRefreshGifFooter.m in Sources */,
 				CE5657921D8E92260026230C /* HTFindViewController.m in Sources */,
 				CE4C5F3B1DEEA746001F0A6D /* HTFindViewModel.m in Sources */,
+				CEE7B1371E30672F007A034B /* HTExplainAlertView.m in Sources */,
 				CE772A671DED600E00BE0F0D /* HTFindProductModel.m in Sources */,
 				CE323B191E2F6E9F00D8E088 /* HTMediatorAction+HTExploreMoreViewController.m in Sources */,
 				CE56578F1D8E92020026230C /* HTCityTravelNotesController.m in Sources */,

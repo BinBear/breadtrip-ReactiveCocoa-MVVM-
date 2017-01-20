@@ -11,6 +11,7 @@
 #import "HTTableViewBindingHelper.h"
 #import "HTTableView.h"
 #import "HTExploreMoreViewCell.h"
+#import "HTExplainAlertView.h"
 
 @interface HTExploreMoreViewController ()
 
@@ -26,6 +27,10 @@
  *  tableview
  */
 @property (strong, nonatomic) HTTableView *exploreTableView;
+/**
+ *  rightButton
+ */
+@property (strong, nonatomic) UIButton *rightButton;
 
 @end
 
@@ -80,6 +85,14 @@
     }];
     
     [self.viewModel.exploreDataCommand execute:@1];
+    
+    
+    UIBarButtonItem * rightItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightButton];
+    self.navigationItem.rightBarButtonItem = rightItem;
+    [self.rightButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        [[HTExplainAlertView sharedAlertManager] showExplainAlertView];
+    }];
+    
 }
 
 #pragma mark - getter
@@ -91,6 +104,18 @@
         tableView.rowHeight = 270;
         [self.view addSubview:tableView];
         tableView;
+    }));
+}
+- (UIButton *)rightButton
+{
+    return HT_LAZY(_rightButton, ({
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(0, 0, 40, 30);
+        button.contentEdgeInsets = UIEdgeInsetsMake(10, 0, 0, 0);
+        [button setTitle:@"说明" forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        button.titleLabel.font = HTSetFont(@"DamascusBold", 15);
+        button;
     }));
 }
 @end
