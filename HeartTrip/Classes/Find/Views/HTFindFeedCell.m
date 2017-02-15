@@ -522,6 +522,7 @@
     return HT_LAZY(_commentLink, ({
     
         UIButton *button = [UIButton new];
+        button.adjustsImageWhenHighlighted = NO;
         [self.contentView addSubview:button];
         button;
     }));

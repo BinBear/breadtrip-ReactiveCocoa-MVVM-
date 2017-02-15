@@ -28,6 +28,14 @@
  */
 @property (strong, nonatomic) RACSignal *exploreMoreConnectionErrors;
 /**
+ *  视频播放详情
+ */
+@property (strong, nonatomic) RACCommand *videoPlayerCommand;
+/**
+ *  活动详情
+ */
+@property (strong, nonatomic) RACCommand *productDetailCommand;
+/**
  *  视频数组
  */
 @property (strong, nonatomic) NSArray *videosData;

@@ -155,6 +155,14 @@ static void *FTDIntegrationWebBrowserContext = &FTDIntegrationWebBrowserContext;
     _delegateFlags.didFinishLoad = [delegate respondsToSelector:@selector(FTD_WebView:didFinishLoadingURL:)];
     _delegateFlags.didFailToLoad = [delegate respondsToSelector:@selector(FTD_WebView:didFailToLoadURL:error:)];
 }
+- (void)FTD_stringByEvaluatingJavaScriptFromString:(NSString *)jsString
+{
+    if(self.wkWebView) {
+        [self.wkWebView evaluateJavaScript:jsString completionHandler:nil];
+    } else if(self.uiWebView) {
+        [self.uiWebView stringByEvaluatingJavaScriptFromString:jsString];
+    }
+}
 #pragma mark - UIWebViewDelegate
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {

@@ -16,7 +16,7 @@
     self.canCancelContentTouches = YES;
     self.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.backgroundColor = [UIColor clearColor];
-    // 移除点击延迟 (since iOS 8)
+    
     UIView *wrapView = self.subviews.firstObject;
     
     if (wrapView && [NSStringFromClass(wrapView.class) hasSuffix:@"WrapperView"]) {

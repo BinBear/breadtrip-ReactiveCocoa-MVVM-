@@ -54,7 +54,7 @@
         
         NSString *requestURL = [NSString stringWithFormat:@"http://web.breadtrip.com/hunter/product/%@/?bts=app_discover_share",feedModel.product_id];
         
-        HTWebViewModel *viewModel = [[HTWebViewModel alloc] initWithServices:_services params:@{WebTitlekey:@"活动详情",RequestURLkey:requestURL,WebNavBarStyleTypekey:@(kWebNavBarStyleNomal)}];
+        HTWebViewModel *viewModel = [[HTWebViewModel alloc] initWithServices:_services params:@{WebTitlekey:@"活动详情",RequestURLkey:requestURL,WebNavBarStyleTypekey:@(kWebNavBarStyleNomal),WebViewTypekey:@(kWebFindDetailType)}];
         
         [[HTMediatorAction sharedInstance] pushWebViewControllerWithViewModel:viewModel];
         

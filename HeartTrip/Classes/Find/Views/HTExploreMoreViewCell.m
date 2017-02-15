@@ -39,6 +39,10 @@
  *  灰色view
  */
 @property (strong, nonatomic) UIView *grayView;
+/**
+ *  点击活动详情
+ */
+@property (strong, nonatomic) UIButton *productLink;
 @end
 
 @implementation HTExploreMoreViewCell
@@ -104,6 +108,13 @@
         make.left.equalTo(self.contentView.mas_left).offset(0);
         make.height.equalTo(@10);
     }];
+    [self.productLink mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.startView.mas_bottom).offset(0);
+        make.left.equalTo(self.contentView.mas_left).offset(0);
+        make.right.equalTo(self.contentView.mas_right).offset(0);
+        make.bottom.equalTo(self.contentView.mas_bottom).offset(0);
+    }];
 }
 
 - (void)bindViewModel:(id)viewModel withParams:(NSDictionary *)params
@@ -125,6 +136,20 @@
         self.likerNumLabel.text = [NSString stringWithFormat:@"%@ · %@个人喜欢",model.distance,model.liked_count];
     }
     
+    [[[[self.productLink rac_signalForControlEvents:UIControlEventTouchUpInside]
+       doNext:^(id x) {
+           self.productLink.enabled = NO;
+       }] flattenMap:^RACStream *(id value) {
+           
+           return [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+               [exploreModel.productDetailCommand execute:model.product_id];
+               [subscriber sendNext:nil];
+               [subscriber sendCompleted];
+               return nil;
+           }];
+       }] subscribeNext:^(id x) {
+           self.productLink.enabled = YES;
+       }];
 }
 
 #pragma mark - getter
@@ -203,6 +228,16 @@
         view.backgroundColor = SetColor(250, 250, 250);
         [self.contentView addSubview:view];
         view;
+    }));
+}
+- (UIButton *)productLink
+{
+    return HT_LAZY(_productLink, ({
+        
+        UIButton *button = [UIButton new];
+        button.adjustsImageWhenHighlighted = NO;
+        [self.contentView addSubview:button];
+        button;
     }));
 }
 @end

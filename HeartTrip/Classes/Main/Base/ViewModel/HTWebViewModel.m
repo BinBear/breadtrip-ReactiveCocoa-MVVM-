@@ -22,6 +22,7 @@
         _requestURL = params[RequestURLkey];
         _title = params[WebTitlekey];
         _navBarStyleType = [params[WebNavBarStyleTypekey] unsignedIntegerValue];
+        _webType = [params[WebViewTypekey] unsignedIntegerValue];
     }
     return self;
 }

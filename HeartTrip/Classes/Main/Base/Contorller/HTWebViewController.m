@@ -81,6 +81,12 @@
                 
                 dispatch_main_sync_safe(^{
                     [HTShowMessageView dismissSuccessView:@"Success"];
+                    if (self.viewModel.webType == kWebFindDetailType) {
+                        
+                        NSString *jsMethod = @"document.getElementById(\"download\").remove();document.querySelector(\"header.has-banner\").style.marginTop = 0;";
+                        [self.webView FTD_stringByEvaluatingJavaScriptFromString:jsMethod];
+                    }
+                    
                 });
             }
         }];

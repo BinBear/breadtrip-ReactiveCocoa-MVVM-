@@ -8,6 +8,9 @@
 
 #import "HTExploreMoreViewModel.h"
 #import "HTFindVideosModel.h"
+#import "HTWebViewModel.h"
+#import "HTWebProtocolImpl.h"
+#import "HTMediatorAction+HTWebViewController.h"
 
 @interface HTExploreMoreViewModel ()
 
@@ -45,6 +48,26 @@
             self.videosData = [NSArray arrayWithArray:result];
             
         }];
+    }];
+    
+    _videoPlayerCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(HTFindVideosModel *videoModel) {
+        
+        
+        HTWebViewModel *viewModel = [[HTWebViewModel alloc] initWithServices:_services params:@{WebTitlekey:@"",RequestURLkey:videoModel.show_url,WebNavBarStyleTypekey:@(kWebNavBarStyleHidden)}];
+        [[HTMediatorAction sharedInstance] pushWebViewControllerWithViewModel:viewModel];
+        return [RACSignal empty];
+    }];
+    
+    _productDetailCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(NSNumber *product_id) {
+        
+        
+        NSString *requestURL = [NSString stringWithFormat:@"http://web.breadtrip.com/hunter/product/%@/?bts=app_discover_video",product_id];
+        
+        HTWebViewModel *viewModel = [[HTWebViewModel alloc] initWithServices:_services params:@{WebTitlekey:@"活动详情",RequestURLkey:requestURL,WebNavBarStyleTypekey:@(kWebNavBarStyleNomal),WebViewTypekey:@(kWebFindDetailType)}];
+        
+        [[HTMediatorAction sharedInstance] pushWebViewControllerWithViewModel:viewModel];
+        
+        return [RACSignal empty];
     }];
     
     _exploreConnectionErrors = _exploreDataCommand.errors;

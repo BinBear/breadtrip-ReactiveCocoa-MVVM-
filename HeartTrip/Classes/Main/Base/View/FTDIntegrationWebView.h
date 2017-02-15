@@ -99,4 +99,10 @@
  *  @param request 请求的地址
  */
 - (void)loadHTMLString:(NSString *)HTMLString;
+/**
+ *  加载本地js方法
+ *
+ *  @param request js字符串
+ */
+- (void)FTD_stringByEvaluatingJavaScriptFromString:(NSString *)jsString;
 @end

@@ -16,6 +16,12 @@ typedef NS_ENUM(NSUInteger, HTWebNavBarStyleType) {
     kWebNavBarStyleHidden  = 2, // 隐藏
     
 };
+typedef NS_ENUM(NSUInteger, HTWebType) {
+    
+    kWebCityBannerDetailType   = 1, // 首页banner详情
+    kWebFindDetailType         = 2, // 发现详情
+    
+};
 
 @interface HTWebViewModel : NSObject
 
@@ -31,6 +37,10 @@ typedef NS_ENUM(NSUInteger, HTWebNavBarStyleType) {
  *  NavBar类型
  */
 @property (assign , nonatomic) HTWebNavBarStyleType navBarStyleType;
+/**
+ *  web页面类型
+ */
+@property (assign , nonatomic) HTWebType webType;
 
 - (instancetype)initWithServices:(id<HTViewModelService>)services params:(NSDictionary *)params;
 

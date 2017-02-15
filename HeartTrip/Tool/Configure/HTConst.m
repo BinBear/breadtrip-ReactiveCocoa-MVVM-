@@ -30,6 +30,8 @@ NSString *const  WebTitlekey = @"WebTitlekey";
 NSString *const  RequestURLkey = @"RequestURLkey";
 // WebViewNav的导航类型key
 NSString *const  WebNavBarStyleTypekey = @"WebNavBarStyleTypekey";
+// Web页面key
+NSString *const  WebViewTypekey = @"WebViewTypekey";
 // model下标key
 NSString *const DataIndex = @"DataIndex";
 

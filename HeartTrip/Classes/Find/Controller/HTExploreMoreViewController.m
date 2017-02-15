@@ -57,7 +57,7 @@
 - (void)bindViewModel
 {
     // findTableView
-    self.exploreBindingHelper = [HTTableViewBindingHelper bindingHelperForTableView:self.exploreTableView sourceSignal:RACObserve(self.viewModel, videosData) selectionCommand:nil templateCell:@"HTExploreMoreViewCell" withViewModel:self.viewModel];
+    self.exploreBindingHelper = [HTTableViewBindingHelper bindingHelperForTableView:self.exploreTableView sourceSignal:RACObserve(self.viewModel, videosData) selectionCommand:self.viewModel.videoPlayerCommand templateCell:@"HTExploreMoreViewCell" withViewModel:self.viewModel];
     
     @weakify(self);
     // 下拉刷新

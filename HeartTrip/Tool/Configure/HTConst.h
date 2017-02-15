@@ -31,6 +31,8 @@ FOUNDATION_EXTERN NSString *const WebTitlekey;
 FOUNDATION_EXTERN NSString *const RequestURLkey;
 // WebViewNav的导航类型key
 FOUNDATION_EXTERN NSString *const WebNavBarStyleTypekey;
+// Web页面key
+FOUNDATION_EXTERN NSString *const WebViewTypekey;
 // model下标key
 FOUNDATION_EXTERN NSString *const DataIndex;
 
