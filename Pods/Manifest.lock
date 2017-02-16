@@ -17,6 +17,17 @@ PODS:
   - CommonElement (0.2.2)
   - iCarousel (1.8.3)
   - IQKeyboardManager (4.0.7)
+  - JSPatch (1.1.2):
+    - JSPatch/Core (= 1.1.2)
+  - JSPatch/Core (1.1.2)
+  - JSPatch/Extensions (1.1.2):
+    - JSPatch/Core
+  - JSPatch/JPCFunction (1.1.2):
+    - JSPatch/Core
+  - JSPatchPlatform (1.6.6):
+    - JSPatchPlatform/Core (= 1.6.6)
+  - JSPatchPlatform/Core (1.6.6):
+    - JSPatch
   - Masonry (1.0.2)
   - MJExtension (3.0.13)
   - MJRefresh (3.1.12)
@@ -37,6 +48,9 @@ DEPENDENCIES:
   - CommonElement (= 0.2.2)
   - iCarousel (= 1.8.3)
   - IQKeyboardManager (= 4.0.7)
+  - JSPatch/Extensions
+  - JSPatch/JPCFunction
+  - JSPatchPlatform
   - Masonry (= 1.0.2)
   - MJExtension (= 3.0.13)
   - MJRefresh (= 3.1.12)
@@ -49,6 +63,8 @@ SPEC CHECKSUMS:
   CommonElement: fec09913db4c3a170ff5ecafece69a383f404323
   iCarousel: d782f635afac190c49bb8ee455882284cff8b85f
   IQKeyboardManager: 69002bb4fea60596b710e57d426abc00e5063630
+  JSPatch: 741205ebb2e2238c223a436e4c8cf75cf40a345f
+  JSPatchPlatform: 8cc9aaebe21109d5fdfb4500384ddf38ed0990e9
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
@@ -56,6 +72,6 @@ SPEC CHECKSUMS:
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
 
-PODFILE CHECKSUM: 6bf2be7ab7ea2f810eb84e3fcc37fe2ae50cd480
+PODFILE CHECKSUM: 9f5d8bed64887e5a8601546659877e6138f098a9
 
-COCOAPODS: 1.2.0.beta.1
+COCOAPODS: 1.2.0

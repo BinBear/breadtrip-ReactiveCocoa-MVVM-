@@ -39,7 +39,7 @@ NSString *const DataIndex = @"DataIndex";
 
 // 服务地址
 NSString *const  HTURL = @"http://api.breadtrip.com";
-NSString *const  HTURL_Test = @"";
+NSString *const  HTURL_Test = @"http://api.breadtrip.com";
 
 
 // 首页

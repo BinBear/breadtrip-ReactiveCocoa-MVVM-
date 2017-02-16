@@ -11,6 +11,8 @@
 #import "HTServerConfig.h"
 #import <IQKeyboardManager.h>
 #import "HTLBSManager.h"
+#import "HTServerConfig.h"
+#import <JSPatchPlatform/JSPatch.h>
 
 @interface HTAppDelegate ()<HTLBSManagerDelegate>
 @property (strong, nonatomic) HTLBSManager *lbs;
@@ -24,12 +26,13 @@
     // 设置跟控制器
     [self setRootController];
     // 设置服务器环境
-    [HTServerConfig setHTConfigEnv:@"01"];
+    [HTServerConfig setHTConfigEnv:@"00"];
     // 配置IQKeyboardManager
     [self configurationIQKeyboard];
     // 获取定位信息
     self.lbs = [HTLBSManager startGetLBSWithDelegate:self];
-    
+    // 配置JSPatch
+    [self configurationJSPatch];
     
     return YES;
 }
@@ -63,5 +66,26 @@
     manager.shouldResignOnTouchOutside = YES;
     manager.shouldToolbarUsesTextFieldTintColor = YES;
     manager.enableAutoToolbar = NO;
+}
+- (void)configurationJSPatch
+{
+    [JSPatch setupCallback:^(JPCallbackType type, NSDictionary *data, NSError *error) {
+        if (type == JPCallbackTypeJSException) {
+            NSAssert(NO, data[@"msg"]);
+        }
+    }];
+    if ([[HTServerConfig HTConfigEnv] isEqualToString:@"01"]) {
+        
+        [JSPatch startWithAppKey:@"7daa6e2fdcfc64e9"];
+        [JSPatch sync];
+        
+    }else{
+        
+        [JSPatch testScriptInBundle];
+        [JSPatch showDebugView];
+    }
+    
+    
+    
 }
 @end

@@ -88,6 +88,7 @@
 		CE0208D31D87A8D7006C12AB /* HTNetWorking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTNetWorking.m; sourceTree = "<group>"; };
 		CE1ECAA71D8F8F340013D5B4 /* HTCityHunterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTCityHunterButton.h; sourceTree = "<group>"; };
 		CE1ECAA81D8F8F340013D5B4 /* HTCityHunterButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCityHunterButton.m; sourceTree = "<group>"; };
+		CE20537F1E55473400EEDC97 /* HeartTrip.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HeartTrip.entitlements; sourceTree = "<group>"; };
 		CE2308651DDC39E40001ECFA /* HTCityTravelViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTCityTravelViewModel.h; sourceTree = "<group>"; };
 		CE2308661DDC39E40001ECFA /* HTCityTravelViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCityTravelViewModel.m; sourceTree = "<group>"; };
 		CE2546001DA9E8CF00491FAD /* UIImage+HTRoundImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+HTRoundImage.h"; sourceTree = "<group>"; };
@@ -297,6 +298,7 @@
 		CE30C4A11D82CA2E0028CB73 /* HeartTrip */ = {
 			isa = PBXGroup;
 			children = (
+				CE20537F1E55473400EEDC97 /* HeartTrip.entitlements */,
 				CE30C4B91D82CABF0028CB73 /* Application */,
 				CE30C4C51D82CB4B0028CB73 /* Classes */,
 				CE30C4C61D82CB4B0028CB73 /* Resource */,
@@ -835,6 +837,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 0;
 							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
 						};
 					};
 				};
@@ -1099,6 +1104,7 @@
 			baseConfigurationReference = 113E7680EFD9B6BA3B957CBB /* Pods-HeartTrip.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HeartTrip/HeartTrip.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = C2DWDEDET2;
 				ENABLE_BITCODE = NO;
@@ -1119,6 +1125,7 @@
 			baseConfigurationReference = 8B6ADEC272FF901E401B3995 /* Pods-HeartTrip.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HeartTrip/HeartTrip.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = C2DWDEDET2;
 				ENABLE_BITCODE = NO;
