@@ -1,5 +1,8 @@
 # 仿面包旅行(ReactiveCocoa+MVVM)
  此项目是将面包旅行跟面包猎人两个应用结合。用ReactiveCocoa+MVVM，最开始想用公司项目，但考虑到要脱敏，不方便。项目中的所有接口都是抓包，只是用来学习练手之用。
+ 
+ **注意**：直接运行项目出现 xxx not found 的错误，请先cd到项目路径下执行：pod update 即可。
+ 
 ***
 
 ## ReactiveCocoa
