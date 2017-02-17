@@ -12,16 +12,36 @@
 
 @property (weak, nonatomic) id<UITableViewDelegate> delegate;
 
-- (instancetype) initWithTableView:(UITableView *)tableView
-                      sourceSignal:(RACSignal *)source
-                  selectionCommand:(RACCommand *)didSelectionCommand
-                      templateCell:(NSString *)templateCell
-                     withViewModel:(id)viewModel;
 
+/**
+ 代码创建cell时调用
+
+ @param tableView tableview
+ @param source 数据信号
+ @param didSelectionCommand cell选中信号
+ @param templateCell cell的类名
+ @param viewModel viewModel
+ @return 配置好的tableview
+ */
 + (instancetype) bindingHelperForTableView:(UITableView *)tableView
                               sourceSignal:(RACSignal *)source
                           selectionCommand:(RACCommand *)didSelectionCommand
                               templateCell:(NSString *)templateCell
+                             withViewModel:(id)viewModel;
+/**
+ xib创建cell时调用
+ 
+ @param tableView tableview
+ @param source 数据信号
+ @param didSelectionCommand cell选中信号
+ @param templateCell Nib的类名
+ @param viewModel viewModel
+ @return 配置好的tableview
+ */
++ (instancetype) bindingHelperForTableView:(UITableView *)tableView
+                              sourceSignal:(RACSignal *)source
+                          selectionCommand:(RACCommand *)didSelectionCommand
+                       templateCellWithNib:(NSString *)templateCell
                              withViewModel:(id)viewModel;
 
 @end

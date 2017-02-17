@@ -35,7 +35,7 @@
 
 @implementation HTTableViewBindingHelper
 #pragma mark - init
-- (instancetype)initWithTableView:(UITableView *)tableView sourceSignal:(RACSignal *)source selectionCommand:(RACCommand *)didSelectionCommand templateCell:(NSString *)templateCell withViewModel:(id)viewModel
+- (instancetype)initWithTableView:(UITableView *)tableView sourceSignal:(RACSignal *)source selectionCommand:(RACCommand *)didSelectionCommand withCellType:(NSDictionary *)CellTypeDic withViewModel:(id)viewModel
 {
     if (self = [super init]) {
         
@@ -51,24 +51,41 @@
             [self.tableView reloadData];
         }];
         
-        _cellIdentifier = templateCell;
-        
-        Class cell =  NSClassFromString(templateCell);
-        
-        [_tableView registerClass:cell forCellReuseIdentifier:templateCell];
-        
         _tableView.dataSource = self;
         _tableView.delegate = self;
-
+        
+        NSString *cellType = CellTypeDic[@"cellType"];
+        _cellIdentifier = CellTypeDic[@"cellName"];
+        if ([cellType isEqualToString:@"codeType"]) {
+            
+            Class cell =  NSClassFromString(_cellIdentifier);
+            [_tableView registerClass:cell forCellReuseIdentifier:_cellIdentifier];
+            
+        }else{
+            
+            UINib *templateCellNib = [UINib nibWithNibName:_cellIdentifier bundle:nil];
+            [_tableView registerNib:templateCellNib forCellReuseIdentifier:_cellIdentifier];
+        }
+        
     }
     return self;
 }
 + (instancetype)bindingHelperForTableView:(UITableView *)tableView sourceSignal:(RACSignal *)source selectionCommand:(RACCommand *)didSelectionCommand templateCell:(NSString *)templateCell  withViewModel:(id)viewModel
 {
+    NSDictionary *cellDic = @{@"cellType":@"codeType",@"cellName":templateCell};
     return [[HTTableViewBindingHelper alloc] initWithTableView:tableView
                                                   sourceSignal:source
                                               selectionCommand:didSelectionCommand
-                                                  templateCell:templateCell
+                                                  withCellType:cellDic
+                                                 withViewModel:viewModel];
+}
++ (instancetype)bindingHelperForTableView:(UITableView *)tableView sourceSignal:(RACSignal *)source selectionCommand:(RACCommand *)didSelectionCommand templateCellWithNib:(NSString *)templateCell withViewModel:(id)viewModel
+{
+    NSDictionary *cellDic = @{@"cellType":@"nibType",@"cellName":templateCell};
+    return [[HTTableViewBindingHelper alloc] initWithTableView:tableView
+                                                  sourceSignal:source
+                                              selectionCommand:didSelectionCommand
+                                                  withCellType:cellDic
                                                  withViewModel:viewModel];
 }
 - (void)dealloc
