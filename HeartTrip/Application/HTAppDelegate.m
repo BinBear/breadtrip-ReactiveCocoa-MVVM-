@@ -25,8 +25,8 @@
 {
     // 设置跟控制器
     [self setRootController];
-    // 设置服务器环境
-    [HTServerConfig setHTConfigEnv:@"00"];
+    // 设置服务器环境 01:生产环境  00:测试环境
+    [HTServerConfig setHTConfigEnv:@"01"];
     // 配置IQKeyboardManager
     [self configurationIQKeyboard];
     // 获取定位信息
