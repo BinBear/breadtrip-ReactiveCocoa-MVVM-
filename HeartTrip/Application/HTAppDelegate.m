@@ -8,6 +8,7 @@
 
 #import "HTAppDelegate.h"
 #import "HTTabBarControllerConfig.h"
+#import "HTFoldingTabBarControllerConfig.h"
 #import "HTServerConfig.h"
 #import <IQKeyboardManager.h>
 #import "HTLBSManager.h"
@@ -55,8 +56,17 @@
 {
     self.window = [[UIWindow alloc]init];
     self.window.frame = [UIScreen mainScreen].bounds;
+    
+    /********* tabbar普通样式  ***********/
+    /*
     HTTabBarControllerConfig *tabBarControllerConfig = [[HTTabBarControllerConfig alloc] init];
     [self.window setRootViewController:tabBarControllerConfig.tabBarController];
+    */
+    
+    /********* tabbar折叠样式  ***********/
+    HTFoldingTabBarControllerConfig *tabBarControllerConfig = [[HTFoldingTabBarControllerConfig alloc] init];
+    [self.window setRootViewController:tabBarControllerConfig.flodingTabBarController];
+    
     [self.window makeKeyAndVisible];
 }
 // 配置IQKeyboardManager

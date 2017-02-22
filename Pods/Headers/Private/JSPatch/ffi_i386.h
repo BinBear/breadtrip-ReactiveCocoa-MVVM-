@@ -1,1 +1,1 @@
-../../../JSPatch/Extensions/JPCFunction/libffi/headers/ffi_i386.h
+../../../JSPatch/Extensions/JPLibffi/libffi/ffi_i386.h

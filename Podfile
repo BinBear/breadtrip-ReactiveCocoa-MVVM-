@@ -16,5 +16,6 @@ pod 'ReactiveCocoa', '2.5'
 pod 'JSPatchPlatform'
 pod 'JSPatch/Extensions'
 pod 'JSPatch/JPCFunction'
+pod 'FoldingTabBar', '~> 1.1.1'
 
 end

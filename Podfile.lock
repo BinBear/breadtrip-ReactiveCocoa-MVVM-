@@ -15,14 +15,15 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - CommonElement (0.2.2)
+  - FoldingTabBar (1.1.1)
   - iCarousel (1.8.3)
   - IQKeyboardManager (4.0.7)
-  - JSPatch (1.1.2):
-    - JSPatch/Core (= 1.1.2)
-  - JSPatch/Core (1.1.2)
-  - JSPatch/Extensions (1.1.2):
+  - JSPatch (1.1.3):
+    - JSPatch/Core (= 1.1.3)
+  - JSPatch/Core (1.1.3)
+  - JSPatch/Extensions (1.1.3):
     - JSPatch/Core
-  - JSPatch/JPCFunction (1.1.2):
+  - JSPatch/JPCFunction (1.1.3):
     - JSPatch/Core
   - JSPatchPlatform (1.6.6):
     - JSPatchPlatform/Core (= 1.6.6)
@@ -46,6 +47,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (= 3.1.0)
   - CommonElement (= 0.2.2)
+  - FoldingTabBar (~> 1.1.1)
   - iCarousel (= 1.8.3)
   - IQKeyboardManager (= 4.0.7)
   - JSPatch/Extensions
@@ -61,9 +63,10 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   CommonElement: fec09913db4c3a170ff5ecafece69a383f404323
+  FoldingTabBar: 3167553a551c52a559778d0015c6c8909c3b34c5
   iCarousel: d782f635afac190c49bb8ee455882284cff8b85f
   IQKeyboardManager: 69002bb4fea60596b710e57d426abc00e5063630
-  JSPatch: 741205ebb2e2238c223a436e4c8cf75cf40a345f
+  JSPatch: 02cfed591cb907bbfe80a346666e5a35fc2d349d
   JSPatchPlatform: 8cc9aaebe21109d5fdfb4500384ddf38ed0990e9
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
@@ -72,6 +75,6 @@ SPEC CHECKSUMS:
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
 
-PODFILE CHECKSUM: 9f5d8bed64887e5a8601546659877e6138f098a9
+PODFILE CHECKSUM: 3e454ecb0cf77c51cc4cc2c22759578d38580e11
 
 COCOAPODS: 1.2.0

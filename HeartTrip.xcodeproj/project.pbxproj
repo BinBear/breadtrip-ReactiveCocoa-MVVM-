@@ -10,6 +10,7 @@
 		03586E1A62C91A0BF24E9352 /* libPods-HeartTrip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3CAA3501E6621BE8CBF6DC5 /* libPods-HeartTrip.a */; };
 		CE0208D11D879FF0006C12AB /* HTConst.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0208D01D879FF0006C12AB /* HTConst.m */; };
 		CE0208D41D87A8D7006C12AB /* HTNetWorking.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0208D31D87A8D7006C12AB /* HTNetWorking.m */; };
+		CE1594901E5DA22F004AB4F2 /* HTFoldingTabBarControllerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = CE15948F1E5DA22F004AB4F2 /* HTFoldingTabBarControllerConfig.m */; };
 		CE1ECAA91D8F8F340013D5B4 /* HTCityHunterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1ECAA81D8F8F340013D5B4 /* HTCityHunterButton.m */; };
 		CE2308671DDC39E40001ECFA /* HTCityTravelViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2308661DDC39E40001ECFA /* HTCityTravelViewModel.m */; };
 		CE2546021DA9E8CF00491FAD /* UIImage+HTRoundImage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2546011DA9E8CF00491FAD /* UIImage+HTRoundImage.m */; };
@@ -86,6 +87,8 @@
 		CE0208D01D879FF0006C12AB /* HTConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTConst.m; sourceTree = "<group>"; };
 		CE0208D21D87A8D7006C12AB /* HTNetWorking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTNetWorking.h; sourceTree = "<group>"; };
 		CE0208D31D87A8D7006C12AB /* HTNetWorking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTNetWorking.m; sourceTree = "<group>"; };
+		CE15948E1E5DA22F004AB4F2 /* HTFoldingTabBarControllerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTFoldingTabBarControllerConfig.h; sourceTree = "<group>"; };
+		CE15948F1E5DA22F004AB4F2 /* HTFoldingTabBarControllerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTFoldingTabBarControllerConfig.m; sourceTree = "<group>"; };
 		CE1ECAA71D8F8F340013D5B4 /* HTCityHunterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTCityHunterButton.h; sourceTree = "<group>"; };
 		CE1ECAA81D8F8F340013D5B4 /* HTCityHunterButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCityHunterButton.m; sourceTree = "<group>"; };
 		CE20537F1E55473400EEDC97 /* HeartTrip.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HeartTrip.entitlements; sourceTree = "<group>"; };
@@ -734,6 +737,8 @@
 				CE772A4B1DED350100BE0F0D /* HTConfigBaseNavigationController.m */,
 				CE772A4C1DED350100BE0F0D /* HTTabBarControllerConfig.h */,
 				CE772A4D1DED350100BE0F0D /* HTTabBarControllerConfig.m */,
+				CE15948E1E5DA22F004AB4F2 /* HTFoldingTabBarControllerConfig.h */,
+				CE15948F1E5DA22F004AB4F2 /* HTFoldingTabBarControllerConfig.m */,
 			);
 			path = TabBarConfig;
 			sourceTree = "<group>";
@@ -991,6 +996,7 @@
 				CEDBA9651DE43D3F00EBAF32 /* HTUserModel.m in Sources */,
 				CE56579E1D8E92EF0026230C /* UIBarButtonItem+HTBarButtonCustom.m in Sources */,
 				CEEEBAE91DFFC4C400CE172A /* HTWebViewController.m in Sources */,
+				CE1594901E5DA22F004AB4F2 /* HTFoldingTabBarControllerConfig.m in Sources */,
 				CE772A4E1DED350100BE0F0D /* HTConfigBaseNavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
