@@ -14,7 +14,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>FoldingTabBar.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>IQKeyboardManager.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>JSPatch.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -72,7 +82,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>09A7CC02FA133AF4C61A1D1763B060D3</key>
+		<key>07F1A34C23A0B83A1F5946F83EF79C32</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -82,7 +92,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>86AB7B980EF2CDCCEEB80E19ECC6F3CE</key>
+		<key>3B73143539FB8DFDC1A8FBDCA55B0A8E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6F7809251AEFA804F245C0737F390EAB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9648927CF436070DDE845DFE3B31115D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -107,7 +127,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DC388A31E057A19DD0C647A4E967F3DD</key>
+		<key>C92082DC8C7760FC868CB5447DDFC40C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
