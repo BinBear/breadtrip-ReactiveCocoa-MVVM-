@@ -66,7 +66,10 @@
             return nil;
         }];
     }];
-    
+    _travelDetailCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        
+        return [RACSignal empty];
+    }];
     _travelConnectionErrors = _travelCommand.errors;
     _travelMoreConnectionErrors = _travelMoreDataCommand.errors;
 }

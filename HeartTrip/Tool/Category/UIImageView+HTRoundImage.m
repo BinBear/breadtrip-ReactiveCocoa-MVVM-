@@ -41,7 +41,7 @@
         
         if (!placeholderImage) {
             placeholderImage = [UIImage HT_setHTRadius:radius image:[UIImage imageNamed:placeholder] size:size borderColor:borderColor borderWidth:borderWidth backgroundColor:backgroundColor withContentMode:contentMode];
-            [[SDImageCache sharedImageCache] storeImage:placeholderImage forKey:placeholderKey];
+            [[SDImageCache sharedImageCache] storeImage:placeholderImage forKey:placeholderKey completion:nil];
             
         }else{
             
@@ -52,20 +52,18 @@
     self.image = placeholderImage;
     
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
-    [manager downloadImageWithURL:imageURL
-                          options:0
-                         progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-                             // 处理下载进度的代码.
-                         }
-                        completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                            if (image) {
-                                UIImage *currentImage = [UIImage HT_setHTRadius:radius image:image size:size borderColor:borderColor borderWidth:borderWidth backgroundColor:backgroundColor withContentMode:contentMode];
-                                self.image = currentImage;
-                                [[SDImageCache sharedImageCache] storeImage:currentImage forKey:cacheurlStr toDisk:YES];
-                               //清除原有非圆角图片缓存
-                                [[SDImageCache sharedImageCache] removeImageForKey:[NSString stringWithFormat:@"%@",imageURL]];
-                            }
-                        }];
+   
+    [manager loadImageWithURL:imageURL options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+        // 处理下载进度
+    } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
+        if (image) {
+            UIImage *currentImage = [UIImage HT_setHTRadius:radius image:image size:size borderColor:borderColor borderWidth:borderWidth backgroundColor:backgroundColor withContentMode:contentMode];
+            self.image = currentImage;
+            [[SDImageCache sharedImageCache] storeImage:currentImage forKey:cacheurlStr toDisk:YES completion:nil];
+            //清除原有非圆角图片缓存
+            [[SDImageCache sharedImageCache] removeImageForKey:[NSString stringWithFormat:@"%@",imageURL] withCompletion:nil];
+        }
+    }];
 
 }
 @end

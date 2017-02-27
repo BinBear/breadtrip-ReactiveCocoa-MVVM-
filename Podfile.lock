@@ -17,7 +17,7 @@ PODS:
   - CommonElement (0.2.2)
   - FoldingTabBar (1.1.1)
   - iCarousel (1.8.3)
-  - IQKeyboardManager (4.0.7)
+  - IQKeyboardManager (4.0.8)
   - JSPatch (1.1.3):
     - JSPatch/Core (= 1.1.3)
   - JSPatch/Core (1.1.3)
@@ -40,16 +40,21 @@ PODS:
   - ReactiveCocoa/no-arc (2.5)
   - ReactiveCocoa/UI (2.5):
     - ReactiveCocoa/Core
-  - SDWebImage (3.8.2):
-    - SDWebImage/Core (= 3.8.2)
-  - SDWebImage/Core (3.8.2)
+  - RealReachability (1.1.8):
+    - RealReachability/Connection (= 1.1.8)
+    - RealReachability/Ping (= 1.1.8)
+  - RealReachability/Connection (1.1.8)
+  - RealReachability/Ping (1.1.8)
+  - SDWebImage (4.0.0):
+    - SDWebImage/Core (= 4.0.0)
+  - SDWebImage/Core (4.0.0)
 
 DEPENDENCIES:
   - AFNetworking (= 3.1.0)
   - CommonElement (= 0.2.2)
   - FoldingTabBar (~> 1.1.1)
   - iCarousel (= 1.8.3)
-  - IQKeyboardManager (= 4.0.7)
+  - IQKeyboardManager (= 4.0.8)
   - JSPatch/Extensions
   - JSPatch/JPCFunction
   - JSPatchPlatform
@@ -58,14 +63,15 @@ DEPENDENCIES:
   - MJRefresh (= 3.1.12)
   - MMProgressHUD (= 0.3.2)
   - ReactiveCocoa (= 2.5)
-  - SDWebImage (= 3.8.2)
+  - RealReachability
+  - SDWebImage (= 4.0.0)
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   CommonElement: fec09913db4c3a170ff5ecafece69a383f404323
   FoldingTabBar: 3167553a551c52a559778d0015c6c8909c3b34c5
   iCarousel: d782f635afac190c49bb8ee455882284cff8b85f
-  IQKeyboardManager: 69002bb4fea60596b710e57d426abc00e5063630
+  IQKeyboardManager: 1a8189fa153bf09044355ee0ad36826f6767e7f7
   JSPatch: 02cfed591cb907bbfe80a346666e5a35fc2d349d
   JSPatchPlatform: 8cc9aaebe21109d5fdfb4500384ddf38ed0990e9
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
@@ -73,8 +79,9 @@ SPEC CHECKSUMS:
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   MMProgressHUD: a913b116ba6791d67d37f9fb4211079200fb7595
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
-  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  RealReachability: e6c8a2bbffa316006e8c282efc1ee2567d61a920
+  SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
 
-PODFILE CHECKSUM: 3e454ecb0cf77c51cc4cc2c22759578d38580e11
+PODFILE CHECKSUM: a0e969c6482615d904033d3bafd78c898b60bc88
 
 COCOAPODS: 1.2.0

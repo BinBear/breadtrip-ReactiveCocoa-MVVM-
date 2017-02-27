@@ -17,6 +17,7 @@
 
 @interface HTAppDelegate ()<HTLBSManagerDelegate>
 @property (strong, nonatomic) HTLBSManager *lbs;
+@property (assign , nonatomic , readwrite) ReachabilityStatus  NetWorkStatus;
 @end
 
 @implementation HTAppDelegate
@@ -34,6 +35,8 @@
     self.lbs = [HTLBSManager startGetLBSWithDelegate:self];
     // 配置JSPatch
     [self configurationJSPatch];
+    // 配置网络状态
+    [self configurationNetWorkStatus];
     
     return YES;
 }
@@ -94,8 +97,19 @@
         [JSPatch testScriptInBundle];
         [JSPatch showDebugView];
     }
+}
+- (void)configurationNetWorkStatus
+{
     
+    [GLobalRealReachability startNotifier];
     
-    
+    RAC(self, NetWorkStatus) = [[[[[NSNotificationCenter defaultCenter]
+                                   rac_addObserverForName:kRealReachabilityChangedNotification object:nil]
+                                  map:^(NSNotification *notification) {
+                                      return @([notification.object currentReachabilityStatus]);
+                                  }]
+                                 startWith:@([GLobalRealReachability currentReachabilityStatus])]
+                                distinctUntilChanged];
+
 }
 @end

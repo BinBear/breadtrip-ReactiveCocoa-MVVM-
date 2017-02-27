@@ -66,7 +66,7 @@
             @strongify(self)
             if (tuple.first == self.webView){
                 
-                dispatch_main_sync_safe(^{
+                dispatch_main_async_safe(^{
                     [HTShowMessageView showStatusWithMessage:@"Loading..."];
                 });
             }
@@ -79,7 +79,7 @@
             @strongify(self)
             if (tuple.first == self.webView){
                 
-                dispatch_main_sync_safe(^{
+                dispatch_main_async_safe(^{
                     [HTShowMessageView dismissSuccessView:@"Success"];
                     if (self.viewModel.webType == kWebFindDetailType) {
                         
@@ -98,7 +98,7 @@
             @strongify(self)
             if (tuple.first == self.webView){
                 
-                dispatch_main_sync_safe(^{
+                dispatch_main_async_safe(^{
                     [HTShowMessageView dismissErrorView:@"Error"];
                 });
             }
@@ -114,7 +114,7 @@
          subscribeNext:^(RACTuple *tuple) {
              @strongify(self)
              
-             dispatch_main_sync_safe(^{
+             dispatch_main_async_safe(^{
                  self.navigationItem.title = tuple.second;
              });
              

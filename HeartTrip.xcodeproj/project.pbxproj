@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		03586E1A62C91A0BF24E9352 /* libPods-HeartTrip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3CAA3501E6621BE8CBF6DC5 /* libPods-HeartTrip.a */; };
+		CE0165681E6047E5006AA778 /* UIView+UIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0165671E6047E5006AA778 /* UIView+UIViewController.m */; };
 		CE0208D11D879FF0006C12AB /* HTConst.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0208D01D879FF0006C12AB /* HTConst.m */; };
 		CE0208D41D87A8D7006C12AB /* HTNetWorking.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0208D31D87A8D7006C12AB /* HTNetWorking.m */; };
 		CE1594901E5DA22F004AB4F2 /* HTFoldingTabBarControllerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = CE15948F1E5DA22F004AB4F2 /* HTFoldingTabBarControllerConfig.m */; };
@@ -82,6 +83,8 @@
 /* Begin PBXFileReference section */
 		113E7680EFD9B6BA3B957CBB /* Pods-HeartTrip.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeartTrip.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HeartTrip/Pods-HeartTrip.debug.xcconfig"; sourceTree = "<group>"; };
 		8B6ADEC272FF901E401B3995 /* Pods-HeartTrip.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeartTrip.release.xcconfig"; path = "Pods/Target Support Files/Pods-HeartTrip/Pods-HeartTrip.release.xcconfig"; sourceTree = "<group>"; };
+		CE0165661E6047E5006AA778 /* UIView+UIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+UIViewController.h"; sourceTree = "<group>"; };
+		CE0165671E6047E5006AA778 /* UIView+UIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+UIViewController.m"; sourceTree = "<group>"; };
 		CE0208CE1D879D9A006C12AB /* HTConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTConfig.h; sourceTree = "<group>"; };
 		CE0208CF1D879FF0006C12AB /* HTConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTConst.h; sourceTree = "<group>"; };
 		CE0208D01D879FF0006C12AB /* HTConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTConst.m; sourceTree = "<group>"; };
@@ -369,6 +372,8 @@
 		CE30C4C81D82CB4B0028CB73 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				CE0165661E6047E5006AA778 /* UIView+UIViewController.h */,
+				CE0165671E6047E5006AA778 /* UIView+UIViewController.m */,
 				CE56579C1D8E92EF0026230C /* UIBarButtonItem+HTBarButtonCustom.h */,
 				CE56579D1D8E92EF0026230C /* UIBarButtonItem+HTBarButtonCustom.m */,
 				CE2546001DA9E8CF00491FAD /* UIImage+HTRoundImage.h */,
@@ -984,6 +989,7 @@
 				CE772A671DED600E00BE0F0D /* HTFindProductModel.m in Sources */,
 				CE323B191E2F6E9F00D8E088 /* HTMediatorAction+HTExploreMoreViewController.m in Sources */,
 				CE56578F1D8E92020026230C /* HTCityTravelNotesController.m in Sources */,
+				CE0165681E6047E5006AA778 /* UIView+UIViewController.m in Sources */,
 				CE50C6C21DEC1B860005F44B /* HTTextField.m in Sources */,
 				CE3D39441E011FBB003A4AA0 /* HTInfiniteCarouselView.m in Sources */,
 				CE323B0B1E2F0A9C00D8E088 /* HTExploreMoreViewCell.m in Sources */,

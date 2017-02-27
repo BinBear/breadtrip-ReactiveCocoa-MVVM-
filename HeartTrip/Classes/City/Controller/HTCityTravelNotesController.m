@@ -86,14 +86,23 @@
 #pragma mark - bind
 - (void)bindViewModel
 {
-    self.isSearch = NO;
+    [RACObserve(HT_APPDelegate , NetWorkStatus) subscribeNext:^(NSNumber *networkStatus) {
+      
+        if (networkStatus.integerValue == RealStatusNotReachable || networkStatus.integerValue == RealStatusUnknown) {
+            NSLog(@"无网络");
+        }else{
+            NSLog(@"有网络");
+            [self.viewModel.travelCommand execute:@1];
+        }
+        
+    }];
     
-    [self.viewModel.travelCommand execute:@1];
+    self.isSearch = NO;
     
     self.bannerView.imageURLSignal = RACObserve(self.viewModel, bannerData);
     
     self.tripBindingHelper = [HTTableViewBindingHelper bindingHelperForTableView:self.tripTableView sourceSignal:RACObserve(self.viewModel, travelData) selectionCommand:nil templateCell:@"HTCityTravelCell" withViewModel:self.viewModel];
-    
+    self.tripBindingHelper.delegate = self;
     
     @weakify(self);
     // 下拉刷新
@@ -176,7 +185,6 @@
     self.navigationItem.titleView = searchView;
     
 }
-
 #pragma mark - getter
 - (UIView *)headerView
 {

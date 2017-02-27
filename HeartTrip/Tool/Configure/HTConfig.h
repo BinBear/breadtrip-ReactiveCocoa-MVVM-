@@ -27,7 +27,7 @@
 #define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
 #define MainScreenRect       [UIScreen mainScreen].bounds
 
-#define HT_APPDelegate (HTAppDelegate*)[UIApplication sharedApplication].delegate
+#define HT_APPDelegate  ((HTAppDelegate*)[UIApplication sharedApplication].delegate)
 
 // debug下打印，release下不打印
 #ifndef __OPTIMIZE__

@@ -32,6 +32,10 @@
  */
 @property (strong, nonatomic) RACCommand *rightBarButtonItemCommand;
 /**
+ *  游记详情
+ */
+@property (strong, nonatomic) RACCommand *travelDetailCommand;
+/**
  *  游记数据
  */
 @property (strong, nonatomic) NSArray *travelData;

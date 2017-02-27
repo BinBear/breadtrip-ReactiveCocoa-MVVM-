@@ -9,6 +9,7 @@
 #ifndef HeartTripPrefixHeader_pch
 #define HeartTripPrefixHeader_pch
 
+#import "HTAppDelegate.h"
 #import "VKURLAction.h"
 #import "HTMediatorAction.h"
 #import "HTConfig.h"
@@ -20,6 +21,7 @@
 #import "HTRefreshGifHeader.h"
 #import "HTRefreshGifFooter.h"
 
+
 #import <CommonElement.h>
 #import <Masonry.h>
 #import <ReactiveCocoa.h>
@@ -28,5 +30,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/UIButton+WebCache.h>
 #import <SDWebImage/SDWebImageManager.h>
+
+
 
 #endif /* HeartTripPrefixHeader_pch */

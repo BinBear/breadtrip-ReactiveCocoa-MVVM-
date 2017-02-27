@@ -15,6 +15,7 @@
 #import "HTServerConfig.h"
 #import "HTShowMessageView.h"
 
+
 /**
  *  基础URL
  */
@@ -1155,21 +1156,22 @@ static inline NSString *cachePath() {
 + (void)showHUD:(NSString *)showMessge
 {
     
-    dispatch_main_sync_safe(^{
+  
+    dispatch_main_async_safe(^{
         [HTShowMessageView showStatusWithMessage:showMessge];
     });
 }
 
 + (void)dismissSuccessHUD
 {
-    dispatch_main_sync_safe(^{
+    dispatch_main_async_safe(^{
         [HTShowMessageView dismissSuccessView:@"Success"];
     });
     
 }
 + (void)dismissErrorHUD
 {
-    dispatch_main_sync_safe(^{
+    dispatch_main_async_safe(^{
         [HTShowMessageView dismissErrorView:@"Error"];
     });
     
