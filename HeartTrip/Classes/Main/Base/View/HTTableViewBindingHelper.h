@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class HTViewModel;
+
 @interface HTTableViewBindingHelper : NSObject
 
 @property (weak, nonatomic) id<UITableViewDelegate> delegate;
@@ -27,7 +29,7 @@
                               sourceSignal:(RACSignal *)source
                           selectionCommand:(RACCommand *)didSelectionCommand
                               templateCell:(NSString *)templateCell
-                             withViewModel:(id)viewModel;
+                             withViewModel:(HTViewModel *)viewModel;
 /**
  xib创建cell时调用
  
@@ -42,6 +44,6 @@
                               sourceSignal:(RACSignal *)source
                           selectionCommand:(RACCommand *)didSelectionCommand
                        templateCellWithNib:(NSString *)templateCell
-                             withViewModel:(id)viewModel;
+                             withViewModel:(HTViewModel *)viewModel;
 
 @end

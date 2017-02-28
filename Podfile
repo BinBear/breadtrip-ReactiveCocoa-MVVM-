@@ -18,5 +18,6 @@ pod 'JSPatch/Extensions'
 pod 'JSPatch/JPCFunction'
 pod 'FoldingTabBar', '~> 1.1.1'
 pod 'RealReachability'
+pod 'DZNEmptyDataSet'
 
 end

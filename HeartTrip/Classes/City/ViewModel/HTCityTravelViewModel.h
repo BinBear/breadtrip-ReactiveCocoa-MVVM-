@@ -8,13 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "HTViewModelService.h"
+#import "HTViewModel.h"
 
-@interface HTCityTravelViewModel : NSObject
+@interface HTCityTravelViewModel : HTViewModel
 
-/**
- *  数据请求
- */
-@property (strong, nonatomic) RACCommand *travelCommand;
 /**
  *  错误信号
  */

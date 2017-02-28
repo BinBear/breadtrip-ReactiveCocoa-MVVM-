@@ -15,6 +15,7 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - CommonElement (0.2.2)
+  - DZNEmptyDataSet (1.8.1)
   - FoldingTabBar (1.1.1)
   - iCarousel (1.8.3)
   - IQKeyboardManager (4.0.8)
@@ -52,6 +53,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (= 3.1.0)
   - CommonElement (= 0.2.2)
+  - DZNEmptyDataSet
   - FoldingTabBar (~> 1.1.1)
   - iCarousel (= 1.8.3)
   - IQKeyboardManager (= 4.0.8)
@@ -69,6 +71,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   CommonElement: fec09913db4c3a170ff5ecafece69a383f404323
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FoldingTabBar: 3167553a551c52a559778d0015c6c8909c3b34c5
   iCarousel: d782f635afac190c49bb8ee455882284cff8b85f
   IQKeyboardManager: 1a8189fa153bf09044355ee0ad36826f6767e7f7
@@ -82,6 +85,6 @@ SPEC CHECKSUMS:
   RealReachability: e6c8a2bbffa316006e8c282efc1ee2567d61a920
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
 
-PODFILE CHECKSUM: a0e969c6482615d904033d3bafd78c898b60bc88
+PODFILE CHECKSUM: 74431a65424f893024a649a67e0c00b0c9ffc9b2
 
 COCOAPODS: 1.2.0

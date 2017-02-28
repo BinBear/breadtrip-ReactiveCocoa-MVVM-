@@ -29,7 +29,7 @@
 }
 - (void)initialize
 {
-    _feedDataCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
+    self.requestDataCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
         
         return [[[_services getFindService] requestFindDataSignal:Find_URL] doNext:^(id  _Nullable result) {
             
@@ -70,7 +70,7 @@
         [[HTMediatorAction sharedInstance] pushWebViewControllerWithViewModel:viewModel];
         return [RACSignal empty];
     }];
-    _feedConnectionErrors = _feedDataCommand.errors;
+    
     _feedMoreConnectionErrors = _feedMoreDataCommand.errors;
 }
 

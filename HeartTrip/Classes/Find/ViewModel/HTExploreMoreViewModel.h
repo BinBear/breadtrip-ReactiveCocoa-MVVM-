@@ -8,13 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "HTViewModelService.h"
+#import "HTViewModel.h"
 
-@interface HTExploreMoreViewModel : NSObject
+@interface HTExploreMoreViewModel : HTViewModel
 
-/**
- *  探索视频数据请求
- */
-@property (strong, nonatomic) RACCommand *exploreDataCommand;
 /**
  *  错误信号
  */

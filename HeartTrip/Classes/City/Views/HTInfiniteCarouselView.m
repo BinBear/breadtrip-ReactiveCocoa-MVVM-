@@ -53,9 +53,9 @@
 {
     _placeholder = placeholder;
     
-    [self bringSubviewToFront:self.placeholderImageView];
-    UIImage *placeholderImage = [UIImage imageNamed:placeholder];
-    self.placeholderImageView.image = [placeholderImage HT_setRadius:self.cornerRadius size:CGSizeMake(SCREEN_WIDTH - 2*PAGE_OFFSET, self.height)];
+//    [self bringSubviewToFront:self.placeholderImageView];
+//    UIImage *placeholderImage = [UIImage imageNamed:placeholder];
+//    self.placeholderImageView.image = [placeholderImage HT_setRadius:self.cornerRadius size:CGSizeMake(SCREEN_WIDTH - 2*PAGE_OFFSET, self.height)];
 }
 - (void)setImageURLSignal:(RACSignal *)imageURLSignal
 {

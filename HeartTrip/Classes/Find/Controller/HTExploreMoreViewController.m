@@ -56,6 +56,18 @@
 #pragma mark - bind
 - (void)bindViewModel
 {
+    [RACObserve(HT_APPDelegate , NetWorkStatus) subscribeNext:^(NSNumber *networkStatus) {
+        
+        if (networkStatus.integerValue == RealStatusNotReachable || networkStatus.integerValue == RealStatusUnknown) {
+            NSLog(@"无网络");
+            [self.viewModel.requestDataCommand execute:@(RealStatusNotReachable)];
+        }else{
+            NSLog(@"有网络");
+            [self.viewModel.requestDataCommand execute:@1];
+        }
+        
+    }];
+    
     // findTableView
     self.exploreBindingHelper = [HTTableViewBindingHelper bindingHelperForTableView:self.exploreTableView sourceSignal:RACObserve(self.viewModel, videosData) selectionCommand:self.viewModel.videoPlayerCommand templateCell:@"HTExploreMoreViewCell" withViewModel:self.viewModel];
     
@@ -63,9 +75,9 @@
     // 下拉刷新
     self.exploreTableView.mj_header = [HTRefreshGifHeader headerWithRefreshingBlock:^{
         @strongify(self);
-        [self.viewModel.exploreDataCommand execute:@1];
+        [self.viewModel.requestDataCommand execute:@1];
     }];
-    [[self.viewModel.exploreDataCommand.executing skip:1] subscribeNext:^(NSNumber * _Nullable executing) {
+    [[self.viewModel.requestDataCommand.executing skip:1] subscribeNext:^(NSNumber * _Nullable executing) {
         @strongify(self);
         if (!executing.boolValue) {
             [self.exploreTableView.mj_header endRefreshing];
@@ -84,7 +96,7 @@
         }
     }];
     
-    [self.viewModel.exploreDataCommand execute:@1];
+    [self.viewModel.requestDataCommand execute:@1];
     
     
     UIBarButtonItem * rightItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightButton];

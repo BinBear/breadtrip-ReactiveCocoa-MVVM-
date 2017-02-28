@@ -90,9 +90,10 @@
       
         if (networkStatus.integerValue == RealStatusNotReachable || networkStatus.integerValue == RealStatusUnknown) {
             NSLog(@"无网络");
+            [self.viewModel.requestDataCommand execute:@(RealStatusNotReachable)];
         }else{
             NSLog(@"有网络");
-            [self.viewModel.travelCommand execute:@1];
+            [self.viewModel.requestDataCommand execute:@1];
         }
         
     }];
@@ -108,9 +109,9 @@
     // 下拉刷新
     self.tripTableView.mj_header = [HTRefreshGifHeader headerWithRefreshingBlock:^{
         @strongify(self);
-        [self.viewModel.travelCommand execute:@1];
+        [self.viewModel.requestDataCommand execute:@1];
     }];
-    [[self.viewModel.travelCommand.executing skip:1] subscribeNext:^(NSNumber * _Nullable executing) {
+    [[self.viewModel.requestDataCommand.executing skip:1] subscribeNext:^(NSNumber * _Nullable executing) {
         @strongify(self);
         if (!executing.boolValue) {
             [self.tripTableView.mj_header endRefreshing];

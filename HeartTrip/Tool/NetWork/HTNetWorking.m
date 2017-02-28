@@ -60,7 +60,7 @@ static BOOL HT_shouldCallbackOnCancelRequest = YES;
 /**
  *  请求的超时时间
  */
-static NSTimeInterval HT_timeout = 30.0f;
+static NSTimeInterval HT_timeout = 25.0f;
 /**
  *  是否从从本地提取数据
  */

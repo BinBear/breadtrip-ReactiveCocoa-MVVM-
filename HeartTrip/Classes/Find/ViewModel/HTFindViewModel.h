@@ -8,13 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "HTViewModelService.h"
+#import "HTViewModel.h"
 
-@interface HTFindViewModel : NSObject
+@interface HTFindViewModel : HTViewModel
 
-/**
- *  数据请求
- */
-@property (strong, nonatomic) RACCommand *feedDataCommand;
 /**
  *  错误信号
  */

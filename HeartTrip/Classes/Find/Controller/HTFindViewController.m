@@ -57,6 +57,19 @@
 #pragma mark - bind
 - (void)bindViewModel
 {
+    
+    [RACObserve(HT_APPDelegate , NetWorkStatus) subscribeNext:^(NSNumber *networkStatus) {
+        
+        if (networkStatus.integerValue == RealStatusNotReachable || networkStatus.integerValue == RealStatusUnknown) {
+            NSLog(@"无网络");
+            [self.viewModel.requestDataCommand execute:@(RealStatusNotReachable)];
+        }else{
+            NSLog(@"有网络");
+            [self.viewModel.requestDataCommand execute:@1];
+        }
+        
+    }];
+    
     // findTableView
     self.findBindingHelper = [HTTableViewBindingHelper bindingHelperForTableView:self.findTableView sourceSignal:RACObserve(self.viewModel, feedData) selectionCommand:self.viewModel.feedDetailCommand templateCell:@"HTFindFeedCell" withViewModel:self.viewModel];
     
@@ -67,9 +80,9 @@
     // 下拉刷新
     self.findTableView.mj_header = [HTRefreshGifHeader headerWithRefreshingBlock:^{
         @strongify(self);
-        [self.viewModel.feedDataCommand execute:@1];
+        [self.viewModel.requestDataCommand execute:@1];
     }];
-    [[self.viewModel.feedDataCommand.executing skip:1] subscribeNext:^(NSNumber * _Nullable executing) {
+    [[self.viewModel.requestDataCommand.executing skip:1] subscribeNext:^(NSNumber * _Nullable executing) {
         @strongify(self);
         if (!executing.boolValue) {
             [self.findTableView.mj_header endRefreshing];
@@ -88,7 +101,7 @@
         }
     }];
     
-    [self.viewModel.feedDataCommand execute:@1];
+    [self.viewModel.requestDataCommand execute:@1];
 }
 
 #pragma mark - getter

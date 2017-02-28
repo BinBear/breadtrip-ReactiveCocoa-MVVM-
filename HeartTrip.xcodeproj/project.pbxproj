@@ -78,6 +78,7 @@
 		CEEEBAE91DFFC4C400CE172A /* HTWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEEBAE81DFFC4C400CE172A /* HTWebViewController.m */; };
 		CEEEBAEC1DFFC61400CE172A /* HTWebViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEEBAEB1DFFC61400CE172A /* HTWebViewModel.m */; };
 		CEEEBAF11DFFC95D00CE172A /* HTWebProtocolImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEEBAF01DFFC95D00CE172A /* HTWebProtocolImpl.m */; };
+		CEFED5331E65761800665007 /* HTViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFED5321E65761800665007 /* HTViewModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -228,6 +229,8 @@
 		CEEEBAEE1DFFC93600CE172A /* HTWebProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTWebProtocol.h; sourceTree = "<group>"; };
 		CEEEBAEF1DFFC95D00CE172A /* HTWebProtocolImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTWebProtocolImpl.h; sourceTree = "<group>"; };
 		CEEEBAF01DFFC95D00CE172A /* HTWebProtocolImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTWebProtocolImpl.m; sourceTree = "<group>"; };
+		CEFED5311E65761800665007 /* HTViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTViewModel.h; sourceTree = "<group>"; };
+		CEFED5321E65761800665007 /* HTViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTViewModel.m; sourceTree = "<group>"; };
 		F3CAA3501E6621BE8CBF6DC5 /* libPods-HeartTrip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HeartTrip.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -802,6 +805,8 @@
 				CE4C5F471DEEB937001F0A6D /* HTViewModelServicesImpl.m */,
 				CEEEBAEA1DFFC61400CE172A /* HTWebViewModel.h */,
 				CEEEBAEB1DFFC61400CE172A /* HTWebViewModel.m */,
+				CEFED5311E65761800665007 /* HTViewModel.h */,
+				CEFED5321E65761800665007 /* HTViewModel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -993,6 +998,7 @@
 				CE50C6C21DEC1B860005F44B /* HTTextField.m in Sources */,
 				CE3D39441E011FBB003A4AA0 /* HTInfiniteCarouselView.m in Sources */,
 				CE323B0B1E2F0A9C00D8E088 /* HTExploreMoreViewCell.m in Sources */,
+				CEFED5331E65761800665007 /* HTViewModel.m in Sources */,
 				CE3A63711E2E3AF400A9A41D /* HTExploreMoreImpl.m in Sources */,
 				CE5657981D8E92480026230C /* HTMeViewController.m in Sources */,
 				CE48523E1D86C7AB00C7DC9D /* HTMediatorAction.m in Sources */,

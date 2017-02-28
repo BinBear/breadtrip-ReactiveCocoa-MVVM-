@@ -32,7 +32,7 @@
 }
 - (void)initialize
 {
-    _exploreDataCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
+    self.requestDataCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
         
         return [[[_services getExploreMoreService] requestExploreVideosDataSignal:ExploreMore_URL] doNext:^(id  _Nullable result) {
             
@@ -70,7 +70,7 @@
         return [RACSignal empty];
     }];
     
-    _exploreConnectionErrors = _exploreDataCommand.errors;
+    
     _exploreMoreConnectionErrors = _exploreMoreDataCommand.errors;
 }
 

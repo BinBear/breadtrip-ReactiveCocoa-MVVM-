@@ -39,14 +39,22 @@
         _isSearch = visible.boolValue;
     }];
     
-    _travelCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
-        
-        return [[[_services getCityTravelService] requestCityTravelDataSignal:CityTravel_URL] doNext:^(id  _Nullable result) {
+    self.requestDataCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
+        if ([input integerValue] == RealStatusNotReachable) {
             
-            self.bannerData = [NSArray arrayWithArray:result[BannerDatakey]];
-            self.travelData = [NSArray arrayWithArray:result[TravelDatakey]];
+            self.netWorkStatus = RealStatusNotReachable;
+            return [RACSignal empty];
             
-        }];
+        }else{
+            
+            return [[[_services getCityTravelService] requestCityTravelDataSignal:CityTravel_URL] doNext:^(id  _Nullable result) {
+                
+                self.bannerData = [NSArray arrayWithArray:result[BannerDatakey]];
+                self.travelData = [NSArray arrayWithArray:result[TravelDatakey]];
+                
+            }];
+        }
+     
     }];
     
     _travelMoreDataCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
@@ -70,7 +78,7 @@
         
         return [RACSignal empty];
     }];
-    _travelConnectionErrors = _travelCommand.errors;
+    
     _travelMoreConnectionErrors = _travelMoreDataCommand.errors;
 }
 @end
