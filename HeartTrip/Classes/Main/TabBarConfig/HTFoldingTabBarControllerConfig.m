@@ -116,7 +116,7 @@
     tabBarVC.tabBarView.offsetForExtraTabBarItems = YALForExtraTabBarItemsDefaultOffset;
     tabBarVC.tabBarView.tabBarColor = SetColor(80, 189, 203);
     tabBarVC.tabBarViewHeight = YALTabBarViewDefaultHeight;
-    tabBarVC.tabBarView.tabBarViewEdgeInsets = UIEdgeInsetsMake(0.0f, 15.0f, 5.0f, 15.0f);
+    tabBarVC.tabBarView.tabBarViewEdgeInsets = UIEdgeInsetsMake(-15.0f, 15.0f, 10.0f, 15.0f);
     tabBarVC.tabBarView.tabBarItemsEdgeInsets = UIEdgeInsetsMake(5.0f, 5.0f, 5.0f, 5.0f);
 }
 @end
