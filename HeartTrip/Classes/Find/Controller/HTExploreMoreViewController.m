@@ -22,7 +22,7 @@
 /**
  *  bind ViewModel
  */
-@property (strong, nonatomic) HTExploreMoreViewModel *viewModel;
+@property (strong, nonatomic, readonly) HTExploreMoreViewModel *viewModel;
 /**
  *  tableview
  */
@@ -35,16 +35,9 @@
 @end
 
 @implementation HTExploreMoreViewController
+@dynamic viewModel;
 
 #pragma mark - Life Cycle
-- (instancetype)initWithViewModel:(HTExploreMoreViewModel *)viewModel
-{
-    if (self = [super init]) {
-        _viewModel = viewModel;
-        
-    }
-    return self;
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = SetColor(250, 250, 250);
@@ -56,17 +49,7 @@
 #pragma mark - bind
 - (void)bindViewModel
 {
-    [RACObserve(HT_APPDelegate , NetWorkStatus) subscribeNext:^(NSNumber *networkStatus) {
-        
-        if (networkStatus.integerValue == RealStatusNotReachable || networkStatus.integerValue == RealStatusUnknown) {
-            NSLog(@"无网络");
-            [self.viewModel.requestDataCommand execute:@(RealStatusNotReachable)];
-        }else{
-            NSLog(@"有网络");
-            [self.viewModel.requestDataCommand execute:@1];
-        }
-        
-    }];
+    [super bindViewModel];
     
     // findTableView
     self.exploreBindingHelper = [HTTableViewBindingHelper bindingHelperForTableView:self.exploreTableView sourceSignal:RACObserve(self.viewModel, videosData) selectionCommand:self.viewModel.videoPlayerCommand templateCell:@"HTExploreMoreViewCell" withViewModel:self.viewModel];

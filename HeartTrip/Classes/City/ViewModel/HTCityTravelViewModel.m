@@ -9,27 +9,28 @@
 #import "HTCityTravelViewModel.h"
 #import "HTBannerModel.h"
 #import "HTCityTravelItemModel.h"
+#import "HTMediatorAction+HTCityTravelDetailController.h"
+#import "HTViewModelServicesImpl.h"
+#import "HTCityTravelDetialViewModel.h"
 
 @interface HTCityTravelViewModel ()
-@property (strong , nonatomic) id<HTViewModelService> services;
+
 @end
 
 @implementation HTCityTravelViewModel
-- (instancetype)initWithServices:(id<HTViewModelService>)services
+- (instancetype)initWithServices:(id<HTViewModelService>)services params:(NSDictionary *)params
 {
-    if (self = [super init]) {
+    if (self = [super initWithServices:services params:params]) {
         
-        _services = services;
-        
-        [self initialize];
+        _travelData = [NSArray new];
+        _bannerData = [NSArray new];
+        _isSearch = NO;
     }
     return self;
 }
 - (void)initialize
 {
-    _travelData = [NSArray new];
-    _bannerData = [NSArray new];
-    _isSearch = NO;
+    [super initialize];
     
     RACSignal *visibleStateChanged = [RACObserve(self, isSearch) skip:1];
     
@@ -39,29 +40,11 @@
         _isSearch = visible.boolValue;
     }];
     
-    self.requestDataCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
-        if ([input integerValue] == RealStatusNotReachable) {
-            
-            self.netWorkStatus = RealStatusNotReachable;
-            return [RACSignal empty];
-            
-        }else{
-            
-            return [[[_services getCityTravelService] requestCityTravelDataSignal:CityTravel_URL] doNext:^(id  _Nullable result) {
-                
-                self.bannerData = [NSArray arrayWithArray:result[BannerDatakey]];
-                self.travelData = [NSArray arrayWithArray:result[TravelDatakey]];
-                
-            }];
-        }
-     
-    }];
-    
     _travelMoreDataCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
         
-        return [[[_services getCityTravelService] requestCityTravelMoreDataSignal:CityTravel_URL] doNext:^(id  _Nullable result) {
+        return [[[self.services getCityTravelService] requestCityTravelMoreDataSignal:CityTravel_URL] doNext:^(id  _Nullable result) {
             
-            self.travelData = [NSArray arrayWithArray:result[TravelDatakey]];
+            self.travelData = result[TravelDatakey];
             
         }];
     }];
@@ -76,9 +59,30 @@
     }];
     _travelDetailCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         
+        HTViewModelServicesImpl *servicesImpl = [[HTViewModelServicesImpl alloc] initModelServiceImpl];
+        HTCityTravelDetialViewModel *viewModel = [[HTCityTravelDetialViewModel alloc] initWithServices:servicesImpl params:nil];
+        [[HTMediatorAction sharedInstance] pushCityTravelDetailControllerWithViewModel:viewModel];
+        
         return [RACSignal empty];
     }];
     
     _travelMoreConnectionErrors = _travelMoreDataCommand.errors;
+}
+- (RACSignal *)executeRequestDataSignal:(id)input
+{
+    if ([input integerValue] == RealStatusNotReachable) {
+        
+        self.netWorkStatus = RealStatusNotReachable;
+        return [RACSignal empty];
+        
+    }else{
+        
+        return [[[self.services getCityTravelService] requestCityTravelDataSignal:CityTravel_URL] doNext:^(id  _Nullable result) {
+            
+            self.bannerData = result[BannerDatakey];
+            self.travelData = result[TravelDatakey];
+            
+        }];
+    }
 }
 @end

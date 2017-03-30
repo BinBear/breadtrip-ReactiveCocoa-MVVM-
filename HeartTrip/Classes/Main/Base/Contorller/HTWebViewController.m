@@ -15,45 +15,24 @@
 /**
  *  viewModel
  */
-@property (strong, nonatomic) HTWebViewModel *viewModel;
+@property (strong, nonatomic, readonly) HTWebViewModel *viewModel;
 /**
  *  webview
  */
 @property (strong, nonatomic) FTDIntegrationWebView *webView;
-/**
- *  NavBar
- */
-@property (strong, nonatomic) UINavigationBar *navBar;
+
 @end
 
 @implementation HTWebViewController
+@dynamic viewModel;
 
-- (instancetype)initWithViewModel:(HTWebViewModel *)viewModel
-{
-    if (self = [super init]) {
-        _viewModel = viewModel;
-        
-    }
-    return self;
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    
-    [self bindViewModel];
-    
-}
-- (void)viewWillLayoutSubviews
-{
-    [super viewWillLayoutSubviews];
-    
-    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.left.right.top.bottom.equalTo(self.view);
-    }];
 }
 - (void)bindViewModel
 {
+    [super bindViewModel];
     
     [self.webView loadURLString:self.viewModel.requestURL];
     
@@ -123,69 +102,20 @@
     
     self.webView.delegate = self;
 }
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewWillLayoutSubviews
 {
-    [super viewWillAppear:animated];
+    [super viewWillLayoutSubviews];
     
-    self.navigationController.navigationBar.userInteractionEnabled = NO;
-    [self removeFakeNavBar];
-    if (self.viewModel.navBarStyleType == kWebNavBarStyleHidden) {
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-        [self HT_hideBottomLineInView:self.navigationController.navigationBar];
-    
-        [self addFakeNavBar];
-    }
-}
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    self.navigationController.navigationBar.userInteractionEnabled = YES;
-    [self removeFakeNavBar];
-    
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    [self removeFakeNavBar];
-    if (self.viewModel.navBarStyleType == kWebNavBarStyleHidden) {
-        [self addFakeNavBar];
-        self.navigationController.navigationBar.barStyle = UINavigationBar.appearance.barStyle;
-        self.navigationController.navigationBar.translucent = YES;
-        [self.navigationController.navigationBar setBackgroundImage:[UINavigationBar.appearance backgroundImageForBarMetrics:UIBarMetricsDefault] forBarMetrics:UIBarMetricsDefault];
-        [self HT_showBottomLineInView:self.navigationController.navigationBar];
-    }
-}
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    
-    [self removeFakeNavBar];
-}
-- (void)addFakeNavBar {
-
-    if (self.viewModel.navBarStyleType == kWebNavBarStyleHidden) {
-        [self.navBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-        [self HT_hideBottomLineInView:self.navBar];
+    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-    }else {
-        [self.navBar setBackgroundImage:[UINavigationBar.appearance backgroundImageForBarMetrics:UIBarMetricsDefault] forBarMetrics:UIBarMetricsDefault];
-        [self HT_showBottomLineInView:self.navBar];
-        
-    }
-}
-
-- (void)removeFakeNavBar {
-    if (self.navBar.superview) {
-        [self.navBar removeFromSuperview];
-    }
+        make.left.right.top.bottom.equalTo(self.view);
+    }];
 }
 - (void)updateViewConstraints
 {
     [self.webView mas_updateConstraints:^(MASConstraintMaker *make) {
         
-        if (self.viewModel.navBarStyleType == kWebNavBarStyleHidden) {
+        if (self.viewModel.navBarStyleType == kNavBarStyleHidden) {
             make.left.right.bottom.equalTo(self.view);
             make.top.equalTo(self.view).offset(-64);
         }
@@ -203,16 +133,5 @@
         view;
     }));
 }
-- (UINavigationBar *)navBar
-{
-    return HT_LAZY(_navBar, ({
-    
-        UINavigationBar *bar = [[UINavigationBar alloc] init];
-        bar.barStyle = UINavigationBar.appearance.barStyle;
-        bar.translucent = YES;
-        [self.view addSubview:bar];
-        [bar setFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
-        bar;
-    }));
-}
+
 @end

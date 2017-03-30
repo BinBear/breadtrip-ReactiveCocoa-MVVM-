@@ -6,12 +6,10 @@
 //  Copyright © 2017年 BinBear. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "HTBaseViewController.h"
 
-@class HTExploreMoreViewModel;
 
-@interface HTExploreMoreViewController : UIViewController
+@interface HTExploreMoreViewController : HTBaseViewController
 
-- (instancetype)initWithViewModel:(HTExploreMoreViewModel *)viewModel;
 
 @end

@@ -6,10 +6,8 @@
 //  Copyright © 2016年 BinBear. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "HTBaseViewController.h"
 
-@class HTFindViewModel;
+@interface HTFindViewController : HTBaseViewController
 
-@interface HTFindViewController : UIViewController
-- (instancetype)initWithViewModel:(HTFindViewModel *)viewModel;
 @end

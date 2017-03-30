@@ -53,13 +53,13 @@
     self.viewModelService = [[HTViewModelServicesImpl alloc] initModelServiceImpl];
     
     // 首页
-    self.cityTravelViewModel = [[HTCityTravelViewModel alloc] initWithServices:self.viewModelService];
+    self.cityTravelViewModel = [[HTCityTravelViewModel alloc] initWithServices:self.viewModelService params:nil];
     HTCityTravelNotesController *firstViewController = [[HTCityTravelNotesController alloc] initWithViewModel:self.cityTravelViewModel];
     HTConfigBaseNavigationController *firstNavigationController = [[HTConfigBaseNavigationController alloc]
                                                                    initWithRootViewController:firstViewController];
     
     // 发现
-    self.findViewModel = [[HTFindViewModel alloc] initWithServices:self.viewModelService];
+    self.findViewModel = [[HTFindViewModel alloc] initWithServices:self.viewModelService params:nil];
     HTFindViewController *financingViewController = [[HTFindViewController alloc] initWithViewModel:self.findViewModel];
     HTConfigBaseNavigationController *secondNavigationController = [[HTConfigBaseNavigationController alloc]
                                                                     initWithRootViewController:financingViewController];

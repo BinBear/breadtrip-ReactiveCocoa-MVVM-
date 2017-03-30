@@ -138,13 +138,13 @@
     HTFindVideosModel *Model = self.modelGroup[index];
     if ([Model.show_url isNotBlank]) {
         
-        HTWebViewModel *viewModel = [[HTWebViewModel alloc] initWithServices:nil params:@{WebTitlekey:@"",RequestURLkey:Model.show_url,WebNavBarStyleTypekey:@(kWebNavBarStyleHidden)}];
+        HTWebViewModel *viewModel = [[HTWebViewModel alloc] initWithServices:nil params:@{ViewTitlekey:@"",RequestURLkey:Model.show_url,NavBarStyleTypekey:@(kNavBarStyleHidden)}];
         [[HTMediatorAction sharedInstance] pushWebViewControllerWithViewModel:viewModel];
         
     }else{
         
         HTViewModelServicesImpl *servicesImpl = [[HTViewModelServicesImpl alloc] initModelServiceImpl];
-        HTExploreMoreViewModel *viewModel = [[HTExploreMoreViewModel alloc] initWithServices:servicesImpl];
+        HTExploreMoreViewModel *viewModel = [[HTExploreMoreViewModel alloc] initWithServices:servicesImpl params:nil];
         [[HTMediatorAction sharedInstance] pushExploreMoreViewControllerWithViewModel:viewModel];
         
     }

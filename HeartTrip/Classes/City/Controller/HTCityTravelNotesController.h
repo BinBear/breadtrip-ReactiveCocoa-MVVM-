@@ -6,12 +6,8 @@
 //  Copyright © 2016年 BinBear. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "HTBaseViewController.h"
 
-@class HTCityTravelViewModel;
-
-@interface HTCityTravelNotesController : UIViewController
-
-- (instancetype)initWithViewModel:(HTCityTravelViewModel *)viewModel;
+@interface HTCityTravelNotesController : HTBaseViewController
 
 @end

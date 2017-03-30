@@ -6,12 +6,8 @@
 //  Copyright © 2016年 BinBear. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "HTBaseViewController.h"
 
-@class HTWebViewModel;
-
-@interface HTWebViewController : UIViewController
-
-- (instancetype)initWithViewModel:(HTWebViewModel *)viewModel;
+@interface HTWebViewController : HTBaseViewController
 
 @end

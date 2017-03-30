@@ -26,11 +26,13 @@ FOUNDATION_EXTERN NSString *const Latitudekey;
 // 城市名key
 FOUNDATION_EXTERN NSString *const CityNamekey;
 // 网页标题key
-FOUNDATION_EXTERN NSString *const WebTitlekey;
+FOUNDATION_EXTERN NSString *const ViewTitlekey;
 // 网页请求地址key
 FOUNDATION_EXTERN NSString *const RequestURLkey;
 // WebViewNav的导航类型key
-FOUNDATION_EXTERN NSString *const WebNavBarStyleTypekey;
+FOUNDATION_EXTERN NSString *const NavBarStyleTypekey;
+// 网络状态类型key
+FOUNDATION_EXTERN NSString *const NetWorkStatusTypekey;
 // Web页面key
 FOUNDATION_EXTERN NSString *const WebViewTypekey;
 // model下标key

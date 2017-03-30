@@ -11,6 +11,10 @@
 		CE0165681E6047E5006AA778 /* UIView+UIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0165671E6047E5006AA778 /* UIView+UIViewController.m */; };
 		CE0208D11D879FF0006C12AB /* HTConst.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0208D01D879FF0006C12AB /* HTConst.m */; };
 		CE0208D41D87A8D7006C12AB /* HTNetWorking.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0208D31D87A8D7006C12AB /* HTNetWorking.m */; };
+		CE0D33E51E8CBAC5008F6F23 /* HTCityTravelDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0D33E41E8CBAC5008F6F23 /* HTCityTravelDetailController.m */; };
+		CE0D33E81E8CBB0C008F6F23 /* HTCityTravelDetialViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0D33E71E8CBB0C008F6F23 /* HTCityTravelDetialViewModel.m */; };
+		CE0D33EB1E8CD58A008F6F23 /* HTMediatorAction+HTCityTravelDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0D33EA1E8CD58A008F6F23 /* HTMediatorAction+HTCityTravelDetailController.m */; };
+		CE0D33EE1E8CDA01008F6F23 /* HTBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0D33ED1E8CDA01008F6F23 /* HTBaseViewController.m */; };
 		CE1594901E5DA22F004AB4F2 /* HTFoldingTabBarControllerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = CE15948F1E5DA22F004AB4F2 /* HTFoldingTabBarControllerConfig.m */; };
 		CE1ECAA91D8F8F340013D5B4 /* HTCityHunterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1ECAA81D8F8F340013D5B4 /* HTCityHunterButton.m */; };
 		CE2308671DDC39E40001ECFA /* HTCityTravelViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2308661DDC39E40001ECFA /* HTCityTravelViewModel.m */; };
@@ -91,6 +95,14 @@
 		CE0208D01D879FF0006C12AB /* HTConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTConst.m; sourceTree = "<group>"; };
 		CE0208D21D87A8D7006C12AB /* HTNetWorking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTNetWorking.h; sourceTree = "<group>"; };
 		CE0208D31D87A8D7006C12AB /* HTNetWorking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTNetWorking.m; sourceTree = "<group>"; };
+		CE0D33E31E8CBAC5008F6F23 /* HTCityTravelDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTCityTravelDetailController.h; sourceTree = "<group>"; };
+		CE0D33E41E8CBAC5008F6F23 /* HTCityTravelDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCityTravelDetailController.m; sourceTree = "<group>"; };
+		CE0D33E61E8CBB0C008F6F23 /* HTCityTravelDetialViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTCityTravelDetialViewModel.h; sourceTree = "<group>"; };
+		CE0D33E71E8CBB0C008F6F23 /* HTCityTravelDetialViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCityTravelDetialViewModel.m; sourceTree = "<group>"; };
+		CE0D33E91E8CD58A008F6F23 /* HTMediatorAction+HTCityTravelDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTMediatorAction+HTCityTravelDetailController.h"; sourceTree = "<group>"; };
+		CE0D33EA1E8CD58A008F6F23 /* HTMediatorAction+HTCityTravelDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HTMediatorAction+HTCityTravelDetailController.m"; sourceTree = "<group>"; };
+		CE0D33EC1E8CDA01008F6F23 /* HTBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTBaseViewController.h; sourceTree = "<group>"; };
+		CE0D33ED1E8CDA01008F6F23 /* HTBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTBaseViewController.m; sourceTree = "<group>"; };
 		CE15948E1E5DA22F004AB4F2 /* HTFoldingTabBarControllerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTFoldingTabBarControllerConfig.h; sourceTree = "<group>"; };
 		CE15948F1E5DA22F004AB4F2 /* HTFoldingTabBarControllerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTFoldingTabBarControllerConfig.m; sourceTree = "<group>"; };
 		CE1ECAA71D8F8F340013D5B4 /* HTCityHunterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTCityHunterButton.h; sourceTree = "<group>"; };
@@ -478,6 +490,8 @@
 			children = (
 				CE2308651DDC39E40001ECFA /* HTCityTravelViewModel.h */,
 				CE2308661DDC39E40001ECFA /* HTCityTravelViewModel.m */,
+				CE0D33E61E8CBB0C008F6F23 /* HTCityTravelDetialViewModel.h */,
+				CE0D33E71E8CBB0C008F6F23 /* HTCityTravelDetialViewModel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -504,6 +518,8 @@
 				CEEEBAE51DFFA52300CE172A /* HTMediatorAction+HTWebViewController.m */,
 				CE323B171E2F6E9F00D8E088 /* HTMediatorAction+HTExploreMoreViewController.h */,
 				CE323B181E2F6E9F00D8E088 /* HTMediatorAction+HTExploreMoreViewController.m */,
+				CE0D33E91E8CD58A008F6F23 /* HTMediatorAction+HTCityTravelDetailController.h */,
+				CE0D33EA1E8CD58A008F6F23 /* HTMediatorAction+HTCityTravelDetailController.m */,
 			);
 			path = MediatorCategorys;
 			sourceTree = "<group>";
@@ -524,6 +540,8 @@
 			children = (
 				CE56578D1D8E92020026230C /* HTCityTravelNotesController.h */,
 				CE56578E1D8E92020026230C /* HTCityTravelNotesController.m */,
+				CE0D33E31E8CBAC5008F6F23 /* HTCityTravelDetailController.h */,
+				CE0D33E41E8CBAC5008F6F23 /* HTCityTravelDetailController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -767,6 +785,8 @@
 			children = (
 				CEEEBAE71DFFC4C400CE172A /* HTWebViewController.h */,
 				CEEEBAE81DFFC4C400CE172A /* HTWebViewController.m */,
+				CE0D33EC1E8CDA01008F6F23 /* HTBaseViewController.h */,
+				CE0D33ED1E8CDA01008F6F23 /* HTBaseViewController.m */,
 			);
 			path = Contorller;
 			sourceTree = "<group>";
@@ -962,6 +982,7 @@
 				CE4852411D86C7AB00C7DC9D /* VKURLParser.m in Sources */,
 				CE4C5F481DEEB937001F0A6D /* HTViewModelServicesImpl.m in Sources */,
 				CE2546021DA9E8CF00491FAD /* UIImage+HTRoundImage.m in Sources */,
+				CE0D33E81E8CBB0C008F6F23 /* HTCityTravelDetialViewModel.m in Sources */,
 				CE50C6B71DEC07520005F44B /* HTSearchBar.m in Sources */,
 				CE5B25A41DE2E23D0041CA59 /* HTCityTravelItemModel.m in Sources */,
 				CE6A297D1DE6FF7600F99511 /* HTRefreshGifHeader.m in Sources */,
@@ -998,10 +1019,13 @@
 				CE50C6C21DEC1B860005F44B /* HTTextField.m in Sources */,
 				CE3D39441E011FBB003A4AA0 /* HTInfiniteCarouselView.m in Sources */,
 				CE323B0B1E2F0A9C00D8E088 /* HTExploreMoreViewCell.m in Sources */,
+				CE0D33EB1E8CD58A008F6F23 /* HTMediatorAction+HTCityTravelDetailController.m in Sources */,
 				CEFED5331E65761800665007 /* HTViewModel.m in Sources */,
 				CE3A63711E2E3AF400A9A41D /* HTExploreMoreImpl.m in Sources */,
+				CE0D33EE1E8CDA01008F6F23 /* HTBaseViewController.m in Sources */,
 				CE5657981D8E92480026230C /* HTMeViewController.m in Sources */,
 				CE48523E1D86C7AB00C7DC9D /* HTMediatorAction.m in Sources */,
+				CE0D33E51E8CBAC5008F6F23 /* HTCityTravelDetailController.m in Sources */,
 				CE772A5E1DED354900BE0F0D /* HTTableViewCell.m in Sources */,
 				CE3A636E1E2E345F00A9A41D /* HTExploreMoreViewController.m in Sources */,
 				CE3A636B1E2E246200A9A41D /* UIViewController+HTHideBottomLine.m in Sources */,

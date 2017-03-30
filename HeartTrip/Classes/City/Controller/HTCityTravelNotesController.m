@@ -36,7 +36,7 @@
 /**
  *  bind ViewModel
  */
-@property (strong, nonatomic) HTCityTravelViewModel *viewModel;
+@property (strong, nonatomic, readonly) HTCityTravelViewModel *viewModel;
 /**
  *  banner图数据
  */
@@ -61,17 +61,8 @@
 @end
 
 @implementation HTCityTravelNotesController
-
+@dynamic viewModel;
 #pragma mark - Life Cycle
-
-- (instancetype)initWithViewModel:(HTCityTravelViewModel *)viewModel
-{
-    if (self = [super init]) {
-        _viewModel = viewModel;
-        
-    }
-    return self;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -80,29 +71,17 @@
     
     [self setNavigationBar];
     
-    [self bindViewModel];
-
 }
 #pragma mark - bind
 - (void)bindViewModel
 {
-    [RACObserve(HT_APPDelegate , NetWorkStatus) subscribeNext:^(NSNumber *networkStatus) {
-      
-        if (networkStatus.integerValue == RealStatusNotReachable || networkStatus.integerValue == RealStatusUnknown) {
-            NSLog(@"无网络");
-            [self.viewModel.requestDataCommand execute:@(RealStatusNotReachable)];
-        }else{
-            NSLog(@"有网络");
-            [self.viewModel.requestDataCommand execute:@1];
-        }
-        
-    }];
+    [super bindViewModel];
     
     self.isSearch = NO;
     
     self.bannerView.imageURLSignal = RACObserve(self.viewModel, bannerData);
     
-    self.tripBindingHelper = [HTTableViewBindingHelper bindingHelperForTableView:self.tripTableView sourceSignal:RACObserve(self.viewModel, travelData) selectionCommand:nil templateCell:@"HTCityTravelCell" withViewModel:self.viewModel];
+    self.tripBindingHelper = [HTTableViewBindingHelper bindingHelperForTableView:self.tripTableView sourceSignal:RACObserve(self.viewModel, travelData) selectionCommand:self.viewModel.travelDetailCommand templateCell:@"HTCityTravelCell" withViewModel:self.viewModel];
     self.tripBindingHelper.delegate = self;
     
     @weakify(self);

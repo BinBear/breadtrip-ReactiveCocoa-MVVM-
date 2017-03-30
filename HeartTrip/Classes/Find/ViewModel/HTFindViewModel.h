@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HTViewModelService.h"
 #import "HTViewModel.h"
 
 @interface HTFindViewModel : HTViewModel
@@ -41,6 +40,6 @@
  */
 @property (strong, nonatomic) NSArray *videoData;
 
-- (instancetype)initWithServices:(id<HTViewModelService>)services;
+
 
 @end

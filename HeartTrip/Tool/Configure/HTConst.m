@@ -25,11 +25,13 @@ NSString *const  Latitudekey = @"Latitudekey";
 // 城市名key
 NSString *const  CityNamekey = @"CityNamekey";
 // 网页标题key
-NSString *const  WebTitlekey = @"WebTitlekey";
+NSString *const  ViewTitlekey = @"ViewTitlekey";
 // 网页请求地址key
 NSString *const  RequestURLkey = @"RequestURLkey";
-// WebViewNav的导航类型key
-NSString *const  WebNavBarStyleTypekey = @"WebNavBarStyleTypekey";
+// ViewNav的导航类型key
+NSString *const  NavBarStyleTypekey = @"NavBarStyleTypekey";
+// ViewNav的导航类型key
+NSString *const  NetWorkStatusTypekey = @"NetWorkStatusTypekey";
 // Web页面key
 NSString *const  WebViewTypekey = @"WebViewTypekey";
 // model下标key

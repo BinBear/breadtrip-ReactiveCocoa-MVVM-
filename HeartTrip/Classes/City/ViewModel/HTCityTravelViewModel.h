@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HTViewModelService.h"
 #import "HTViewModel.h"
 
 @interface HTCityTravelViewModel : HTViewModel
@@ -45,6 +44,6 @@
  */
 @property (assign , nonatomic) BOOL  isSearch;
 
-- (instancetype)initWithServices:(id<HTViewModelService>)services;
+
 
 @end

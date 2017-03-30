@@ -14,38 +14,28 @@
 
 @interface HTExploreMoreViewModel ()
 
-@property (strong , nonatomic) id<HTViewModelService> services;
 
 @end
 
 @implementation HTExploreMoreViewModel
 
-- (instancetype)initWithServices:(id<HTViewModelService>)services
+- (instancetype)initWithServices:(id<HTViewModelService>)services params:(NSDictionary *)params
 {
-    if (self = [super init]) {
+    if (self = [super initWithServices:services params:params]) {
         
-        _services = services;
-        
-        [self initialize];
+        _videosData = [NSArray new];
     }
     return self;
 }
 - (void)initialize
 {
-    self.requestDataCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
-        
-        return [[[_services getExploreMoreService] requestExploreVideosDataSignal:ExploreMore_URL] doNext:^(id  _Nullable result) {
-            
-            self.videosData = [NSArray arrayWithArray:result];
-            
-        }];
-    }];
+    [super initialize];
     
     _exploreMoreDataCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
         
-        return [[[_services getExploreMoreService] requestExploreVideosMoreDataSignal:ExploreMore_URL] doNext:^(id  _Nullable result) {
+        return [[[self.services getExploreMoreService] requestExploreVideosMoreDataSignal:ExploreMore_URL] doNext:^(id  _Nullable result) {
             
-            self.videosData = [NSArray arrayWithArray:result];
+            self.videosData = result;
             
         }];
     }];
@@ -53,7 +43,7 @@
     _videoPlayerCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(HTFindVideosModel *videoModel) {
         
         
-        HTWebViewModel *viewModel = [[HTWebViewModel alloc] initWithServices:_services params:@{WebTitlekey:@"",RequestURLkey:videoModel.show_url,WebNavBarStyleTypekey:@(kWebNavBarStyleHidden)}];
+        HTWebViewModel *viewModel = [[HTWebViewModel alloc] initWithServices:self.services params:@{ViewTitlekey:@"",RequestURLkey:videoModel.show_url,NavBarStyleTypekey:@(kNavBarStyleHidden)}];
         [[HTMediatorAction sharedInstance] pushWebViewControllerWithViewModel:viewModel];
         return [RACSignal empty];
     }];
@@ -63,7 +53,7 @@
         
         NSString *requestURL = [NSString stringWithFormat:@"http://web.breadtrip.com/hunter/product/%@/?bts=app_discover_video",product_id];
         
-        HTWebViewModel *viewModel = [[HTWebViewModel alloc] initWithServices:_services params:@{WebTitlekey:@"活动详情",RequestURLkey:requestURL,WebNavBarStyleTypekey:@(kWebNavBarStyleNomal),WebViewTypekey:@(kWebFindDetailType)}];
+        HTWebViewModel *viewModel = [[HTWebViewModel alloc] initWithServices:self.services params:@{ViewTitlekey:@"活动详情",RequestURLkey:requestURL,NavBarStyleTypekey:@(kNavBarStyleNomal),WebViewTypekey:@(kWebFindDetailType)}];
         
         [[HTMediatorAction sharedInstance] pushWebViewControllerWithViewModel:viewModel];
         
@@ -73,5 +63,12 @@
     
     _exploreMoreConnectionErrors = _exploreMoreDataCommand.errors;
 }
-
+- (RACSignal *)executeRequestDataSignal:(id)input
+{
+    return [[[self.services getExploreMoreService] requestExploreVideosDataSignal:ExploreMore_URL] doNext:^(id  _Nullable result) {
+        
+        self.videosData = result;
+        
+    }];
+}
 @end

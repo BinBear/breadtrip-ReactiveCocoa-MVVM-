@@ -6,16 +6,8 @@
 //  Copyright © 2016年 BinBear. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "HTViewModelService.h"
+#import "HTViewModel.h"
 
-
-typedef NS_ENUM(NSUInteger, HTWebNavBarStyleType) {
-    
-    kWebNavBarStyleNomal   = 1, // 默认
-    kWebNavBarStyleHidden  = 2, // 隐藏
-    
-};
 typedef NS_ENUM(NSUInteger, HTWebType) {
     
     kWebCityBannerDetailType   = 1, // 首页banner详情
@@ -23,20 +15,12 @@ typedef NS_ENUM(NSUInteger, HTWebType) {
     
 };
 
-@interface HTWebViewModel : NSObject
+@interface HTWebViewModel : HTViewModel
 
 /**
  *  请求地址
  */
 @property (copy, nonatomic) NSString *requestURL;
-/**
- *  标题
- */
-@property (copy, nonatomic) NSString *title;
-/**
- *  NavBar类型
- */
-@property (assign , nonatomic) HTWebNavBarStyleType navBarStyleType;
 /**
  *  web页面类型
  */

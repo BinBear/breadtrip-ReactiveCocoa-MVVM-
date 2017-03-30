@@ -20,7 +20,7 @@
 /**
  *  bind ViewModel
  */
-@property (strong, nonatomic) HTFindViewModel *viewModel;
+@property (strong, nonatomic, readonly) HTFindViewModel *viewModel;
 /**
  *  视频Banner
  */
@@ -36,39 +36,20 @@
 @end
 
 @implementation HTFindViewController
+@dynamic viewModel;
 
 #pragma mark - Life Cycle
-- (instancetype)initWithViewModel:(HTFindViewModel *)viewModel
-{
-    if (self = [super init]) {
-        _viewModel = viewModel;
-        
-    }
-    return self;
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = SetColor(250, 250, 250);
     self.navigationItem.title = @"发现";
     
-    [self bindViewModel];
 }
 
 #pragma mark - bind
 - (void)bindViewModel
 {
-    
-    [RACObserve(HT_APPDelegate , NetWorkStatus) subscribeNext:^(NSNumber *networkStatus) {
-        
-        if (networkStatus.integerValue == RealStatusNotReachable || networkStatus.integerValue == RealStatusUnknown) {
-            NSLog(@"无网络");
-            [self.viewModel.requestDataCommand execute:@(RealStatusNotReachable)];
-        }else{
-            NSLog(@"有网络");
-            [self.viewModel.requestDataCommand execute:@1];
-        }
-        
-    }];
+    [super bindViewModel];
     
     // findTableView
     self.findBindingHelper = [HTTableViewBindingHelper bindingHelperForTableView:self.findTableView sourceSignal:RACObserve(self.viewModel, feedData) selectionCommand:self.viewModel.feedDetailCommand templateCell:@"HTFindFeedCell" withViewModel:self.viewModel];

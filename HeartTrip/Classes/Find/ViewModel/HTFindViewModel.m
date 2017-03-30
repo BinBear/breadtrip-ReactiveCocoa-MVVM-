@@ -12,38 +12,30 @@
 #import "HTWebProtocolImpl.h"
 #import "HTMediatorAction+HTWebViewController.h"
 
+
 @interface HTFindViewModel ()
-@property (strong , nonatomic) id<HTViewModelService> services;
+
 @end
 
 @implementation HTFindViewModel
-- (instancetype)initWithServices:(id<HTViewModelService>)services
+- (instancetype)initWithServices:(id<HTViewModelService>)services params:(NSDictionary *)params
 {
-    if (self = [super init]) {
+    if (self = [super initWithServices:services params:params]) {
         
-        _services = services;
-        
-        [self initialize];
+        _feedData = [NSArray new];
+        _videoData = [NSArray new];
     }
     return self;
 }
 - (void)initialize
 {
-    self.requestDataCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
-        
-        return [[[_services getFindService] requestFindDataSignal:Find_URL] doNext:^(id  _Nullable result) {
-            
-            self.videoData = [NSArray arrayWithArray:result[FindVideoDatakey]];
-            self.feedData = [NSArray arrayWithArray:result[FindFeedDatakey]];
-            
-        }];
-    }];
+    [super initialize];
     
     _feedMoreDataCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
         
-        return [[[_services getFindService] requestFindMoreDataSignal:Find_URL] doNext:^(id  _Nullable result) {
+        return [[[self.services getFindService] requestFindMoreDataSignal:Find_URL] doNext:^(id  _Nullable result) {
             
-            self.feedData = [NSArray arrayWithArray:result[FindFeedDatakey]];
+            self.feedData = result[FindFeedDatakey];
             
         }];
     }];
@@ -54,7 +46,7 @@
         
         NSString *requestURL = [NSString stringWithFormat:@"http://web.breadtrip.com/hunter/product/%@/?bts=app_discover_share",feedModel.product_id];
         
-        HTWebViewModel *viewModel = [[HTWebViewModel alloc] initWithServices:_services params:@{WebTitlekey:@"活动详情",RequestURLkey:requestURL,WebNavBarStyleTypekey:@(kWebNavBarStyleNomal),WebViewTypekey:@(kWebFindDetailType)}];
+        HTWebViewModel *viewModel = [[HTWebViewModel alloc] initWithServices:self.services params:@{ViewTitlekey:@"活动详情",RequestURLkey:requestURL,NavBarStyleTypekey:@(kNavBarStyleNomal),WebViewTypekey:@(kWebFindDetailType)}];
         
         [[HTMediatorAction sharedInstance] pushWebViewControllerWithViewModel:viewModel];
         
@@ -65,7 +57,7 @@
         
     
         NSString *requestURL = [NSString stringWithFormat:@"http://web.breadtrip.com/hunter/product/%@/comments/",product_id];
-        HTWebViewModel *viewModel = [[HTWebViewModel alloc] initWithServices:_services params:@{WebTitlekey:@"全部评价",RequestURLkey:requestURL,WebNavBarStyleTypekey:@(kWebNavBarStyleNomal)}];
+        HTWebViewModel *viewModel = [[HTWebViewModel alloc] initWithServices:self.services params:@{ViewTitlekey:@"全部评价",RequestURLkey:requestURL,NavBarStyleTypekey:@(kNavBarStyleNomal)}];
         
         [[HTMediatorAction sharedInstance] pushWebViewControllerWithViewModel:viewModel];
         return [RACSignal empty];
@@ -73,5 +65,13 @@
     
     _feedMoreConnectionErrors = _feedMoreDataCommand.errors;
 }
-
+- (RACSignal *)executeRequestDataSignal:(id)input
+{
+    return [[[self.services getFindService] requestFindDataSignal:Find_URL] doNext:^(id  _Nullable result) {
+        
+        self.videoData = result[FindVideoDatakey];
+        self.feedData = result[FindFeedDatakey];
+        
+    }];
+}
 @end
