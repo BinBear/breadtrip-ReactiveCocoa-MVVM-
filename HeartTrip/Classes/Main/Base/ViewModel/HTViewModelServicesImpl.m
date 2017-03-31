@@ -43,19 +43,19 @@
     }
     return self;
 }
-- (id<HTCityTravelProtocol>)getCityTravelService
+- (id<HTViewModelProtocolImpl>)getCityTravelService
 {
     return self.cityTravelService;
 }
-- (id<HTFindProtocol>)getFindService
+- (id<HTViewModelProtocolImpl>)getFindService
 {
     return self.findService;
 }
-- (id<HTFindProtocol>)getExploreMoreService
+- (id<HTViewModelProtocolImpl>)getExploreMoreService
 {
     return self.exploreService;
 }
-- (id<HTWebProtocol>)getWebService
+- (id<HTViewModelProtocolImpl>)getWebService
 {
     return self.wedService;
 }

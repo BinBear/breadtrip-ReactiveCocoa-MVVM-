@@ -7,19 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HTCityTravelProtocol.h"
-#import "HTFindProtocol.h"
-#import "HTWebProtocol.h"
+#import "HTViewModelProtocolImpl.h"
+
 
 @protocol HTViewModelService <NSObject>
 
 // 获取首页服务
-- (id<HTCityTravelProtocol>) getCityTravelService;
+- (id<HTViewModelProtocolImpl>) getCityTravelService;
 
 // 获取发现服务
-- (id<HTFindProtocol>) getFindService;
+- (id<HTViewModelProtocolImpl>) getFindService;
 // 获取探索视频服务
-- (id<HTFindProtocol>) getExploreMoreService;
+- (id<HTViewModelProtocolImpl>) getExploreMoreService;
 
 // 获取目的地服务
 
@@ -27,5 +26,5 @@
 // 获取我的服务
 
 // 获得web服务
-- (id<HTWebProtocol>)getWebService;
+- (id<HTViewModelProtocolImpl>)getWebService;
 @end

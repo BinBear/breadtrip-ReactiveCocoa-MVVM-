@@ -6,7 +6,6 @@
 //  Copyright © 2017年 BinBear. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "HTViewModel.h"
 
 @interface HTExploreMoreViewModel : HTViewModel

@@ -138,6 +138,7 @@
 		CE3D39401E01199E003A4AA0 /* HTAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTAppDelegate.m; sourceTree = "<group>"; };
 		CE3D39421E011FBB003A4AA0 /* HTInfiniteCarouselView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTInfiniteCarouselView.h; sourceTree = "<group>"; };
 		CE3D39431E011FBB003A4AA0 /* HTInfiniteCarouselView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTInfiniteCarouselView.m; sourceTree = "<group>"; };
+		CE4472A21E8DFEE900B0D7EE /* HTViewModelProtocolImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTViewModelProtocolImpl.h; sourceTree = "<group>"; };
 		CE4852361D86C7AB00C7DC9D /* HTMediatorAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMediatorAction.h; sourceTree = "<group>"; };
 		CE4852371D86C7AB00C7DC9D /* HTMediatorAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMediatorAction.m; sourceTree = "<group>"; };
 		CE4852381D86C7AB00C7DC9D /* VKMsgSend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKMsgSend.h; sourceTree = "<group>"; };
@@ -149,7 +150,6 @@
 		CE4852441D86CA0100C7DC9D /* HeartTripPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeartTripPrefixHeader.pch; sourceTree = "<group>"; };
 		CE4C5F391DEEA746001F0A6D /* HTFindViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTFindViewModel.h; sourceTree = "<group>"; };
 		CE4C5F3A1DEEA746001F0A6D /* HTFindViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTFindViewModel.m; sourceTree = "<group>"; };
-		CE4C5F411DEEB876001F0A6D /* HTFindProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTFindProtocol.h; sourceTree = "<group>"; };
 		CE4C5F421DEEB89D001F0A6D /* HTFindProtocolImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTFindProtocolImpl.h; sourceTree = "<group>"; };
 		CE4C5F431DEEB89D001F0A6D /* HTFindProtocolImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTFindProtocolImpl.m; sourceTree = "<group>"; };
 		CE4C5F451DEEB937001F0A6D /* HTViewModelService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTViewModelService.h; sourceTree = "<group>"; };
@@ -189,7 +189,6 @@
 		CE5B25A01DE2E20D0041CA59 /* HTBannerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTBannerModel.m; sourceTree = "<group>"; };
 		CE5B25A21DE2E23D0041CA59 /* HTCityTravelItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTCityTravelItemModel.h; sourceTree = "<group>"; };
 		CE5B25A31DE2E23D0041CA59 /* HTCityTravelItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCityTravelItemModel.m; sourceTree = "<group>"; };
-		CE5B25A51DE2E38A0041CA59 /* HTCityTravelProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTCityTravelProtocol.h; sourceTree = "<group>"; };
 		CE5B25A81DE2E3E30041CA59 /* HTCityTravelProtocolImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTCityTravelProtocolImpl.h; sourceTree = "<group>"; };
 		CE5B25A91DE2E3E30041CA59 /* HTCityTravelProtocolImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCityTravelProtocolImpl.m; sourceTree = "<group>"; };
 		CE5D5E491DF1532200184D24 /* HTFindVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTFindVideoView.h; sourceTree = "<group>"; };
@@ -238,7 +237,6 @@
 		CEEEBAE81DFFC4C400CE172A /* HTWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTWebViewController.m; sourceTree = "<group>"; };
 		CEEEBAEA1DFFC61400CE172A /* HTWebViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTWebViewModel.h; sourceTree = "<group>"; };
 		CEEEBAEB1DFFC61400CE172A /* HTWebViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTWebViewModel.m; sourceTree = "<group>"; };
-		CEEEBAEE1DFFC93600CE172A /* HTWebProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTWebProtocol.h; sourceTree = "<group>"; };
 		CEEEBAEF1DFFC95D00CE172A /* HTWebProtocolImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTWebProtocolImpl.h; sourceTree = "<group>"; };
 		CEEEBAF01DFFC95D00CE172A /* HTWebProtocolImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTWebProtocolImpl.m; sourceTree = "<group>"; };
 		CEFED5311E65761800665007 /* HTViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTViewModel.h; sourceTree = "<group>"; };
@@ -549,7 +547,6 @@
 		CE5657361D8E69F20026230C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CE5B25A51DE2E38A0041CA59 /* HTCityTravelProtocol.h */,
 				CE5B25A81DE2E3E30041CA59 /* HTCityTravelProtocolImpl.h */,
 				CE5B25A91DE2E3E30041CA59 /* HTCityTravelProtocolImpl.m */,
 				CE5B259F1DE2E20D0041CA59 /* HTBannerModel.h */,
@@ -636,7 +633,6 @@
 		CE56573E1D8E69F20026230C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CE4C5F411DEEB876001F0A6D /* HTFindProtocol.h */,
 				CE4C5F421DEEB89D001F0A6D /* HTFindProtocolImpl.h */,
 				CE4C5F431DEEB89D001F0A6D /* HTFindProtocolImpl.m */,
 				CE3A636F1E2E3AF400A9A41D /* HTExploreMoreImpl.h */,
@@ -794,9 +790,9 @@
 		CE772A521DED354900BE0F0D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CEEEBAEE1DFFC93600CE172A /* HTWebProtocol.h */,
 				CEEEBAEF1DFFC95D00CE172A /* HTWebProtocolImpl.h */,
 				CEEEBAF01DFFC95D00CE172A /* HTWebProtocolImpl.m */,
+				CE4472A21E8DFEE900B0D7EE /* HTViewModelProtocolImpl.h */,
 			);
 			path = Model;
 			sourceTree = "<group>";

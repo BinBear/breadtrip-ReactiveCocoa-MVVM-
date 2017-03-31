@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HTCityTravelProtocol.h"
+#import "HTViewModelProtocolImpl.h"
 
-@interface HTCityTravelProtocolImpl : NSObject<HTCityTravelProtocol>
+@interface HTCityTravelProtocolImpl : NSObject<HTViewModelProtocolImpl>
 
 
 @end

@@ -1,16 +1,22 @@
 //
-//  HTFindProtocol.h
+//  HTViewModelProtocolImpl.h
 //  HeartTrip
 //
-//  Created by 熊彬 on 16/11/30.
-//  Copyright © 2016年 BinBear. All rights reserved.
+//  Created by 熊彬 on 2017/3/31.
+//  Copyright © 2017年 BinBear. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@protocol HTFindProtocol <NSObject>
+@protocol HTViewModelProtocolImpl <NSObject>
 
 @optional
+// 加载首页数据
+- (RACSignal *)requestCityTravelDataSignal:(NSString *)requestUrl;
+
+// 加载首页更多数据
+- (RACSignal *)requestCityTravelMoreDataSignal:(NSString *)requestUrl;
+
 // 加载发现数据
 - (RACSignal *)requestFindDataSignal:(NSString *)requestUrl;
 

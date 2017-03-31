@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HTFindProtocol.h"
+#import "HTViewModelProtocolImpl.h"
 
-@interface HTFindProtocolImpl : NSObject<HTFindProtocol>
+@interface HTFindProtocolImpl : NSObject<HTViewModelProtocolImpl>
 
 @end
