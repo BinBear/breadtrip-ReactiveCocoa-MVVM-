@@ -16,9 +16,9 @@ PODS:
     - AFNetworking/NSURLSession
   - CommonElement (0.2.2)
   - DZNEmptyDataSet (1.8.1)
-  - FoldingTabBar (1.1.1)
+  - FoldingTabBar (1.1.2)
   - iCarousel (1.8.3)
-  - IQKeyboardManager (4.0.8)
+  - IQKeyboardManager (4.0.9)
   - JSPatch (1.1.3):
     - JSPatch/Core (= 1.1.3)
   - JSPatch/Core (1.1.3)
@@ -30,6 +30,7 @@ PODS:
     - JSPatchPlatform/Core (= 1.6.6)
   - JSPatchPlatform/Core (1.6.6):
     - JSPatch
+  - lottie-ios (1.5.1)
   - Masonry (1.0.2)
   - MJExtension (3.0.13)
   - MJRefresh (3.1.12)
@@ -54,12 +55,13 @@ DEPENDENCIES:
   - AFNetworking (= 3.1.0)
   - CommonElement (= 0.2.2)
   - DZNEmptyDataSet
-  - FoldingTabBar (~> 1.1.1)
+  - FoldingTabBar (= 1.1.2)
   - iCarousel (= 1.8.3)
-  - IQKeyboardManager (= 4.0.8)
+  - IQKeyboardManager (= 4.0.9)
   - JSPatch/Extensions
   - JSPatch/JPCFunction
   - JSPatchPlatform
+  - lottie-ios
   - Masonry (= 1.0.2)
   - MJExtension (= 3.0.13)
   - MJRefresh (= 3.1.12)
@@ -72,11 +74,12 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   CommonElement: fec09913db4c3a170ff5ecafece69a383f404323
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
-  FoldingTabBar: 3167553a551c52a559778d0015c6c8909c3b34c5
+  FoldingTabBar: 3b1e54c0dfa6103e93e8d95d1e75a22c6d8e2843
   iCarousel: d782f635afac190c49bb8ee455882284cff8b85f
-  IQKeyboardManager: 1a8189fa153bf09044355ee0ad36826f6767e7f7
+  IQKeyboardManager: 322c7405df3eb5f7e50dede32ea937bf3d4364e0
   JSPatch: 02cfed591cb907bbfe80a346666e5a35fc2d349d
   JSPatchPlatform: 8cc9aaebe21109d5fdfb4500384ddf38ed0990e9
+  lottie-ios: f680a7c4cb7a567ecf258fde0f967913aff111b8
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
@@ -85,6 +88,6 @@ SPEC CHECKSUMS:
   RealReachability: e6c8a2bbffa316006e8c282efc1ee2567d61a920
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
 
-PODFILE CHECKSUM: 74431a65424f893024a649a67e0c00b0c9ffc9b2
+PODFILE CHECKSUM: f664081d04e20d08d973c99465a441e255eadd69
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.2.1

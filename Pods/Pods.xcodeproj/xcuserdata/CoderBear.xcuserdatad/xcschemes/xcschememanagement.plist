@@ -79,9 +79,19 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>lottie-ios.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>017653E2E48B0CC14E4BB5342FB2EE43</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>04CF549EBEEE7BC87AEAE35397184D94</key>
 		<dict>
 			<key>primary</key>
@@ -97,6 +107,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>38E75409FE8F167979016E9DCDABE338</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>3B73143539FB8DFDC1A8FBDCA55B0A8E</key>
 		<dict>
 			<key>primary</key>
@@ -107,7 +122,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8026E33E5DBDC6D0A6CA84A2EF00D950</key>
+		<key>75771701D2428D50CA7857F85F1720D0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -127,17 +142,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>A22307092F252C79FD9F37414E5922F2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>A316B54C67E947D23CECD230FA5BFAEF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A71D0785E364796E5697CA9D58D54475</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B012CCFDC5026E3EADDDDC18937C37A2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -147,7 +157,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DAFA5EBD0E177DF7D677FBC3CBC835AF</key>
+		<key>D22EAEE0BFBE26014995CDA29641DFB2</key>
 		<dict>
 			<key>primary</key>
 			<true/>

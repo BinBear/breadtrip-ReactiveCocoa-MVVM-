@@ -62,6 +62,7 @@
 
 @implementation HTCityTravelNotesController
 @dynamic viewModel;
+
 #pragma mark - Life Cycle
 
 - (void)viewDidLoad {
