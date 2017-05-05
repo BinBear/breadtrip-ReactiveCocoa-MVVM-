@@ -113,4 +113,5 @@
         bar;
     }));
 }
++ (void)popCallBack:(NSDictionary *)infoDic{};
 @end

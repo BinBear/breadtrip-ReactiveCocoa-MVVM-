@@ -14,4 +14,6 @@
 
 - (void)pushCityTravelDetailControllerWithViewModel:(HTCityTravelDetialViewModel *)viewModel;
 
+- (void)popViewControllerWithInfo:(NSDictionary *)infoDic;
+
 @end

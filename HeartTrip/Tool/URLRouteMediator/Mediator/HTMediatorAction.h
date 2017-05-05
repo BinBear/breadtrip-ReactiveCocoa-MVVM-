@@ -10,6 +10,8 @@
 #import <UIKit/UIKit.h>
 #import "VKMsgSend.h"
 
+typedef void (^HTPopViewControllerCompletion)(__kindof UIViewController *popViewController);
+
 @interface HTMediatorAction : NSObject
 
 + (instancetype)sharedInstance;

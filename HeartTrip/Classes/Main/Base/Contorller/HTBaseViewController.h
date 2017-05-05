@@ -22,5 +22,6 @@
 
 - (instancetype)initWithViewModel:(HTViewModel *)viewModel;
 - (void)bindViewModel;
++ (void)popCallBack:(NSDictionary *)infoDic;
 
 @end

@@ -9,6 +9,7 @@
 #import "HTMediatorAction+HTCityTravelDetailController.h"
 
 @implementation HTMediatorAction (HTCityTravelDetailController)
+
 - (void)pushCityTravelDetailControllerWithViewModel:(HTCityTravelDetialViewModel *)viewModel
 {
     id vc = [@"HTCityTravelDetailController" VKCallClassAllocInitSelectorName:@"initWithViewModel:" error:nil,viewModel];
@@ -17,5 +18,13 @@
     if ([vc isKindOfClass:[UIViewController class]]) {
         [currentVC.navigationController pushViewController:vc animated:YES];
     }
+}
+
+- (void)popViewControllerWithInfo:(NSDictionary *)infoDic
+{
+    UIViewController *currentVC = [self performTarget:nil action:nil];
+    [currentVC.navigationController popViewControllerAnimated:YES];
+    
+    [@"HTCityTravelNotesController" VKCallClassSelectorName:@"popCallBack:" error:nil,infoDic];
 }
 @end
