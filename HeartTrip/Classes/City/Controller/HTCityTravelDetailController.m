@@ -41,9 +41,9 @@
 {
     [super bindViewModel];
 }
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    [[HTMediatorAction sharedInstance] popViewControllerWithInfo:@{@"ClassName":@"HTCityTravelNotesController",@"Type":@"CallBack"}];
-}
+//
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+//{
+//    [[HTMediatorAction sharedInstance] popViewControllerWithInfo:@{@"ClassName":@"HTCityTravelNotesController",@"Type":@"CallBack"}];
+//}
 @end

@@ -16,6 +16,7 @@
 		CE0D33EB1E8CD58A008F6F23 /* HTMediatorAction+HTCityTravelDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0D33EA1E8CD58A008F6F23 /* HTMediatorAction+HTCityTravelDetailController.m */; };
 		CE0D33EE1E8CDA01008F6F23 /* HTBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0D33ED1E8CDA01008F6F23 /* HTBaseViewController.m */; };
 		CE1594901E5DA22F004AB4F2 /* HTFoldingTabBarControllerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = CE15948F1E5DA22F004AB4F2 /* HTFoldingTabBarControllerConfig.m */; };
+		CE1E654B1EE6622500E385BE /* heart.json in Resources */ = {isa = PBXBuildFile; fileRef = CE1E654A1EE6622500E385BE /* heart.json */; };
 		CE1ECAA91D8F8F340013D5B4 /* HTCityHunterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1ECAA81D8F8F340013D5B4 /* HTCityHunterButton.m */; };
 		CE2308671DDC39E40001ECFA /* HTCityTravelViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2308661DDC39E40001ECFA /* HTCityTravelViewModel.m */; };
 		CE2546021DA9E8CF00491FAD /* UIImage+HTRoundImage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2546011DA9E8CF00491FAD /* UIImage+HTRoundImage.m */; };
@@ -78,6 +79,8 @@
 		CEDBA9651DE43D3F00EBAF32 /* HTUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA9641DE43D3F00EBAF32 /* HTUserModel.m */; };
 		CEDBA9681DE44F8300EBAF32 /* HTCityTravelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA9671DE44F8300EBAF32 /* HTCityTravelCell.m */; };
 		CEE7B1371E30672F007A034B /* HTExplainAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE7B1361E30672F007A034B /* HTExplainAlertView.m */; };
+		CEECF5F11EE55279008DE7E6 /* HTAlertShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEECF5F01EE55279008DE7E6 /* HTAlertShowView.m */; };
+		CEECF5F61EE55586008DE7E6 /* drop_loading.json in Resources */ = {isa = PBXBuildFile; fileRef = CEECF5F51EE55586008DE7E6 /* drop_loading.json */; };
 		CEEEBAE61DFFA52300CE172A /* HTMediatorAction+HTWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEEBAE51DFFA52300CE172A /* HTMediatorAction+HTWebViewController.m */; };
 		CEEEBAE91DFFC4C400CE172A /* HTWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEEBAE81DFFC4C400CE172A /* HTWebViewController.m */; };
 		CEEEBAEC1DFFC61400CE172A /* HTWebViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEEBAEB1DFFC61400CE172A /* HTWebViewModel.m */; };
@@ -105,6 +108,7 @@
 		CE0D33ED1E8CDA01008F6F23 /* HTBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTBaseViewController.m; sourceTree = "<group>"; };
 		CE15948E1E5DA22F004AB4F2 /* HTFoldingTabBarControllerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTFoldingTabBarControllerConfig.h; sourceTree = "<group>"; };
 		CE15948F1E5DA22F004AB4F2 /* HTFoldingTabBarControllerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTFoldingTabBarControllerConfig.m; sourceTree = "<group>"; };
+		CE1E654A1EE6622500E385BE /* heart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = heart.json; sourceTree = "<group>"; };
 		CE1ECAA71D8F8F340013D5B4 /* HTCityHunterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTCityHunterButton.h; sourceTree = "<group>"; };
 		CE1ECAA81D8F8F340013D5B4 /* HTCityHunterButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCityHunterButton.m; sourceTree = "<group>"; };
 		CE20537F1E55473400EEDC97 /* HeartTrip.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HeartTrip.entitlements; sourceTree = "<group>"; };
@@ -231,6 +235,9 @@
 		CEDBA9671DE44F8300EBAF32 /* HTCityTravelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCityTravelCell.m; sourceTree = "<group>"; };
 		CEE7B1351E30672F007A034B /* HTExplainAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTExplainAlertView.h; sourceTree = "<group>"; };
 		CEE7B1361E30672F007A034B /* HTExplainAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTExplainAlertView.m; sourceTree = "<group>"; };
+		CEECF5EF1EE55279008DE7E6 /* HTAlertShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTAlertShowView.h; sourceTree = "<group>"; };
+		CEECF5F01EE55279008DE7E6 /* HTAlertShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTAlertShowView.m; sourceTree = "<group>"; };
+		CEECF5F51EE55586008DE7E6 /* drop_loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = drop_loading.json; sourceTree = "<group>"; };
 		CEEEBAE41DFFA52300CE172A /* HTMediatorAction+HTWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTMediatorAction+HTWebViewController.h"; sourceTree = "<group>"; };
 		CEEEBAE51DFFA52300CE172A /* HTMediatorAction+HTWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HTMediatorAction+HTWebViewController.m"; sourceTree = "<group>"; };
 		CEEEBAE71DFFC4C400CE172A /* HTWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTWebViewController.h; sourceTree = "<group>"; };
@@ -318,9 +325,9 @@
 			isa = PBXGroup;
 			children = (
 				CE20537F1E55473400EEDC97 /* HeartTrip.entitlements */,
+				CEECF5F41EE5557A008DE7E6 /* Resource */,
 				CE30C4B91D82CABF0028CB73 /* Application */,
 				CE30C4C51D82CB4B0028CB73 /* Classes */,
-				CE30C4C61D82CB4B0028CB73 /* Resource */,
 				CE30C4C71D82CB4B0028CB73 /* Tool */,
 				CE30C4CC1D82CB4B0028CB73 /* Vendor */,
 				CE30C4A21D82CA2E0028CB73 /* Supporting Files */,
@@ -361,13 +368,6 @@
 				CE5657401D8E69F20026230C /* Me */,
 			);
 			path = Classes;
-			sourceTree = "<group>";
-		};
-		CE30C4C61D82CB4B0028CB73 /* Resource */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Resource;
 			sourceTree = "<group>";
 		};
 		CE30C4C71D82CB4B0028CB73 /* Tool */ = {
@@ -437,6 +437,8 @@
 				CE6A297F1DE7003300F99511 /* HTRefreshGifFooter.m */,
 				CE9869DC1DEFF852002528FB /* HTLBSManager.h */,
 				CE9869DD1DEFF852002528FB /* HTLBSManager.m */,
+				CEECF5EF1EE55279008DE7E6 /* HTAlertShowView.h */,
+				CEECF5F01EE55279008DE7E6 /* HTAlertShowView.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -827,6 +829,15 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		CEECF5F41EE5557A008DE7E6 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				CEECF5F51EE55586008DE7E6 /* drop_loading.json */,
+				CE1E654A1EE6622500E385BE /* heart.json */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -901,6 +912,8 @@
 				CE30C4C41D82CABF0028CB73 /* Main.storyboard in Resources */,
 				CE30C4C21D82CABF0028CB73 /* Assets.xcassets in Resources */,
 				CE30C4C31D82CABF0028CB73 /* LaunchScreen.storyboard in Resources */,
+				CE1E654B1EE6622500E385BE /* heart.json in Resources */,
+				CEECF5F61EE55586008DE7E6 /* drop_loading.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -987,6 +1000,7 @@
 				CE5B25A11DE2E20D0041CA59 /* HTBannerModel.m in Sources */,
 				CE56578C1D8E90AD0026230C /* UIViewController+HTTabBarControllerExtention.m in Sources */,
 				CE2546051DA9EA4C00491FAD /* UIImageView+HTRoundImage.m in Sources */,
+				CEECF5F11EE55279008DE7E6 /* HTAlertShowView.m in Sources */,
 				CE772A4F1DED350100BE0F0D /* HTTabBarControllerConfig.m in Sources */,
 				CE5657951D8E92390026230C /* HTDestinationViewController.m in Sources */,
 				CE38C7921D9441AA003F3FDE /* HTAppDotNetAPIClient.m in Sources */,

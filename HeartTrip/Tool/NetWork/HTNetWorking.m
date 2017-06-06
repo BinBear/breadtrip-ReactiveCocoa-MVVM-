@@ -14,7 +14,7 @@
 
 #import "HTServerConfig.h"
 #import "HTShowMessageView.h"
-
+#import "HTAlertShowView.h"
 
 /**
  *  基础URL
@@ -1159,6 +1159,8 @@ static inline NSString *cachePath() {
   
     dispatch_main_async_safe(^{
         [HTShowMessageView showStatusWithMessage:showMessge];
+        
+//        [[HTAlertShowView sharedAlertManager] showHTAlertView];
     });
 }
 
@@ -1166,6 +1168,7 @@ static inline NSString *cachePath() {
 {
     dispatch_main_async_safe(^{
         [HTShowMessageView dismissSuccessView:@"Success"];
+//        [[HTAlertShowView sharedAlertManager] dismissAlertView];
     });
     
 }
@@ -1173,6 +1176,7 @@ static inline NSString *cachePath() {
 {
     dispatch_main_async_safe(^{
         [HTShowMessageView dismissErrorView:@"Error"];
+//        [[HTAlertShowView sharedAlertManager] dismissAlertView];
     });
     
 }

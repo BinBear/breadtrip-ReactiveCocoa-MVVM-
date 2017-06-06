@@ -167,11 +167,6 @@
     
 }
 
-+ (void)popCallBack:(NSDictionary *)infoDic
-{
-    [super popCallBack:infoDic];
-    NSLog(@"类名:%@=====类型:%@",infoDic[@"ClassName"],infoDic[@"Type"]);
-}
 #pragma mark - getter
 - (UIView *)headerView
 {
