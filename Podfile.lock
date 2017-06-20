@@ -18,7 +18,7 @@ PODS:
   - DZNEmptyDataSet (1.8.1)
   - FoldingTabBar (1.1.2)
   - iCarousel (1.8.3)
-  - IQKeyboardManager (4.0.9)
+  - IQKeyboardManager (4.0.10)
   - JSPatch (1.1.3):
     - JSPatch/Core (= 1.1.3)
   - JSPatch/Core (1.1.3)
@@ -57,7 +57,7 @@ DEPENDENCIES:
   - DZNEmptyDataSet
   - FoldingTabBar (= 1.1.2)
   - iCarousel (= 1.8.3)
-  - IQKeyboardManager (= 4.0.9)
+  - IQKeyboardManager (= 4.0.10)
   - JSPatch/Extensions
   - JSPatch/JPCFunction
   - JSPatchPlatform
@@ -76,7 +76,7 @@ SPEC CHECKSUMS:
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FoldingTabBar: 3b1e54c0dfa6103e93e8d95d1e75a22c6d8e2843
   iCarousel: d782f635afac190c49bb8ee455882284cff8b85f
-  IQKeyboardManager: 322c7405df3eb5f7e50dede32ea937bf3d4364e0
+  IQKeyboardManager: 593ee99b88381f4b9ccb22bd680f22606351bd41
   JSPatch: 02cfed591cb907bbfe80a346666e5a35fc2d349d
   JSPatchPlatform: 8cc9aaebe21109d5fdfb4500384ddf38ed0990e9
   lottie-ios: f680a7c4cb7a567ecf258fde0f967913aff111b8
@@ -88,6 +88,6 @@ SPEC CHECKSUMS:
   RealReachability: e6c8a2bbffa316006e8c282efc1ee2567d61a920
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
 
-PODFILE CHECKSUM: f664081d04e20d08d973c99465a441e255eadd69
+PODFILE CHECKSUM: 491984b839801bef6ccc760aa07ce8b3b71110da
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.3.0.beta.1

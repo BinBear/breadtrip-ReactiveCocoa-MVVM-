@@ -11,9 +11,6 @@
 #import <MMProgressHUD.h>
 
 
-static CGFloat Loading_width = 270;
-static CGFloat Loading_hight = 170;
-
 @interface HTShowMessageView ()
 
 @end

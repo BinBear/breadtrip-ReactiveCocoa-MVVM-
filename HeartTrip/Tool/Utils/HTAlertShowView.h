@@ -8,18 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HTAlertShowView : UIView
-/**
- *  获得一个CheckManager对象
- */
-+ (instancetype)sharedAlertManager;
+@interface HTAlertShowView : UIAlertView
 
-/**
- *  显示提示View
- */
--(void)showHTAlertView;
-/**
- *  隐藏提示View
- */
--(void)dismissAlertView;
+- (id)initWithTitle:(NSString *)title
+            message:(NSString *)message
+       clickedBlock:(void (^)(HTAlertShowView *alertView, BOOL cancelled, NSInteger buttonIndex))clickedBlock
+  cancelButtonTitle:(NSString *)cancelButtonTitle
+  otherButtonTitles:(NSString *)otherButtonTitles, ... NS_REQUIRES_NIL_TERMINATION;
+
 @end

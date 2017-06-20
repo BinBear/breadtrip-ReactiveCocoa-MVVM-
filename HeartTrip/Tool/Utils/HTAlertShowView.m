@@ -7,62 +7,39 @@
 //
 
 #import "HTAlertShowView.h"
-#import <Lottie/Lottie.h>
 
-static CGFloat Loading_width = 270;
-static CGFloat Loading_hight = 170;
+@interface HTAlertShowView ()<UIAlertViewDelegate>
 
 
-@interface HTAlertShowView ()
-@property (nonatomic, strong) UIView *backgroundView;
-@property (nonatomic, strong) LOTAnimationView *laAnimation;
+@property (copy, nonatomic) void (^clickedBlock)(HTAlertShowView *, BOOL, NSInteger);
+
 @end
 
 @implementation HTAlertShowView
 
-+ (instancetype)sharedAlertManager
+- (id)initWithTitle:(NSString *)title
+            message:(NSString *)message
+       clickedBlock:(void (^)(HTAlertShowView *alertView, BOOL cancelled, NSInteger buttonIndex))clickedBlock
+  cancelButtonTitle:(NSString *)cancelButtonTitle
+  otherButtonTitles:(NSString *)otherButtonTitles, ...
 {
-    HTAlertShowView *Manager = [[HTAlertShowView alloc] initWithFrame:MainScreenRect];
-    return Manager;
-}
-- (void)showHTAlertView
-{
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-
-    [window addSubview:self.backgroundView];
-    [self.laAnimation play];
     
-}
--(void)dismissAlertView
-{
-    [self.laAnimation removeFromSuperview];
-    [self.backgroundView removeFromSuperview];
+    self = [self initWithTitle:title message:message delegate:self cancelButtonTitle:cancelButtonTitle otherButtonTitles:nil];
     
-    self.laAnimation = nil;
-    self.backgroundView = nil;
-    
+    if (self) {
+        _clickedBlock = clickedBlock;
+        va_list _arguments;
+        va_start(_arguments, otherButtonTitles);
+        for (NSString *key = otherButtonTitles; key != nil; key = (__bridge NSString *)va_arg(_arguments, void *)) {
+            [self addButtonWithTitle:key];
+        }
+        va_end(_arguments);
+    }
+    return self;
 }
 
-#pragma mark - getter(lazy load)
-- (UIView *)backgroundView
-{
-    return HT_LAZY(_backgroundView, ({
-    
-        UIView *backgroundView = [[UIView alloc] initWithFrame:MainScreenRect];
-        backgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.8];
-        backgroundView;
-    }));
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    _clickedBlock(self, buttonIndex==self.cancelButtonIndex, buttonIndex);
 }
-- (LOTAnimationView *)laAnimation
-{
-    return HT_LAZY(_laAnimation, ({
-    
-        LOTAnimationView *view = [LOTAnimationView animationNamed:@"heart"];
-        view.contentMode = UIViewContentModeScaleAspectFill;
-        view.frame = CGRectMake((SCREEN_WIDTH - Loading_width)/2.0 , (SCREEN_HEIGHT - Loading_hight)/2.0, Loading_width, Loading_hight);
-        view.loopAnimation = YES;
-        [self.backgroundView addSubview:view];
-        view;
-    }));
-}
+
 @end

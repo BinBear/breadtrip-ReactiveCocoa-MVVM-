@@ -43,6 +43,8 @@
 #import <UIKit/UITableView.h>
 #import <UIKit/UITouch.h>
 
+#import <QuartzCore/CABase.h>
+
 #import <UIKit/UICollectionView.h>
 #import <UIKit/NSLayoutConstraint.h>
 
@@ -196,30 +198,10 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             
             __strong typeof(self) strongSelf = weakSelf;
 
-            //  Registering for keyboard notification.
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
-
             strongSelf.registeredClasses = [[NSMutableSet alloc] init];
 
-			//  Registering for UITextField notification.
-            [self registerTextFieldViewClass:[UITextField class]
-             didBeginEditingNotificationName:UITextFieldTextDidBeginEditingNotification
-               didEndEditingNotificationName:UITextFieldTextDidEndEditingNotification];
+            [strongSelf registerAllNotifications];
 
-            //  Registering for UITextView notification.
-            [self registerTextFieldViewClass:[UITextView class]
-             didBeginEditingNotificationName:UITextViewTextDidBeginEditingNotification
-               didEndEditingNotificationName:UITextViewTextDidEndEditingNotification];
-
-            //  Registering for orientation changes notification
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willChangeStatusBarOrientation:) name:UIApplicationWillChangeStatusBarOrientationNotification object:[UIApplication sharedApplication]];
-
-            //  Registering for status bar frame change notification
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeStatusBarFrame:) name:UIApplicationDidChangeStatusBarFrameNotification object:[UIApplication sharedApplication]];
-            
             //Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
             strongSelf.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized:)];
             strongSelf.tapGesture.cancelsTouchesInView = NO;
@@ -242,20 +224,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             [self setLayoutIfNeededOnUpdate:NO];
             [self setShouldFixInteractivePopGestureRecognizer:YES];
             
-            //Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard apperance delay (Bug ID: #550)
+            //Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay (Bug ID: #550)
             {
                 UITextField *view = [[UITextField alloc] init];
                 [view addDoneOnKeyboardWithTarget:nil action:nil];
                 [view addPreviousNextDoneOnKeyboardWithTarget:nil previousAction:nil nextAction:nil doneAction:nil];
             }
-            
-            //Special Controllers
-            static Class UIAlertControllerTextFieldViewController = Nil;  //UIAlertView
-            
-            static dispatch_once_t onceToken;
-            dispatch_once(&onceToken, ^{
-                UIAlertControllerTextFieldViewController     = NSClassFromString(@"_UIAlertControllerTextFieldViewController");
-            });
             
             //Initializing disabled classes Set.
             strongSelf.disabledDistanceHandlingClasses = [[NSMutableSet alloc] initWithObjects:[UITableViewController class],[UIAlertController class], nil];
@@ -269,13 +243,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             strongSelf.disabledTouchResignedClasses = [[NSMutableSet alloc] initWithObjects:[UIAlertController class], nil];
             strongSelf.enabledTouchResignedClasses = [[NSMutableSet alloc] init];
             strongSelf.touchResignedGestureIgnoreClasses = [[NSMutableSet alloc] initWithObjects:[UIControl class],[UINavigationBar class], nil];
-
-            if (UIAlertControllerTextFieldViewController)
-            {
-                [strongSelf.disabledDistanceHandlingClasses addObject:UIAlertControllerTextFieldViewController];
-                [strongSelf.disabledToolbarClasses addObject:UIAlertControllerTextFieldViewController];
-                [strongSelf.disabledTouchResignedClasses addObject:UIAlertControllerTextFieldViewController];
-            }
             
             [self setShouldToolbarUsesTextFieldTintColor:NO];
         });
@@ -381,6 +348,18 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     break;
                 }
             }
+            
+            //Special Controllers
+            if (enable == YES)
+            {
+                NSString *classNameString = NSStringFromClass([textFieldViewController class]);
+
+                //_UIAlertControllerTextFieldViewController
+                if ([classNameString containsString:@"UIAlertController"] && [classNameString hasSuffix:@"TextFieldViewController"])
+                {
+                    enable = NO;
+                }
+            }
         }
     }
     
@@ -439,6 +418,18 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     break;
                 }
             }
+
+            //Special Controllers
+            if (shouldResignOnTouchOutside == YES)
+            {
+                NSString *classNameString = NSStringFromClass([textFieldViewController class]);
+                
+                //_UIAlertControllerTextFieldViewController
+                if ([classNameString containsString:@"UIAlertController"] && [classNameString hasSuffix:@"TextFieldViewController"])
+                {
+                    shouldResignOnTouchOutside = NO;
+                }
+            }
         }
     }
     
@@ -494,6 +485,19 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 {
                     enableAutoToolbar = NO;
                     break;
+                }
+            }
+            
+            
+            //Special Controllers
+            if (enableAutoToolbar == YES)
+            {
+                NSString *classNameString = NSStringFromClass([textFieldViewController class]);
+                
+                //_UIAlertControllerTextFieldViewController
+                if ([classNameString containsString:@"UIAlertController"] && [classNameString hasSuffix:@"TextFieldViewController"])
+                {
+                    enableAutoToolbar = NO;
                 }
             }
         }
@@ -2176,35 +2180,75 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidEndEditing:) name:didEndEditingNotificationName object:nil];
 }
 
+/**
+ Remove customised Notification for third party customised TextField/TextView.
+ */
+-(void)unregisterTextFieldViewClass:(nonnull Class)aClass
+    didBeginEditingNotificationName:(nonnull NSString *)didBeginEditingNotificationName
+      didEndEditingNotificationName:(nonnull NSString *)didEndEditingNotificationName
+{
+    [_registeredClasses removeObject:aClass];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:didBeginEditingNotificationName object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:didEndEditingNotificationName object:nil];
+}
+
+-(void)registerAllNotifications
+{
+    //  Registering for keyboard notification.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
+    
+    //  Registering for UITextField notification.
+    [self registerTextFieldViewClass:[UITextField class]
+     didBeginEditingNotificationName:UITextFieldTextDidBeginEditingNotification
+       didEndEditingNotificationName:UITextFieldTextDidEndEditingNotification];
+    
+    //  Registering for UITextView notification.
+    [self registerTextFieldViewClass:[UITextView class]
+     didBeginEditingNotificationName:UITextViewTextDidBeginEditingNotification
+       didEndEditingNotificationName:UITextViewTextDidEndEditingNotification];
+    
+    //  Registering for orientation changes notification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willChangeStatusBarOrientation:) name:UIApplicationWillChangeStatusBarOrientationNotification object:[UIApplication sharedApplication]];
+    
+    //  Registering for status bar frame change notification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeStatusBarFrame:) name:UIApplicationDidChangeStatusBarFrameNotification object:[UIApplication sharedApplication]];
+}
+
+-(void)unregisterAllNotifications
+{
+    //  Unregistering for keyboard notification.
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
+
+    //  Unregistering for UITextField notification.
+    [self unregisterTextFieldViewClass:[UITextField class]
+     didBeginEditingNotificationName:UITextFieldTextDidBeginEditingNotification
+       didEndEditingNotificationName:UITextFieldTextDidEndEditingNotification];
+    
+    //  Unregistering for UITextView notification.
+    [self unregisterTextFieldViewClass:[UITextView class]
+     didBeginEditingNotificationName:UITextViewTextDidBeginEditingNotification
+       didEndEditingNotificationName:UITextViewTextDidEndEditingNotification];
+    
+    //  Unregistering for orientation changes notification
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillChangeStatusBarOrientationNotification object:[UIApplication sharedApplication]];
+    
+    //  Unregistering for status bar frame change notification
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidChangeStatusBarFrameNotification object:[UIApplication sharedApplication]];
+}
+
 -(void)showLog:(NSString*)logString
 {
     if (_enableDebugging)
     {
         NSLog(@"IQKeyboardManager: %@",logString);
     }
-}
-
-@end
-
-
-@implementation IQKeyboardManager(IQKeyboardManagerDeprecated)
-
--(void)setShouldHidePreviousNext:(BOOL)shouldHidePreviousNext
-{
-    objc_setAssociatedObject(self, @selector(shouldHidePreviousNext), @(shouldHidePreviousNext), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-
-    if (shouldHidePreviousNext) {
-        self.previousNextDisplayMode = IQPreviousNextDisplayModeAlwaysHide;
-    } else {
-        self.previousNextDisplayMode = IQPreviousNextDisplayModeDefault;
-    }
-}
-
--(BOOL)shouldHidePreviousNext
-{
-    NSNumber *shouldHidePreviousNext = objc_getAssociatedObject(self, @selector(shouldHidePreviousNext));
-    
-    return [shouldHidePreviousNext boolValue];
 }
 
 @end
