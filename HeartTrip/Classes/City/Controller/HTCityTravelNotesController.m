@@ -80,7 +80,8 @@
     
     self.isSearch = NO;
     
-    self.bannerView.imageURLSignal = RACObserve(self.viewModel, bannerData);
+//    self.bannerView.imageURLSignal = RACObserve(self.viewModel, bannerData);
+    RAC(self.bannerView, bannerData) = RACObserve(self.viewModel, bannerData);
     
     self.tripBindingHelper = [HTTableViewBindingHelper bindingHelperForTableView:self.tripTableView sourceSignal:RACObserve(self.viewModel, travelData) selectionCommand:self.viewModel.travelDetailCommand templateCell:@"HTCityTravelCell" withViewModel:self.viewModel];
     self.tripBindingHelper.delegate = self;

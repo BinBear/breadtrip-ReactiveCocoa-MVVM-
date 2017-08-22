@@ -24,7 +24,9 @@
 
 /** 监听滚动 */
 @property (nonatomic, copy) void (^itemDidScrollOperationBlock)(NSInteger currentIndex);
-/**  url string 信号 */
-@property (strong, nonatomic) RACSignal *imageURLSignal;
+
+
+/**  banner数据 */
+@property (strong, nonatomic) NSArray *bannerData;
 
 @end

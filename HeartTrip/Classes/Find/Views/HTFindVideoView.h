@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface HTFindVideoView : UIView
-/**  model信号 */
-@property (strong, nonatomic) RACSignal *modelSignal;
+
+/**
+ *  视频数组
+ */
+@property (strong, nonatomic) NSArray *videoData;
 @end

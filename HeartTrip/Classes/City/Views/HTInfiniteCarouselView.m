@@ -34,6 +34,7 @@
     if (self = [super initWithFrame:frame]) {
         
         [self carousel];
+        [self bindBannerData];
     }
     return self;
 }
@@ -42,6 +43,34 @@
     [super awakeFromNib];
     
     [self carousel];
+    [self bindBannerData];
+}
+
+- (void)bindBannerData
+{
+    RACSignal *imageURLSignal = [RACObserve(self, bannerData) distinctUntilChanged];
+    
+    @weakify(self);
+    [imageURLSignal subscribeNext:^(id  _Nullable x) {
+        
+        @strongify(self);
+        if ([x count] > 0) {
+            
+            [self.placeholderImageView removeFromSuperview];
+            
+            [x enumerateObjectsUsingBlock:^(HTBannerModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+                [self.imageURLStringsGroup addObject:model];
+            }];
+        }
+        
+        dispatch_main_async_safe(^{
+            
+            [self.carousel reloadData];
+            
+        });
+        
+        
+    }];
 }
 - (void)setAutoScrollTimeInterval:(CGFloat)autoScrollTimeInterval
 {
@@ -57,31 +86,7 @@
 //    UIImage *placeholderImage = [UIImage imageNamed:placeholder];
 //    self.placeholderImageView.image = [placeholderImage HT_setRadius:self.cornerRadius size:CGSizeMake(SCREEN_WIDTH - 2*PAGE_OFFSET, self.height)];
 }
-- (void)setImageURLSignal:(RACSignal *)imageURLSignal
-{
-    _imageURLSignal = imageURLSignal;
-    @weakify(self);
-    [_imageURLSignal subscribeNext:^(id  _Nullable x) {
-       
-        @strongify(self);
-        if ([x count] > 0) {
-            
-            [self.placeholderImageView removeFromSuperview];
 
-            [x enumerateObjectsUsingBlock:^(HTBannerModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-                [self.imageURLStringsGroup addObject:model];
-            }];
-        }
-        
-        dispatch_main_async_safe(^{
-            
-            [self.carousel reloadData];
-            
-        });
-        
-        
-    }];
-}
 #pragma mark - life cycle
 - (void)layoutSubviews
 {

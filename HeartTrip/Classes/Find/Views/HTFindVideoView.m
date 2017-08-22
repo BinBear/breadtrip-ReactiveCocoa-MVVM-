@@ -36,6 +36,7 @@
         self.backgroundColor = [UIColor clearColor];
         
         [self carousel];
+        [self bindBannerData];
     }
     return self;
 }
@@ -44,6 +45,7 @@
     [super awakeFromNib];
     
     [self carousel];
+    [self bindBannerData];
 }
 - (void)layoutSubviews
 {
@@ -54,11 +56,13 @@
         make.right.left.top.bottom.equalTo(self);
     }];
 }
-- (void)setModelSignal:(RACSignal *)modelSignal
+
+- (void)bindBannerData
 {
-    _modelSignal = modelSignal;
+    RACSignal *modelSignal = [RACObserve(self, videoData) distinctUntilChanged];
+    
     @weakify(self);
-    [_modelSignal subscribeNext:^(id  _Nullable x) {
+    [modelSignal subscribeNext:^(id  _Nullable x) {
         
         @strongify(self);
         if ([x count] > 0) {
@@ -78,8 +82,8 @@
         });
         
         
-    }];
-}
+    }];}
+
 #pragma mark - iCarouselDelegate && iCarouselDataSource
 - (NSInteger)numberOfItemsInCarousel:(iCarousel *)carousel
 {

@@ -37,7 +37,7 @@
     [self configurationJSPatch];
     // 配置网络状态
     [self configurationNetWorkStatus];
-    
+   
     return YES;
 }
 
