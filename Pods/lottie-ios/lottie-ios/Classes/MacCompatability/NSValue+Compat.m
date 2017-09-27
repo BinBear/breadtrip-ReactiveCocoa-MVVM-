@@ -3,7 +3,7 @@
 // Copyright (c) 2017 Airbnb. All rights reserved.
 //
 
-#if !TARGET_OS_IPHONE && !TARGET_IPHONE_SIMULATOR
+#if !TARGET_OS_IPHONE && !TARGET_OS_SIMULATOR
 #import "NSValue+Compat.h"
 
 @implementation NSValue (Compat)
@@ -22,6 +22,10 @@
 
 - (CGPoint)CGPointValue {
     return self.pointValue;
+}
+
+- (CGSize)CGSizeValue {
+  return self.sizeValue;
 }
 
 @end

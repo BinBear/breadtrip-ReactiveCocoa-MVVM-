@@ -54,6 +54,21 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>PINCache.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PINOperation.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PINRemoteImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-HeartTrip.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -74,6 +89,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Texture.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>iCarousel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -86,87 +106,6 @@
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>017653E2E48B0CC14E4BB5342FB2EE43</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>04CF549EBEEE7BC87AEAE35397184D94</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>05164CAD68E05823626BAC4AB8321A63</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>135D23180F759A69D386E8B0F1823FC7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>38E75409FE8F167979016E9DCDABE338</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3B73143539FB8DFDC1A8FBDCA55B0A8E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>5437890023F30CA85DFCA260CA914D48</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>75771701D2428D50CA7857F85F1720D0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>904F4F27FD314010A3812EB2A9306183</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9DC8D9E02903E93BD0B2FEC9D846EA20</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9E033EDB5EC0819481B0546434FA577B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A22307092F252C79FD9F37414E5922F2</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A316B54C67E947D23CECD230FA5BFAEF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C92082DC8C7760FC868CB5447DDFC40C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D22EAEE0BFBE26014995CDA29641DFB2</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DC7A51F0B370F9976D21032BDDB7222E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-	</dict>
+	<dict/>
 </dict>
 </plist>

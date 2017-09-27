@@ -14,31 +14,9 @@ typedef enum : NSUInteger {
   LOTConstraintTypeNone
 } LOTConstraintType;
 
-@interface LOTAnimationState : NSObject
+@interface LOTAnimationView () <CAAnimationDelegate>
 
-- (instancetype _Nonnull)initWithDuration:(CGFloat)duration layer:(CALayer * _Nullable)layer frameRate:(NSNumber * _Nullable)framerate;
-
-- (void)setAnimationIsPlaying:(BOOL)animationIsPlaying;
-- (void)setAnimationDoesLoop:(BOOL)loopAnimation;
-- (void)setAnimatedProgress:(CGFloat)progress;
-- (void)setAnimationSpeed:(CGFloat)speed;
-
-@property (nonatomic, readonly) BOOL loopAnimation;
-@property (nonatomic, readonly) BOOL animationIsPlaying;
-
-// Model Properties
-@property (nonatomic, readonly) CGFloat animatedProgress;
-@property (nonatomic, readonly) CGFloat animationDuration;
-@property (nonatomic, readonly) CGFloat animationSpeed;
-
-@property (nonatomic, readonly) CALayer * _Nullable layer;
-
-@end
-
-@interface LOTAnimationView ()
-
-@property (nonatomic, readonly) LOTComposition * _Nonnull sceneModel;
-@property (nonatomic, strong) LOTAnimationState *_Nonnull animationState;
-@property (nonatomic, copy, nullable) LOTAnimationCompletionBlock completionBlock;
+- (CALayer * _Nullable)layerForKey:(NSString * _Nonnull)keyname;
+- (NSArray * _Nonnull)compositionLayers;
 
 @end

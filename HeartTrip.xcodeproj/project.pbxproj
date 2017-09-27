@@ -79,6 +79,9 @@
 		CEDBA9651DE43D3F00EBAF32 /* HTUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA9641DE43D3F00EBAF32 /* HTUserModel.m */; };
 		CEDBA9681DE44F8300EBAF32 /* HTCityTravelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA9671DE44F8300EBAF32 /* HTCityTravelCell.m */; };
 		CEE7B1371E30672F007A034B /* HTExplainAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE7B1361E30672F007A034B /* HTExplainAlertView.m */; };
+		CEEC57771F5FAD2000242F4C /* HTSDWebASDKImageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEC57761F5FAD2000242F4C /* HTSDWebASDKImageContainer.m */; };
+		CEEC577A1F5FAD8500242F4C /* HTSDWebASDKImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEC57791F5FAD8500242F4C /* HTSDWebASDKImageManager.m */; };
+		CEEC577D1F5FAF3600242F4C /* ASNetworkImageNode+HTSDWebASDKImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEC577C1F5FAF3600242F4C /* ASNetworkImageNode+HTSDWebASDKImageManager.m */; };
 		CEECF5F11EE55279008DE7E6 /* HTAlertShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEECF5F01EE55279008DE7E6 /* HTAlertShowView.m */; };
 		CEECF5F61EE55586008DE7E6 /* drop_loading.json in Resources */ = {isa = PBXBuildFile; fileRef = CEECF5F51EE55586008DE7E6 /* drop_loading.json */; };
 		CEEEBAE61DFFA52300CE172A /* HTMediatorAction+HTWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEEBAE51DFFA52300CE172A /* HTMediatorAction+HTWebViewController.m */; };
@@ -235,6 +238,12 @@
 		CEDBA9671DE44F8300EBAF32 /* HTCityTravelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCityTravelCell.m; sourceTree = "<group>"; };
 		CEE7B1351E30672F007A034B /* HTExplainAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTExplainAlertView.h; sourceTree = "<group>"; };
 		CEE7B1361E30672F007A034B /* HTExplainAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTExplainAlertView.m; sourceTree = "<group>"; };
+		CEEC57751F5FAD2000242F4C /* HTSDWebASDKImageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTSDWebASDKImageContainer.h; sourceTree = "<group>"; };
+		CEEC57761F5FAD2000242F4C /* HTSDWebASDKImageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTSDWebASDKImageContainer.m; sourceTree = "<group>"; };
+		CEEC57781F5FAD8500242F4C /* HTSDWebASDKImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTSDWebASDKImageManager.h; sourceTree = "<group>"; };
+		CEEC57791F5FAD8500242F4C /* HTSDWebASDKImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTSDWebASDKImageManager.m; sourceTree = "<group>"; };
+		CEEC577B1F5FAF3600242F4C /* ASNetworkImageNode+HTSDWebASDKImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ASNetworkImageNode+HTSDWebASDKImageManager.h"; sourceTree = "<group>"; };
+		CEEC577C1F5FAF3600242F4C /* ASNetworkImageNode+HTSDWebASDKImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ASNetworkImageNode+HTSDWebASDKImageManager.m"; sourceTree = "<group>"; };
 		CEECF5EF1EE55279008DE7E6 /* HTAlertShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTAlertShowView.h; sourceTree = "<group>"; };
 		CEECF5F01EE55279008DE7E6 /* HTAlertShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTAlertShowView.m; sourceTree = "<group>"; };
 		CEECF5F51EE55586008DE7E6 /* drop_loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = drop_loading.json; sourceTree = "<group>"; };
@@ -373,6 +382,7 @@
 		CE30C4C71D82CB4B0028CB73 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				CEEC57741F5FAB9900242F4C /* HTASDKWebImageManager */,
 				CE30C4CA1D82CB4B0028CB73 /* NetWork */,
 				CE30C4CD1D82CC2C0028CB73 /* URLRouteMediator */,
 				CE30C4C81D82CB4B0028CB73 /* Category */,
@@ -829,6 +839,19 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		CEEC57741F5FAB9900242F4C /* HTASDKWebImageManager */ = {
+			isa = PBXGroup;
+			children = (
+				CEEC57751F5FAD2000242F4C /* HTSDWebASDKImageContainer.h */,
+				CEEC57761F5FAD2000242F4C /* HTSDWebASDKImageContainer.m */,
+				CEEC57781F5FAD8500242F4C /* HTSDWebASDKImageManager.h */,
+				CEEC57791F5FAD8500242F4C /* HTSDWebASDKImageManager.m */,
+				CEEC577B1F5FAF3600242F4C /* ASNetworkImageNode+HTSDWebASDKImageManager.h */,
+				CEEC577C1F5FAF3600242F4C /* ASNetworkImageNode+HTSDWebASDKImageManager.m */,
+			);
+			path = HTASDKWebImageManager;
+			sourceTree = "<group>";
+		};
 		CEECF5F41EE5557A008DE7E6 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -941,13 +964,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HeartTrip-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B8A3B0BCB252FA1756D39E8C /* [CP] Copy Pods Resources */ = {
@@ -956,9 +982,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-HeartTrip/Pods-HeartTrip-resources.sh",
+				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
+				"${PODS_ROOT}/JSPatch/JSPatch/JSPatch.js",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -980,8 +1011,10 @@
 				CE48523F1D86C7AB00C7DC9D /* VKMsgSend.m in Sources */,
 				CE5657861D8E8DA50026230C /* HTCustomTabBarButton.m in Sources */,
 				CE5B25AA1DE2E3E30041CA59 /* HTCityTravelProtocolImpl.m in Sources */,
+				CEEC577D1F5FAF3600242F4C /* ASNetworkImageNode+HTSDWebASDKImageManager.m in Sources */,
 				CE50C6BF1DEC0F6A0005F44B /* UISearchBar+HTAdd.m in Sources */,
 				CE4852401D86C7AB00C7DC9D /* VKURLAction.m in Sources */,
+				CEEC577A1F5FAD8500242F4C /* HTSDWebASDKImageManager.m in Sources */,
 				CE772A641DED5FEB00BE0F0D /* HTFindUserModel.m in Sources */,
 				CE3D39411E01199E003A4AA0 /* HTAppDelegate.m in Sources */,
 				CE0208D11D879FF0006C12AB /* HTConst.m in Sources */,
@@ -992,6 +1025,7 @@
 				CE4C5F481DEEB937001F0A6D /* HTViewModelServicesImpl.m in Sources */,
 				CE2546021DA9E8CF00491FAD /* UIImage+HTRoundImage.m in Sources */,
 				CE0D33E81E8CBB0C008F6F23 /* HTCityTravelDetialViewModel.m in Sources */,
+				CEEC57771F5FAD2000242F4C /* HTSDWebASDKImageContainer.m in Sources */,
 				CE50C6B71DEC07520005F44B /* HTSearchBar.m in Sources */,
 				CE5B25A41DE2E23D0041CA59 /* HTCityTravelItemModel.m in Sources */,
 				CE6A297D1DE6FF7600F99511 /* HTRefreshGifHeader.m in Sources */,
@@ -1165,7 +1199,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/HeartTrip/HeartTripPrefixHeader.pch";
 				INFOPLIST_FILE = HeartTrip/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = BinBear.HeartTrip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1185,7 +1219,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/HeartTrip/HeartTripPrefixHeader.pch";
 				INFOPLIST_FILE = HeartTrip/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = BinBear.HeartTrip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
