@@ -11,12 +11,17 @@
 #import "HTFindProtocolImpl.h"
 #import "HTWebProtocolImpl.h"
 #import "HTExploreMoreImpl.h"
+#import "HTCityTravelDetailProtocolImpl.h"
 
 @interface HTViewModelServicesImpl ()
 /**
  *  首页数据服务
  */
 @property (strong, nonatomic) HTCityTravelProtocolImpl *cityTravelService;
+/**
+ *  首页详情数据服务
+ */
+@property (strong, nonatomic) HTCityTravelDetailProtocolImpl *cityTravelDetailService;
 /**
  *  发现数据服务
  */
@@ -37,15 +42,21 @@
     if (self = [super init]) {
         
         _cityTravelService = [HTCityTravelProtocolImpl new];
+        _cityTravelDetailService = [HTCityTravelDetailProtocolImpl new];
         _findService = [HTFindProtocolImpl new];
         _exploreService = [HTExploreMoreImpl new];
         _wedService = [HTWebProtocolImpl new];
+        
     }
     return self;
 }
 - (id<HTViewModelProtocolImpl>)getCityTravelService
 {
     return self.cityTravelService;
+}
+- (id<HTViewModelProtocolImpl>)getCityTravelDetailService
+{
+    return self.cityTravelDetailService;
 }
 - (id<HTViewModelProtocolImpl>)getFindService
 {

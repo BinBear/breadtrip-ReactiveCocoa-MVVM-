@@ -30,8 +30,10 @@
 }
 - (void)bindViewModel
 {
+    @weakify(self);
     [RACObserve(HT_APPDelegate , NetWorkStatus) subscribeNext:^(NSNumber *networkStatus) {
         
+        @strongify(self);
         if (networkStatus.integerValue == RealStatusNotReachable || networkStatus.integerValue == RealStatusUnknown) {
             
             [self.viewModel.requestDataCommand execute:@(RealStatusNotReachable)];

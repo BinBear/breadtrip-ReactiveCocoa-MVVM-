@@ -27,12 +27,13 @@
 
 #import <Foundation/NSObject.h>
 #import <Foundation/NSObjCRuntime.h>
+#import <Foundation/NSSet.h>
 
-#import <UIKit/UITapGestureRecognizer.h>
 #import <UIKit/UITextInputTraits.h>
-#import <UIKit/UIView.h>
 
-@class UIFont;
+@class UIFont, UIColor, UITapGestureRecognizer, UIView, UIImage;
+
+@class NSString;
 
 ///---------------------
 /// @name IQToolbar tags
@@ -238,6 +239,17 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  If YES, then always consider UINavigationController.view begin point as {0,0}, this is a workaround to fix a bug #464 because there are no notification mechanism exist when UINavigationController.view.frame gets changed internally.
  */
 @property(nonatomic, assign) BOOL shouldFixInteractivePopGestureRecognizer;
+
+#ifdef __IPHONE_11_0
+///---------------------------
+/// @name Safe Area
+///---------------------------
+
+/**
+ If YES, then library will try to adjust viewController.additionalSafeAreaInsets to automatically handle layout guide. Default is NO.
+ */
+@property(nonatomic, assign) BOOL canAdjustAdditionalSafeAreaInsets;
+#endif
 
 ///---------------------------------------------
 /// @name Class Level enabling/disabling methods

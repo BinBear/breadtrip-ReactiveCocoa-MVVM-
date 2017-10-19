@@ -21,9 +21,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import "IQToolbar.h"
 
 #import <UIKit/UIView.h>
-#import "IQToolbar.h"
 
 /**
  UIView category methods to add IQToolbar on UIKeyboard.

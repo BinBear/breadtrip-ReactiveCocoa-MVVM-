@@ -584,6 +584,11 @@ extern NSInteger const ASDefaultDrawingPriority;
  */
 - (NSString *)displayNodeRecursiveDescription AS_WARN_UNUSED_RESULT;
 
+/**
+ * A detailed description of this node's layout state. This is useful when debugging.
+ */
+@property (atomic, copy, readonly) NSString *detailedLayoutDescription;
+
 @end
 
 /**
@@ -780,7 +785,7 @@ extern NSInteger const ASDefaultDrawingPriority;
  * @abstract Return the calculated size.
  *
  * @discussion Ideal for use by subclasses in -layout, having already prompted their subnodes to calculate their size by
- * calling -measure: on them in -calculateLayoutThatFits.
+ * calling -layoutThatFits: on them in -calculateLayoutThatFits.
  *
  * @return Size already calculated by -calculateLayoutThatFits:.
  *

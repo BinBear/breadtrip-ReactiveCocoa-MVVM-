@@ -17,6 +17,9 @@
 // 加载首页更多数据
 - (RACSignal *)requestCityTravelMoreDataSignal:(NSString *)requestUrl;
 
+// 加载首页详情数据
+- (RACSignal *)requestCityTravelDetailDataSignal:(NSString *)requestUrl;
+
 // 加载发现数据
 - (RACSignal *)requestFindDataSignal:(NSString *)requestUrl;
 

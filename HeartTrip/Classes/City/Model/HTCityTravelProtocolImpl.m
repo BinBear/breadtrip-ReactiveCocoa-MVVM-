@@ -34,8 +34,9 @@
 - (RACSignal *)requestCityTravelDataSignal:(NSString *)requestUrl
 {
     
+    @weakify(self);
     return [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
-        
+        @strongify(self);
         HTURLSessionTask *task = [HTNetWorking getWithUrl:requestUrl refreshCache:YES showHUD:@"loading..." success:^(id response) {
             
             [self.bannerData removeAllObjects];
@@ -80,8 +81,10 @@
 }
 - (RACSignal *)requestCityTravelMoreDataSignal:(NSString *)requestUrl
 {
+    @weakify(self);
     return [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
         
+        @strongify(self);
         NSDictionary *params = @{@"next_start":(self.next_start ? self.next_start : @"1")};
         
         HTURLSessionTask *task = [HTNetWorking getWithUrl:requestUrl refreshCache:YES showHUD:@"loading..." params:params success:^(id response) {

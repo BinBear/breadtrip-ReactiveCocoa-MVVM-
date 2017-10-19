@@ -28,6 +28,7 @@
 		CE323B0B1E2F0A9C00D8E088 /* HTExploreMoreViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE323B0A1E2F0A9C00D8E088 /* HTExploreMoreViewCell.m */; };
 		CE323B131E2F67DD00D8E088 /* HTExploreMoreViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE323B121E2F67DD00D8E088 /* HTExploreMoreViewModel.m */; };
 		CE323B191E2F6E9F00D8E088 /* HTMediatorAction+HTExploreMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE323B181E2F6E9F00D8E088 /* HTMediatorAction+HTExploreMoreViewController.m */; };
+		CE35A8111F90938800B110F1 /* HTCityTravelDetailProtocolImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = CE35A8101F90938800B110F1 /* HTCityTravelDetailProtocolImpl.m */; };
 		CE38C7921D9441AA003F3FDE /* HTAppDotNetAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CE38C7911D9441AA003F3FDE /* HTAppDotNetAPIClient.m */; };
 		CE3A636B1E2E246200A9A41D /* UIViewController+HTHideBottomLine.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3A636A1E2E246200A9A41D /* UIViewController+HTHideBottomLine.m */; };
 		CE3A636E1E2E345F00A9A41D /* HTExploreMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3A636D1E2E345F00A9A41D /* HTExploreMoreViewController.m */; };
@@ -133,6 +134,8 @@
 		CE323B121E2F67DD00D8E088 /* HTExploreMoreViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTExploreMoreViewModel.m; sourceTree = "<group>"; };
 		CE323B171E2F6E9F00D8E088 /* HTMediatorAction+HTExploreMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTMediatorAction+HTExploreMoreViewController.h"; sourceTree = "<group>"; };
 		CE323B181E2F6E9F00D8E088 /* HTMediatorAction+HTExploreMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HTMediatorAction+HTExploreMoreViewController.m"; sourceTree = "<group>"; };
+		CE35A80F1F90938800B110F1 /* HTCityTravelDetailProtocolImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTCityTravelDetailProtocolImpl.h; sourceTree = "<group>"; };
+		CE35A8101F90938800B110F1 /* HTCityTravelDetailProtocolImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTCityTravelDetailProtocolImpl.m; sourceTree = "<group>"; };
 		CE38C7901D9441AA003F3FDE /* HTAppDotNetAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTAppDotNetAPIClient.h; sourceTree = "<group>"; };
 		CE38C7911D9441AA003F3FDE /* HTAppDotNetAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTAppDotNetAPIClient.m; sourceTree = "<group>"; };
 		CE3A63691E2E246200A9A41D /* UIViewController+HTHideBottomLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HTHideBottomLine.h"; sourceTree = "<group>"; };
@@ -567,6 +570,8 @@
 				CE5B25A31DE2E23D0041CA59 /* HTCityTravelItemModel.m */,
 				CEDBA9631DE43D3F00EBAF32 /* HTUserModel.h */,
 				CEDBA9641DE43D3F00EBAF32 /* HTUserModel.m */,
+				CE35A80F1F90938800B110F1 /* HTCityTravelDetailProtocolImpl.h */,
+				CE35A8101F90938800B110F1 /* HTCityTravelDetailProtocolImpl.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1005,6 +1010,7 @@
 			files = (
 				CE5657301D8E42CC0026230C /* HTServerConfig.m in Sources */,
 				CE2308671DDC39E40001ECFA /* HTCityTravelViewModel.m in Sources */,
+				CE35A8111F90938800B110F1 /* HTCityTravelDetailProtocolImpl.m in Sources */,
 				CE772A611DED5FD500BE0F0D /* HTFindFeedModel.m in Sources */,
 				CE323B131E2F67DD00D8E088 /* HTExploreMoreViewModel.m in Sources */,
 				CE5657331D8E476D0026230C /* HTShowMessageView.m in Sources */,

@@ -836,9 +836,9 @@ Apache License
    END OF TERMS AND CONDITIONS
 
 
-## ReactiveCocoa
+## ReactiveObjC
 
-**Copyright (c) 2012 - 2015, GitHub, Inc.**
+**Copyright (c) 2012 - 2016, GitHub, Inc.**
 **All rights reserved.**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of

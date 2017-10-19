@@ -21,7 +21,7 @@
 - (instancetype)initWithServices:(id<HTViewModelService>)services params:(NSDictionary *)params
 {
     
-    if ([super init]) {
+    if (self = [super init]) {
 
         self.services = services;
         self.navBarStyleType = [params[NavBarStyleTypekey] integerValue];

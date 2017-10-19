@@ -23,7 +23,6 @@ typedef NS_OPTIONS(NSUInteger, SDWebImageDownloaderOptions) {
     /**
      * Call completion block with nil image/imageData if the image was read from NSURLCache
      * (to be combined with `SDWebImageDownloaderUseNSURLCache`).
-     * I think this option should be renamed to 'SDWebImageDownloaderUsingCachedResponseDontLoad'
      */
     SDWebImageDownloaderIgnoreCachedResponse = 1 << 3,
     
@@ -68,8 +67,8 @@ typedef NS_ENUM(NSInteger, SDWebImageDownloaderExecutionOrder) {
     SDWebImageDownloaderLIFOExecutionOrder
 };
 
-extern NSString * _Nonnull const SDWebImageDownloadStartNotification;
-extern NSString * _Nonnull const SDWebImageDownloadStopNotification;
+FOUNDATION_EXPORT NSString * _Nonnull const SDWebImageDownloadStartNotification;
+FOUNDATION_EXPORT NSString * _Nonnull const SDWebImageDownloadStopNotification;
 
 typedef void(^SDWebImageDownloaderProgressBlock)(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL);
 

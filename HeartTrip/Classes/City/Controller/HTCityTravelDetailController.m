@@ -46,4 +46,8 @@
 //{
 //    [[HTMediatorAction sharedInstance] popViewControllerWithInfo:@{@"ClassName":@"HTCityTravelNotesController",@"Type":@"CallBack"}];
 //}
+- (void)dealloc
+{
+    NSLog(@"销毁");
+}
 @end

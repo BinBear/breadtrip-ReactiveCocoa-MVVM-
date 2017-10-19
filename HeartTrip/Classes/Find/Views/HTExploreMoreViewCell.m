@@ -135,11 +135,13 @@
     }else if (![model.address isNotBlank] && [model.distance isNotBlank]){
         self.likerNumLabel.text = [NSString stringWithFormat:@"%@ · %@个人喜欢",model.distance,model.liked_count];
     }
-    
+        
     [[[[self.productLink rac_signalForControlEvents:UIControlEventTouchUpInside]
-       doNext:^(id x) {
-           self.productLink.enabled = NO;
-       }] flattenMap:^RACStream *(id value) {
+       doNext:^(__kindof UIControl * _Nullable x) {
+           
+            self.productLink.enabled = NO;
+           
+       }] flattenMap:^__kindof RACSignal * _Nullable(__kindof UIControl * _Nullable value) {
            
            return [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
                [exploreModel.productDetailCommand execute:model.product_id];
@@ -147,7 +149,8 @@
                [subscriber sendCompleted];
                return nil;
            }];
-       }] subscribeNext:^(id x) {
+       }] subscribeNext:^(id  _Nullable x) {
+           
            self.productLink.enabled = YES;
        }];
 }

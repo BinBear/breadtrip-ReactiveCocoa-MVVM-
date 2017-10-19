@@ -299,21 +299,23 @@
         }
     }];
     
-    
     [[[[self.commentLink rac_signalForControlEvents:UIControlEventTouchUpInside]
-     doNext:^(id x) {
-         self.commentLink.enabled = NO;
-    }] flattenMap:^RACStream *(id value) {
-        
-        return [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
-            [findViewModel.commentLinkCommand execute:model.product_id];
-            [subscriber sendNext:nil];
-            [subscriber sendCompleted];
-            return nil;
-        }];
-    }] subscribeNext:^(id x) {
-        self.commentLink.enabled = YES;
-    }];
+       doNext:^(__kindof UIControl * _Nullable x) {
+           
+           self.commentLink.enabled = NO;
+           
+       }] flattenMap:^__kindof RACSignal * _Nullable(__kindof UIControl * _Nullable value) {
+           
+           return [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+               [findViewModel.commentLinkCommand execute:model.product_id];
+               [subscriber sendNext:nil];
+               [subscriber sendCompleted];
+               return nil;
+           }];
+       }] subscribeNext:^(id  _Nullable x) {
+           
+           self.commentLink.enabled = YES;
+       }];
 }
 
 #pragma mark - getter

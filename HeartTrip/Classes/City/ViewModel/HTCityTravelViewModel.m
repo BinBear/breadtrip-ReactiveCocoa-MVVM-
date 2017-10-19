@@ -32,6 +32,7 @@
 {
     [super initialize];
     
+    
     RACSignal *visibleStateChanged = [RACObserve(self, isSearch) skip:1];
     
 
@@ -39,9 +40,10 @@
         
         _isSearch = visible.boolValue;
     }];
-    
+    @weakify(self);
     _travelMoreDataCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
         
+        @strongify(self);
         return [[[self.services getCityTravelService] requestCityTravelMoreDataSignal:CityTravel_URL] doNext:^(id  _Nullable result) {
             
             self.travelData = result[TravelDatakey];
@@ -50,7 +52,7 @@
     }];
     
     _rightBarButtonItemCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
-        
+        @strongify(self);
         return  [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
             [subscriber sendNext:[NSNumber numberWithBool:self.isSearch]];
             [subscriber sendCompleted];
@@ -59,8 +61,10 @@
     }];
     _travelDetailCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         
+        HTCityTravelItemModel *itemViewModel = input;
+        NSString *requestURL = [NSString stringWithFormat:@"http://api.breadtrip.com/trips/%@/waypoints/?gallery_mode=1",itemViewModel.travelID];
         HTViewModelServicesImpl *servicesImpl = [[HTViewModelServicesImpl alloc] initModelServiceImpl];
-        HTCityTravelDetialViewModel *viewModel = [[HTCityTravelDetialViewModel alloc] initWithServices:servicesImpl params:nil];
+        HTCityTravelDetialViewModel *viewModel = [[HTCityTravelDetialViewModel alloc] initWithServices:servicesImpl params:@{RequestURLkey:requestURL,NavBarStyleTypekey:@(kNavBarStyleNomal)}];
         [[HTMediatorAction sharedInstance] pushCityTravelDetailControllerWithViewModel:viewModel];
         
         return [RACSignal empty];
@@ -77,8 +81,9 @@
         
     }else{
         
+        @weakify(self);
         return [[[self.services getCityTravelService] requestCityTravelDataSignal:CityTravel_URL] doNext:^(id  _Nullable result) {
-            
+            @strongify(self);
             self.bannerData = result[BannerDatakey];
             self.travelData = result[TravelDatakey];
             

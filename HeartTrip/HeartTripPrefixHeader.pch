@@ -24,7 +24,7 @@
 
 #import <CommonElement.h>
 #import <Masonry.h>
-#import <ReactiveCocoa.h>
+#import <ReactiveObjC.h>
 #import <MJExtension.h>
 #import <MJRefresh.h>
 #import <SDWebImage/UIImageView+WebCache.h>

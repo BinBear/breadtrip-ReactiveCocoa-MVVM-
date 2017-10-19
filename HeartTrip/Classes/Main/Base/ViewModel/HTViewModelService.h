@@ -14,6 +14,8 @@
 
 // 获取首页服务
 - (id<HTViewModelProtocolImpl>) getCityTravelService;
+// 获取首页详情服务
+- (id<HTViewModelProtocolImpl>) getCityTravelDetailService;
 
 // 获取发现服务
 - (id<HTViewModelProtocolImpl>) getFindService;

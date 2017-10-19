@@ -90,8 +90,15 @@
     return self.modelGroup.count;
 }
 -(UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view{
-    CGFloat viewWidth = (SCREEN_WIDTH/375)*300;
-    CGFloat viewHeight = (SCREEN_HEIGHT/667)*200;
+    
+    CGFloat viewWidth  = (SCREEN_WIDTH/375)*300;
+    CGFloat viewHeight = 0.0 ;
+    if (IS_IPHONEX) {
+        
+        viewHeight = (SCREEN_HEIGHT/812)*200;
+    }else{
+        viewHeight = (SCREEN_HEIGHT/667)*200;
+    }
     UILabel *titleLabel = nil;
     UILabel *likeLabel = nil;
     UIImageView *startView = nil;

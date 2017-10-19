@@ -26,7 +26,7 @@ NSString *const  Latitudekey = @"Latitudekey";
 NSString *const  CityNamekey = @"CityNamekey";
 // 网页标题key
 NSString *const  ViewTitlekey = @"ViewTitlekey";
-// 网页请求地址key
+// 数据请求地址key
 NSString *const  RequestURLkey = @"RequestURLkey";
 // ViewNav的导航类型key
 NSString *const  NavBarStyleTypekey = @"NavBarStyleTypekey";

@@ -24,6 +24,8 @@
 
 #import <UIKit/UIBarButtonItem.h>
 
+@class NSInvocation;
+
 /**
  IQBarButtonItem used for IQToolbar.
  */
