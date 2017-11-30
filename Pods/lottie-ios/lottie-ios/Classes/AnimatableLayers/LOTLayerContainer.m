@@ -105,7 +105,7 @@
   interpolators[@"Transform.Opacity"] = _opacityInterpolator;
   interpolators[@"Transform.Anchor Point"] = _transformInterpolator.anchorInterpolator;
   interpolators[@"Transform.Scale"] = _transformInterpolator.scaleInterpolator;
-  interpolators[@"Transform.Rotation"] = _transformInterpolator.scaleInterpolator;
+  interpolators[@"Transform.Rotation"] = _transformInterpolator.rotationInterpolator;
   if (_transformInterpolator.positionXInterpolator &&
       _transformInterpolator.positionYInterpolator) {
     interpolators[@"Transform.X Position"] = _transformInterpolator.positionXInterpolator;
@@ -143,7 +143,7 @@
       } else {
         image = [UIImage imageWithContentsOfFile:imagePath];
       }
-    }else{
+    } else {
       NSArray *components = [asset.imageName componentsSeparatedByString:@"."];
       image = [UIImage imageNamed:components.firstObject inBundle:asset.assetBundle compatibleWithTraitCollection:nil];
     }
@@ -167,7 +167,7 @@
       CGFloat desiredScaleFactor = [window backingScaleFactor];
       CGFloat actualScaleFactor = [image recommendedLayerContentsScale:desiredScaleFactor];
       id layerContents = [image layerContentsForContentsScale:actualScaleFactor];
-      _wrapperLayer = layerContents;
+      _wrapperLayer.contents = layerContents;
     }
   }
   
@@ -184,8 +184,8 @@
   return [super needsDisplayForKey:key];
 }
 
--(id<CAAction>)actionForKey:(NSString *)event {
-  if([event isEqualToString:@"currentFrame"]) {
+- (id<CAAction>)actionForKey:(NSString *)event {
+  if ([event isEqualToString:@"currentFrame"]) {
     CABasicAnimation *theAnimation = [CABasicAnimation
                                       animationWithKeyPath:event];
     theAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
@@ -255,6 +255,33 @@
       return [interpolator setValue:value atFrame:frame];
     } else {
       return [_contentsGroup setValue:value forKeyAtPath:keypath forFrame:frame];
+    }
+  } else {
+    NSArray *transFormComponents = [keypath componentsSeparatedByString:@".Transform."];
+    if (transFormComponents.count == 2) {
+      // Is a layer level transform. Check if it applies to a parent transform.
+      NSString *layerName = transFormComponents.firstObject;
+      NSString *attribute = transFormComponents.lastObject;
+      LOTTransformInterpolator *parentTransform = _transformInterpolator.inputNode;
+      while (parentTransform) {
+        if ([parentTransform.parentKeyName isEqualToString:layerName]) {
+          if ([attribute isEqualToString:@"Anchor Point"]) {
+            [parentTransform.anchorInterpolator setValue:value atFrame:frame];
+          } else if ([attribute isEqualToString:@"Scale"]) {
+            [parentTransform.scaleInterpolator setValue:value atFrame:frame];
+          } else if ([attribute isEqualToString:@"Rotation"]) {
+            [parentTransform.rotationInterpolator setValue:value atFrame:frame];
+          } else if ([attribute isEqualToString:@"X Position"]) {
+            [parentTransform.positionXInterpolator setValue:value atFrame:frame];
+          } else if ([attribute isEqualToString:@"Y Position"]) {
+            [parentTransform.positionYInterpolator setValue:value atFrame:frame];
+          } else if ([attribute isEqualToString:@"Position"]) {
+            [parentTransform.positionInterpolator setValue:value atFrame:frame];
+          }
+          parentTransform = nil;
+        }
+        parentTransform = parentTransform.inputNode;
+      }
     }
   }
   return NO;

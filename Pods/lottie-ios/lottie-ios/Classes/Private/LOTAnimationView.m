@@ -24,6 +24,10 @@ static NSString * const kCompContainerAnimationKey = @"play";
   CGFloat _playRangeEndProgress;
   NSBundle *_bundle;
   CGFloat _animationProgress;
+
+  // Properties for tracking automatic restoration of animation.
+  BOOL _shouldRestoreStateWhenAttachedToWindow;
+  LOTAnimationCompletionBlock _completionBlockToRestoreWhenAttachedToWindow;
 }
 
 # pragma mark - Convenience Initializers
@@ -63,7 +67,7 @@ static NSString * const kCompContainerAnimationKey = @"play";
       [self _initializeAnimationContainer];
       [self _setupWithSceneModel:laScene];
     } else {
-      dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
         NSData *animationData = [NSData dataWithContentsOfURL:url];
         if (!animationData) {
           return;
@@ -76,7 +80,7 @@ static NSString * const kCompContainerAnimationKey = @"play";
         }
         
         LOTComposition *laScene = [[LOTComposition alloc] initWithJSON:animationJSON withAssetBundle:[NSBundle mainBundle]];
-        dispatch_async(dispatch_get_main_queue(), ^(void){
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
           [[LOTAnimationCache sharedCache] addAnimation:laScene forKey:url.absoluteString];
           laScene.cacheKey = url.absoluteString;
           [self _initializeAnimationContainer];
@@ -101,6 +105,14 @@ static NSString * const kCompContainerAnimationKey = @"play";
 
 - (instancetype)init {
   self = [super init];
+  if (self) {
+    [self _commonInit];
+  }
+  return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+  self = [super initWithCoder:coder];
   if (self) {
     [self _commonInit];
   }
@@ -248,7 +260,7 @@ static NSString * const kCompContainerAnimationKey = @"play";
 }
 
 - (void)playToFrame:(nonnull NSNumber *)toFrame
-     withCompletion:(nullable LOTAnimationCompletionBlock)completion{
+     withCompletion:(nullable LOTAnimationCompletionBlock)completion {
   [self playFromFrame:_sceneModel.startFrame toFrame:toFrame withCompletion:completion];
 }
 
@@ -267,19 +279,39 @@ static NSString * const kCompContainerAnimationKey = @"play";
     _isAnimationPlaying = YES;
     return;
   }
+  if (!self.window) {
+    _shouldRestoreStateWhenAttachedToWindow = YES;
+    _completionBlockToRestoreWhenAttachedToWindow = self.completionBlock;
+    self.completionBlock = nil;
+  }
+
+  BOOL playingForward = ((_animationSpeed > 0) && (toEndFrame.floatValue > fromStartFrame.floatValue))
+    || ((_animationSpeed < 0) && (fromStartFrame.floatValue > toEndFrame.floatValue));
+
+  CGFloat leftFrameValue = MIN(fromStartFrame.floatValue, toEndFrame.floatValue);
+  CGFloat rightFrameValue = MAX(fromStartFrame.floatValue, toEndFrame.floatValue);
+
   NSNumber *currentFrame = [self _frameForProgress:_animationProgress];
 
-  currentFrame = @(MAX(MIN(currentFrame.floatValue, toEndFrame.floatValue), fromStartFrame.floatValue));
-  BOOL playingForward = [self _isSpeedNegative];
-  if (currentFrame.floatValue == toEndFrame.floatValue && playingForward) {
-    currentFrame = fromStartFrame;
-  } else if (currentFrame.floatValue == fromStartFrame.floatValue && !playingForward) {
-    currentFrame = toEndFrame;
+  currentFrame = @(MAX(MIN(currentFrame.floatValue, rightFrameValue), leftFrameValue));
+
+  if (currentFrame.floatValue == rightFrameValue && playingForward) {
+    currentFrame = @(leftFrameValue);
+  } else if (currentFrame.floatValue == leftFrameValue && !playingForward) {
+    currentFrame = @(rightFrameValue);
   }
   _animationProgress = [self _progressForFrame:currentFrame];
   
-  NSTimeInterval offset = MAX(0, (_animationProgress * (_sceneModel.endFrame.floatValue - _sceneModel.startFrame.floatValue)) - fromStartFrame.floatValue) / _sceneModel.framerate.floatValue;
-  NSTimeInterval duration = ((toEndFrame.floatValue - fromStartFrame.floatValue) / _sceneModel.framerate.floatValue);
+  CGFloat currentProgress = _animationProgress * (_sceneModel.endFrame.floatValue - _sceneModel.startFrame.floatValue);
+  CGFloat skipProgress;
+  if (playingForward) {
+    skipProgress = currentProgress - leftFrameValue;
+  } else {
+    skipProgress = rightFrameValue - currentProgress;
+  }
+  NSTimeInterval offset = MAX(0, skipProgress) / _sceneModel.framerate.floatValue;
+
+  NSTimeInterval duration = (ABS(toEndFrame.floatValue - fromStartFrame.floatValue) / _sceneModel.framerate.floatValue);
   CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"currentFrame"];
   animation.speed = _animationSpeed;
   animation.fromValue = fromStartFrame;
@@ -330,7 +362,14 @@ static NSString * const kCompContainerAnimationKey = @"play";
 
 - (void)setProgressWithFrame:(nonnull NSNumber *)currentFrame callCompletionIfNecessary:(BOOL)callCompletion {
   [self _removeCurrentAnimationIfNecessary];
-  
+
+  if (_shouldRestoreStateWhenAttachedToWindow) {
+    _shouldRestoreStateWhenAttachedToWindow = NO;
+
+    self.completionBlock = _completionBlockToRestoreWhenAttachedToWindow;
+    _completionBlockToRestoreWhenAttachedToWindow = nil;
+  }
+
   _animationProgress = [self _progressForFrame:currentFrame];
 
   [CATransaction begin];
@@ -353,7 +392,7 @@ static NSString * const kCompContainerAnimationKey = @"play";
   }
 }
 
--(void)setAnimationSpeed:(CGFloat)animationSpeed {
+- (void)setAnimationSpeed:(CGFloat)animationSpeed {
   _animationSpeed = animationSpeed;
   if (_isAnimationPlaying && _sceneModel) {
     NSNumber *frame = [_compContainer.presentationLayer.currentFrame copy];
@@ -364,14 +403,14 @@ static NSString * const kCompContainerAnimationKey = @"play";
 
 # pragma mark - External Methods - Cache
 
-- (void)setCacheEnable:(BOOL)cacheEnable{
+- (void)setCacheEnable:(BOOL)cacheEnable {
   _cacheEnable = cacheEnable;
   if (!self.sceneModel.cacheKey) {
     return;
   }
   if (cacheEnable) {
     [[LOTAnimationCache sharedCache] addAnimation:_sceneModel forKey:self.sceneModel.cacheKey];
-  }else {
+  } else {
     [[LOTAnimationCache sharedCache] removeAnimationForKey:self.sceneModel.cacheKey];
   }
 }
@@ -499,6 +538,34 @@ static NSString * const kCompContainerAnimationKey = @"play";
   [super didMoveToSuperview];
   if (self.superview == nil) {
     [self _callCompletionIfNecessary:NO];
+  }
+}
+
+- (void)willMoveToWindow:(UIWindow *)newWindow {
+  // When this view or its superview is leaving the screen, e.g. a modal is presented or another
+  // screen is pushed, this method will get called with newWindow value set to nil - indicating that
+  // this view will be detached from the visible window.
+  // When a view is detached, animations will stop - but will not automatically resumed when it's
+  // re-attached back to window, e.g. when the presented modal is dismissed or another screen is
+  // pop.
+  if (newWindow) {
+    // The view is being re-attached, resume animation if needed.
+    if (_shouldRestoreStateWhenAttachedToWindow) {
+      _shouldRestoreStateWhenAttachedToWindow = NO;
+
+      _isAnimationPlaying = YES;
+      _completionBlock = _completionBlockToRestoreWhenAttachedToWindow;
+      _completionBlockToRestoreWhenAttachedToWindow = nil;
+
+      [self performSelector:@selector(_restoreState) withObject:nil afterDelay:0];
+    }
+  } else {
+    // The view is being detached, capture information that need to be restored later.
+    if (_isAnimationPlaying) {
+      _shouldRestoreStateWhenAttachedToWindow = YES;
+      _completionBlockToRestoreWhenAttachedToWindow = _completionBlock;
+      _completionBlock = nil;
+    }
   }
 }
 

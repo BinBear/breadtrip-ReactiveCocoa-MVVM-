@@ -76,6 +76,7 @@
 		CE8F09E11DFEC7410098E8D8 /* FTDIntegrationWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8F09E01DFEC7410098E8D8 /* FTDIntegrationWebView.m */; };
 		CE9869DE1DEFF852002528FB /* HTLBSManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9869DD1DEFF852002528FB /* HTLBSManager.m */; };
 		CE9869E61DF05CAE002528FB /* HTFindVideosModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9869E51DF05CAE002528FB /* HTFindVideosModel.m */; };
+		CEB80AC51FB2CE9B001AEBD1 /* HTDetailNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB80AC41FB2CE9B001AEBD1 /* HTDetailNavBar.m */; };
 		CED6D2671DBDEE3F00209DFB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED6D2661DBDEE3F00209DFB /* WebKit.framework */; };
 		CEDBA9651DE43D3F00EBAF32 /* HTUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA9641DE43D3F00EBAF32 /* HTUserModel.m */; };
 		CEDBA9681DE44F8300EBAF32 /* HTCityTravelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA9671DE44F8300EBAF32 /* HTCityTravelCell.m */; };
@@ -234,6 +235,8 @@
 		CE9869DD1DEFF852002528FB /* HTLBSManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTLBSManager.m; sourceTree = "<group>"; };
 		CE9869E41DF05CAE002528FB /* HTFindVideosModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTFindVideosModel.h; sourceTree = "<group>"; };
 		CE9869E51DF05CAE002528FB /* HTFindVideosModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTFindVideosModel.m; sourceTree = "<group>"; };
+		CEB80AC31FB2CE9B001AEBD1 /* HTDetailNavBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTDetailNavBar.h; sourceTree = "<group>"; };
+		CEB80AC41FB2CE9B001AEBD1 /* HTDetailNavBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTDetailNavBar.m; sourceTree = "<group>"; };
 		CED6D2661DBDEE3F00209DFB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		CEDBA9631DE43D3F00EBAF32 /* HTUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTUserModel.h; sourceTree = "<group>"; };
 		CEDBA9641DE43D3F00EBAF32 /* HTUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTUserModel.m; sourceTree = "<group>"; };
@@ -587,6 +590,8 @@
 				CE50C6B61DEC07520005F44B /* HTSearchBar.m */,
 				CE50C6C01DEC1B860005F44B /* HTTextField.h */,
 				CE50C6C11DEC1B860005F44B /* HTTextField.m */,
+				CEB80AC31FB2CE9B001AEBD1 /* HTDetailNavBar.h */,
+				CEB80AC41FB2CE9B001AEBD1 /* HTDetailNavBar.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1080,6 +1085,7 @@
 				CE3A636E1E2E345F00A9A41D /* HTExploreMoreViewController.m in Sources */,
 				CE3A636B1E2E246200A9A41D /* UIViewController+HTHideBottomLine.m in Sources */,
 				CEDBA9651DE43D3F00EBAF32 /* HTUserModel.m in Sources */,
+				CEB80AC51FB2CE9B001AEBD1 /* HTDetailNavBar.m in Sources */,
 				CE56579E1D8E92EF0026230C /* UIBarButtonItem+HTBarButtonCustom.m in Sources */,
 				CEEEBAE91DFFC4C400CE172A /* HTWebViewController.m in Sources */,
 				CE1594901E5DA22F004AB4F2 /* HTFoldingTabBarControllerConfig.m in Sources */,

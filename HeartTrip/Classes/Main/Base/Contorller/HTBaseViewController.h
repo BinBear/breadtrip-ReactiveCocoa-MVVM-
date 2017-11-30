@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AsyncDisplayKit/AsyncDisplayKit.h>
 
 @class HTViewModel;
 
-@interface HTBaseViewController : UIViewController
+@interface HTBaseViewController : ASViewController
 /**
  *  viewModel
  */

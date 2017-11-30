@@ -76,6 +76,15 @@
 @end
 #endif
 
+// Declare two key methods on PINCache objects, avoiding a direct dependency on PINCache.h
+@protocol ASPINCache
+- (id)diskCache;
+@end
+
+@protocol ASPINDiskCache
+@property (assign) NSUInteger byteLimit;
+@end
+
 @interface ASPINRemoteImageManager : PINRemoteImageManager
 @end
 
@@ -84,7 +93,21 @@
 //Share image cache with sharedImageManager image cache.
 - (id <PINRemoteImageCaching>)defaultImageCache
 {
-  return [[PINRemoteImageManager sharedImageManager] cache];
+  static dispatch_once_t onceToken;
+  static id <PINRemoteImageCaching> cache = nil;
+  dispatch_once(&onceToken, ^{
+    cache = [[PINRemoteImageManager sharedImageManager] cache];
+    if ([cache respondsToSelector:@selector(diskCache)]) {
+      id diskCache = [(id <ASPINCache>)cache diskCache];
+      if ([diskCache respondsToSelector:@selector(setByteLimit:)]) {
+        // Set a default byteLimit. PINCache recently implemented a 50MB default (PR #201).
+        // Ensure that older versions of PINCache also have a byteLimit applied.
+        // NOTE: Using 20MB limit while large cache initialization is being optimized (Issue #144).
+        ((id <ASPINDiskCache>)diskCache).byteLimit = 20 * 1024 * 1024;
+      }
+    }
+  });
+  return cache;
 }
 
 @end
@@ -253,10 +276,6 @@ static ASPINRemoteImageDownloader *sharedDownloader = nil;
     };
     
     PINRemoteImageManagerImageCompletion imageCompletion = ^(PINRemoteImageManagerResult * _Nonnull result) {
-        if (self.resultProvider) {
-            self.resultProvider(result);
-        }
-        
         /// If we're targeting the main queue and we're on the main thread, complete immediately.
         if (ASDisplayNodeThreadIsMain() && callbackQueue == dispatch_get_main_queue()) {
 #if PIN_ANIMATED_AVAILABLE

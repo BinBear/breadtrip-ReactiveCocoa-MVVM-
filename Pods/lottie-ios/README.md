@@ -1,10 +1,10 @@
-# Lottie for iOS, MacOS (and [Android](https://github.com/airbnb/lottie-android) and [React Native](https://github.com/airbnb/lottie-react-native))
+# Lottie for iOS, macOS (and [Android](https://github.com/airbnb/lottie-android) and [React Native](https://github.com/airbnb/lottie-react-native))
 
 ### Table of Contents
 - [Introduction](#introduction)
 - [Installing Lottie](#installing-lottie)
 - [iOS Sample App](#ios-sample-app)
-- [MacOS Sample App](#macos-sample-app)
+- [macOS Sample App](#macos-sample-app)
 - [Objective C Examples](#objective-c-examples)
 - [Swift Examples](#swift-examples)
 - [Debugging Lottie](#debugging)
@@ -82,7 +82,7 @@ In your application targets “General” tab under the “Linked Frameworks and
 ## iOS Sample App
 
 Clone this repo and try out [the Sample App](https://github.com/airbnb/lottie-ios/tree/master/Example)
-The repo can build a MacOS Example and an iOS Example
+The repo can build a macOS Example and an iOS Example
 
 The iOS Example App demos several of the features of Lottie
 
@@ -92,14 +92,14 @@ The iOS Example App demos several of the features of Lottie
 The animation Explorer allows you to scrub, play, loop, and resize animations.
 Animations can be loaded from the app bundle or from [Lottie Files](http://www.lottiefiles.com) using the built in QR Code reader.
 
-## MacOS Sample App
+## macOS Sample App
 
 Clone this repo and try out [the Sample App](https://github.com/airbnb/lottie-ios/tree/master/Example)
-The repo can build a MacOS Example and an iOS Example
+The repo can build a macOS Example and an iOS Example
 
 ![Lottie Viewer](_Gifs/macexample.png)
 
-The Lottie Viewer for MacOS allows you to drag and drop JSON files to open, play, scrub and loop animations. This app is backed by the same animation code as the iOS app, so you will get an accurate representation of Mac and iOS animations.
+The Lottie Viewer for macOS allows you to drag and drop JSON files to open, play, scrub and loop animations. This app is backed by the same animation code as the iOS app, so you will get an accurate representation of Mac and iOS animations.
 
 
 ## Objective C Examples
@@ -112,7 +112,7 @@ To bundle JSON just add it and any images that the animation requires to your ta
 LOTAnimationView *animation = [LOTAnimationView animationNamed:@"Lottie"];
 [self.view addSubview:animation];
 [animation playWithCompletion:^(BOOL animationFinished) {
-// Do Something
+  // Do Something
 }];
 ```
 
@@ -122,7 +122,7 @@ If you are working with multiple bundles you can use.
 LOTAnimationView *animation = [LOTAnimationView animationNamed:@"Lottie" inBundle:[NSBundle YOUR_BUNDLE]];
 [self.view addSubview:animation];
 [animation playWithCompletion:^(BOOL animationFinished) {
-// Do Something
+  // Do Something
 }];
 ```
 
@@ -144,7 +144,7 @@ animationView.animationProgress = progress;
 Or you can play just a portion of the animation:
 ```objective-c
 [lottieAnimation playFromProgress:0.25 toProgress:0.5 withCompletion:^(BOOL animationFinished) {
-// Do Something
+  // Do Something
 }];
 ```
 ## Swift Examples
@@ -156,7 +156,7 @@ To bundle JSON just add it and any images that the animation requires to your ta
 let animationView = LOTAnimationView(name: "LottieLogo")
 self.view.addSubview(animationView)
 animationView.play{ (finished) in
-      // Do Something
+  // Do Something
 }
 ```
 
@@ -208,22 +208,14 @@ And implement the delegate methods with a `LOTAnimationTransitionController`
 ```objective-c
 #pragma mark -- View Controller Transitioning
 
-- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented
-presentingController:(UIViewController *)presenting
-sourceController:(UIViewController *)source {
-LOTAnimationTransitionController *animationController = [[LOTAnimationTransitionController alloc] initWithAnimationNamed:@"vcTransition1"
-fromLayerNamed:@"outLayer"
-toLayerNamed:@"inLayer"
-applyAnimationTransform:NO];
-return animationController;
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+  LOTAnimationTransitionController *animationController = [[LOTAnimationTransitionController alloc] initWithAnimationNamed:@"vcTransition1" fromLayerNamed:@"outLayer" toLayerNamed:@"inLayer" applyAnimationTransform:NO];
+  return animationController;
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
-LOTAnimationTransitionController *animationController = [[LOTAnimationTransitionController alloc] initWithAnimationNamed:@"vcTransition2"
-fromLayerNamed:@"outLayer"
-toLayerNamed:@"inLayer"
-applyAnimationTransform:NO];
-return animationController;
+  LOTAnimationTransitionController *animationController = [[LOTAnimationTransitionController alloc] initWithAnimationNamed:@"vcTransition2" fromLayerNamed:@"outLayer" toLayerNamed:@"inLayer" applyAnimationTransform:NO];
+  return animationController;
 }
 
 ```
@@ -346,6 +338,7 @@ Lottie can do more than just play beautiful animations. Lottie allows you to **c
 ### Say we want to create 4 toggle switches.
 ![Toggle](_Gifs/switch_Normal.gif)
 Its easy to create the four switches and play them:
+
 ```swift
 let animationView = LOTAnimationView(name: "toggle");
 self.view.addSubview(animationView)
@@ -389,9 +382,7 @@ animationView4.setValue(UIColor.orange, forKeypath: "BG-On.Group 1.Fill 1.Color"
 ```
 
 ```objective-c
-[animationView2 setValue:[UIColor greenColor]
-              forKeypath:@"BG-On.Group 1.Fill 1.Color"
-                 atFrame:@0];
+[animationView2 setValue:[UIColor greenColor] forKeypath:@"BG-On.Group 1.Fill 1.Color" atFrame:@0];
 ```
 The keyPath is a dot separated path of layer and property names from After Effects.
 LOTAnimationView provides `- (void)logHierarchyKeypaths` which will recursively log all settable keypaths for the animation.
@@ -434,6 +425,7 @@ Lets say that the supplied animation animates ON from 0.5-1 progress and OFF fro
 ```
 /// On animation is 0.5 to 1 progress.
 [toggle1 setProgressRangeForOnState:0.5 toProgress:1];
+
 /// Off animation is 0 to 0.5 progress.
 [toggle1 setProgressRangeForOffState:0 toProgress:0.5];
 ```
@@ -579,6 +571,7 @@ statefulSwitch.enabled = YES;
 ## Currently Unsupported After Effects Features
 
 * Merge Shapes
+* Alpha Inverted Masks
 * Trim Shapes Individually feature of Trim Paths
 * Expressions
 * 3d Layer support
@@ -591,7 +584,7 @@ statefulSwitch.enabled = YES;
  * [Xamarin bindings](https://github.com/martijn00/LottieXamarin)
  * [NativeScript bindings](https://github.com/bradmartin/nativescript-lottie)
  * [Appcelerator Titanium bindings](https://github.com/m1ga/ti.animation)
- * MacOS Support added by [Alex Pawlowski](https://github.com/pawlowskialex)
+ * macOS Support added by [Alex Pawlowski](https://github.com/pawlowskialex)
 
 ## Alternatives
 1. Build animations by hand. Building animations by hand is a huge time commitment for design and engineering across Android and iOS. It's often hard or even impossible to justify spending so much time to get an animation right.
@@ -613,4 +606,3 @@ File github issues for anything that is unexpectedly broken. If an After Effects
 
 ## Roadmap (In no particular order)
 - Add support for interactive animated transitions
-- Animation Breakpoints/Seekpoints

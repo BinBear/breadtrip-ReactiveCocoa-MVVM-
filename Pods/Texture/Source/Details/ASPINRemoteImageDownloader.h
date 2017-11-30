@@ -23,10 +23,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class PINRemoteImageManagerResult;
-
-typedef void (^ASPINRemoteImageResultProvider)(PINRemoteImageManagerResult *result);
-
 @class PINRemoteImageManager;
 
 @interface ASPINRemoteImageDownloader : NSObject <ASImageCacheProtocol, ASImageDownloaderProtocol>
@@ -61,13 +57,6 @@ typedef void (^ASPINRemoteImageResultProvider)(PINRemoteImageManagerResult *resu
  * @return An instance of a @c PINRemoteImageManager
  */
 - (PINRemoteImageManager *)sharedPINRemoteImageManager;
-
-/**
- * Allows you to view results of any download requests
- *
- * This is likely temporary.
- */
-@property (atomic, strong, nullable) ASPINRemoteImageResultProvider resultProvider;
 
 @end
 
