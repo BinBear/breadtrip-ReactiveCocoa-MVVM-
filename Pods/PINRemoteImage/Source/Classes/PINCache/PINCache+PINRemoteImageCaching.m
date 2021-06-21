@@ -13,12 +13,17 @@
 //******************************************************************************************************
 // Memory cache methods
 //******************************************************************************************************
--(nullable id)objectFromMemoryForKey:(NSString *)key
+- (nullable id)objectFromMemoryForKey:(NSString *)key
 {
     return [self.memoryCache objectForKey:key];
 }
 
--(void)setObjectInMemory:(id)object forKey:(NSString *)key withCost:(NSUInteger)cost
+- (void)setObjectInMemory:(id)object forKey:(NSString *)key withCost:(NSUInteger)cost withAgeLimit:(NSTimeInterval)ageLimit
+{
+    [self.memoryCache setObject:object forKey:key withCost:cost ageLimit:ageLimit];
+}
+
+- (void)setObjectInMemory:(id)object forKey:(NSString *)key withCost:(NSUInteger)cost
 {
     [self.memoryCache setObject:object forKey:key withCost:cost];
 }
@@ -31,12 +36,12 @@
 //******************************************************************************************************
 // Disk cache methods
 //******************************************************************************************************
--(nullable id)objectFromDiskForKey:(NSString *)key
+- (nullable id)objectFromDiskForKey:(NSString *)key
 {
     return [self.diskCache objectForKey:key];
 }
 
--(void)objectFromDiskForKey:(NSString *)key completion:(PINRemoteImageCachingObjectBlock)completion
+- (void)objectFromDiskForKey:(NSString *)key completion:(PINRemoteImageCachingObjectBlock)completion
 {
     __weak typeof(self) weakSelf = self;
     [self.diskCache objectForKeyAsync:key completion:^(PINDiskCache * _Nonnull cache, NSString * _Nonnull key, id<NSCoding>  _Nullable object) {
@@ -47,9 +52,14 @@
     }];
 }
 
--(void)setObjectOnDisk:(id)object forKey:(NSString *)key
+- (void)setObjectOnDisk:(id)object forKey:(NSString *)key withAgeLimit:(NSTimeInterval)ageLimit
 {
-    [self.diskCache setObject:object forKey:key];
+    [self.diskCache setObject:object forKey:key withAgeLimit:ageLimit];
+}
+
+- (void)setObjectOnDisk:(id)object forKey:(NSString *)key
+{
+    [self.diskCache setObject:object forKey:key withAgeLimit:0];
 }
 
 - (BOOL)objectExistsForKey:(NSString *)key
@@ -63,14 +73,24 @@
 - (void)removeObjectForKey:(NSString *)key completion:(PINRemoteImageCachingObjectBlock)completion
 {
   if (completion) {
-    __weak typeof(self) weakSelf = self;
-    [self removeObjectForKeyAsync:key completion:^(PINCache * _Nonnull cache, NSString * _Nonnull key, id  _Nullable object) {
-        typeof(self) strongSelf = weakSelf;
-        completion(strongSelf, key, object);
-    }];
+      __weak typeof(self) weakSelf = self;
+      [self removeObjectForKeyAsync:key completion:^(id<PINCaching>  _Nonnull cache, NSString * _Nonnull key, id  _Nullable object) {
+                  typeof(self) strongSelf = weakSelf;
+          completion(strongSelf, key, object);
+      }];
   } else {
     [self removeObjectForKeyAsync:key completion:nil];
   }
+}
+
+- (BOOL)diskCacheIsTTLCache
+{
+    return self.diskCache.isTTLCache;
+}
+
+- (BOOL)memoryCacheIsTTLCache
+{
+    return self.memoryCache.isTTLCache;
 }
 
 @end

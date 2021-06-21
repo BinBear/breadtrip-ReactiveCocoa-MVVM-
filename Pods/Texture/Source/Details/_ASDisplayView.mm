@@ -2,53 +2,53 @@
 //  _ASDisplayView.mm
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <AsyncDisplayKit/_ASDisplayView.h>
-#import <AsyncDisplayKit/_ASDisplayViewAccessiblity.h>
 
 #import <AsyncDisplayKit/_ASCoreAnimationExtras.h>
 #import <AsyncDisplayKit/_ASDisplayLayer.h>
 #import <AsyncDisplayKit/ASDisplayNodeInternal.h>
-#import <AsyncDisplayKit/ASDisplayNode+FrameworkPrivate.h>
+#import <AsyncDisplayKit/ASDisplayNode+Convenience.h>
 #import <AsyncDisplayKit/ASDisplayNode+Subclasses.h>
-#import <AsyncDisplayKit/ASObjectDescriptionHelpers.h>
 #import <AsyncDisplayKit/ASLayout.h>
+#import <AsyncDisplayKit/ASDKViewController.h>
+
+#pragma mark - _ASDisplayView
 
 @interface _ASDisplayView ()
-@property (nullable, atomic, weak, readwrite) ASDisplayNode *asyncdisplaykit_node;
 
 // Keep the node alive while its view is active.  If you create a view, add its layer to a layer hierarchy, then release
 // the view, the layer retains the view to prevent a crash.  This replicates this behaviour for the node abstraction.
-@property (nonatomic, strong, readwrite) ASDisplayNode *keepalive_node;
+@property (nonatomic) ASDisplayNode *keepalive_node;
 @end
 
 @implementation _ASDisplayView
 {
-  BOOL _inHitTest;
-  BOOL _inPointInside;
+  struct _ASDisplayViewInternalFlags {
+    unsigned inHitTest:1;
+    unsigned inPointInside:1;
 
-  NSArray *_accessibleElements;
-  CGRect _lastAccessibleElementsFrame;
+    unsigned inCanBecomeFirstResponder:1;
+    unsigned inBecomeFirstResponder:1;
+    unsigned inCanResignFirstResponder:1;
+    unsigned inResignFirstResponder:1;
+    unsigned inIsFirstResponder:1;
+  } _internalFlags;
+
+  NSArray *_accessibilityElements;
+  CGRect _lastAccessibilityElementsFrame;
 }
+
+#pragma mark - Class
 
 + (Class)layerClass
 {
   return [_ASDisplayLayer class];
 }
-
-#pragma mark - NSObject Overrides
 
 // e.g. <MYPhotoNodeView: 0xFFFFFF; node = <MYPhotoNode: 0xFFFFFE>; frame = ...>
 - (NSString *)description
@@ -79,6 +79,21 @@
 }
 
 #pragma mark - UIView Overrides
+
+- (id<CAAction>)actionForLayer:(CALayer *)layer forKey:(NSString *)event
+{
+  id<CAAction> uikitAction = [super actionForLayer:layer forKey:event];
+
+  // Even though the UIKit action will take precedence, we still unconditionally forward to the node so that it can
+  // track events like kCAOnOrderIn.
+  id<CAAction> nodeAction = [_asyncdisplaykit_node actionForLayer:layer forKey:event];
+
+  // If UIKit specifies an action, that takes precedence. That's an animation block so it's explicit.
+  if (uikitAction && uikitAction != (id)kCFNull) {
+    return uikitAction;
+  }
+  return nodeAction;
+}
 
 - (void)willMoveToWindow:(UIWindow *)newWindow
 {
@@ -137,7 +152,7 @@
     if (needsSupernodeUpdate) {
       // -removeFromSupernode is called by -addSubnode:, if it is needed.
       // FIXME: Needs rethinking if automaticallyManagesSubnodes=YES
-      [newSuperview.asyncdisplaykit_node _addSubnode:node];
+      [newSuperview.asyncdisplaykit_node addSubnode:node];
     }
   }
 }
@@ -154,6 +169,16 @@
     }
     self.keepalive_node = nil;
   }
+
+#if DEBUG
+  // This is only to help detect issues when a root-of-view-controller node is reused separately from its view controller.
+  // Avoid overhead in release.
+  if (superview && node.viewControllerRoot) {
+    UIViewController *vc = [node closestViewController];
+
+    ASDisplayNodeAssert(vc != nil && [vc isKindOfClass:[ASDKViewController class]] && ((ASDKViewController*)vc).node == node, @"This node was once used as a view controller's node. You should not reuse it without its view controller.");
+  }
+#endif
 
   ASDisplayNode *supernode = node.supernode;
   ASDisplayNodeAssert(!supernode.isLayerBacked, @"Shouldn't be possible for superview's node to be layer-backed.");
@@ -188,9 +213,17 @@
     if (needsSupernodeRemoval) {
       // The node will only disconnect from its supernode, not removeFromSuperview, in this condition.
       // FIXME: Needs rethinking if automaticallyManagesSubnodes=YES
-      [node _removeFromSupernode];
+      [node removeFromSupernode];
     }
   }
+}
+
+- (void)insertSubview:(UIView *)view atIndex:(NSInteger)index {
+  [super insertSubview:view atIndex:index];
+
+#ifndef ASDK_ACCESSIBILITY_DISABLE
+  self.accessibilityElements = nil;
+#endif
 }
 
 - (void)addSubview:(UIView *)view
@@ -198,7 +231,7 @@
   [super addSubview:view];
   
 #ifndef ASDK_ACCESSIBILITY_DISABLE
-  self.accessibleElements = nil;
+  self.accessibilityElements = nil;
 #endif
 }
 
@@ -207,7 +240,7 @@
   [super willRemoveSubview:subview];
   
 #ifndef ASDK_ACCESSIBILITY_DISABLE
-  self.accessibleElements = nil;
+  self.accessibilityElements = nil;
 #endif
 }
 
@@ -321,10 +354,10 @@
   // hitTest:, it will call it on the view, which is _ASDisplayView.  After calling into the node, any additional calls
   // should use the UIView implementation of hitTest:
   ASDisplayNode *node = _asyncdisplaykit_node; // Create strong reference to weak ivar.
-  if (!_inHitTest) {
-    _inHitTest = YES;
+  if (!_internalFlags.inHitTest) {
+    _internalFlags.inHitTest = YES;
     UIView *hitView = [node hitTest:point withEvent:event];
-    _inHitTest = NO;
+    _internalFlags.inHitTest = NO;
     return hitView;
   } else {
     return [super hitTest:point withEvent:event];
@@ -335,23 +368,21 @@
 {
   // See comments in -hitTest:withEvent: for the strategy here.
   ASDisplayNode *node = _asyncdisplaykit_node; // Create strong reference to weak ivar.
-  if (!_inPointInside) {
-    _inPointInside = YES;
+  if (!_internalFlags.inPointInside) {
+    _internalFlags.inPointInside = YES;
     BOOL result = [node pointInside:point withEvent:event];
-    _inPointInside = NO;
+    _internalFlags.inPointInside = NO;
     return result;
   } else {
     return [super pointInside:point withEvent:event];
   }
 }
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
   ASDisplayNode *node = _asyncdisplaykit_node; // Create strong reference to weak ivar.
   return [node gestureRecognizerShouldBegin:gestureRecognizer];
 }
-#endif
 
 - (void)tintColorDidChange
 {
@@ -361,14 +392,71 @@
   [node tintColorDidChange];
 }
 
-- (BOOL)canBecomeFirstResponder {
+#pragma mark UIResponder Handling
+
+- (BOOL)canBecomeFirstResponder
+{
   ASDisplayNode *node = _asyncdisplaykit_node; // Create strong reference to weak ivar.
-  return [node canBecomeFirstResponder];
+  if (!_internalFlags.inCanBecomeFirstResponder) {
+    _internalFlags.inCanBecomeFirstResponder = YES;
+    BOOL result = [node canBecomeFirstResponder];
+    _internalFlags.inCanBecomeFirstResponder = NO;
+    return result;
+  } else {
+    return [super canBecomeFirstResponder];
+  }
 }
 
-- (BOOL)canResignFirstResponder {
+- (BOOL)becomeFirstResponder
+{
   ASDisplayNode *node = _asyncdisplaykit_node; // Create strong reference to weak ivar.
-  return [node canResignFirstResponder];
+  if (!_internalFlags.inBecomeFirstResponder) {
+    _internalFlags.inBecomeFirstResponder = YES;
+    BOOL result = [node becomeFirstResponder];
+    _internalFlags.inBecomeFirstResponder = NO;
+    return result;
+  } else {
+    return [super becomeFirstResponder];
+  }
+}
+
+- (BOOL)canResignFirstResponder
+{
+  ASDisplayNode *node = _asyncdisplaykit_node; // Create strong reference to weak ivar.
+  if (!_internalFlags.inCanResignFirstResponder) {
+    _internalFlags.inCanResignFirstResponder = YES;
+    BOOL result = [node canResignFirstResponder];
+    _internalFlags.inCanResignFirstResponder = NO;
+    return result;
+  } else {
+    return [super canResignFirstResponder];
+  }
+}
+
+- (BOOL)resignFirstResponder
+{
+  ASDisplayNode *node = _asyncdisplaykit_node; // Create strong reference to weak ivar.
+  if (!_internalFlags.inResignFirstResponder) {
+    _internalFlags.inResignFirstResponder = YES;
+    BOOL result = [node resignFirstResponder];
+    _internalFlags.inResignFirstResponder = NO;
+    return result;
+  } else {
+    return [super resignFirstResponder];
+  }
+}
+
+- (BOOL)isFirstResponder
+{
+  ASDisplayNode *node = _asyncdisplaykit_node; // Create strong reference to weak ivar.
+  if (!_internalFlags.inIsFirstResponder) {
+    _internalFlags.inIsFirstResponder = YES;
+    BOOL result = [node isFirstResponder];
+    _internalFlags.inIsFirstResponder = NO;
+    return result;
+  } else {
+    return [super isFirstResponder];
+  }
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
@@ -376,6 +464,22 @@
   // We forward responder-chain actions to our node if we can't handle them ourselves. See -targetForAction:withSender:.
   ASDisplayNode *node = _asyncdisplaykit_node; // Create strong reference to weak ivar.
   return ([super canPerformAction:action withSender:sender] || [node respondsToSelector:action]);
+}
+
+- (void)layoutMarginsDidChange
+{
+  ASDisplayNode *node = _asyncdisplaykit_node; // Create strong reference to weak ivar.
+  [super layoutMarginsDidChange];
+
+  [node layoutMarginsDidChange];
+}
+
+- (void)safeAreaInsetsDidChange
+{
+  ASDisplayNode *node = _asyncdisplaykit_node; // Create strong reference to weak ivar.
+  [super safeAreaInsetsDidChange];
+
+  [node safeAreaInsetsDidChange];
 }
 
 - (id)forwardingTargetForSelector:(SEL)aSelector

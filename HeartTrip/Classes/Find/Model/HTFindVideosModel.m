@@ -2,8 +2,8 @@
 //  HTFindVideosModel.m
 //  HeartTrip
 //
-//  Created by 熊彬 on 16/12/1.
-//  Copyright © 2016年 BinBear. All rights reserved.
+//  Created by vin on 2021/5/24.
+//  Copyright © 2021 Vin. All rights reserved.
 //
 
 #import "HTFindVideosModel.h"

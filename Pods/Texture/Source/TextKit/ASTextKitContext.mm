@@ -2,29 +2,22 @@
 //  ASTextKitContext.mm
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <AsyncDisplayKit/ASTextKitContext.h>
+
+#if AS_ENABLE_TEXTNODE
+
 #import <AsyncDisplayKit/ASLayoutManager.h>
 #import <AsyncDisplayKit/ASThread.h>
-
-#include <memory>
 
 @implementation ASTextKitContext
 {
   // All TextKit operations (even non-mutative ones) must be executed serially.
-  std::shared_ptr<ASDN::Mutex> __instanceLock__;
+  std::shared_ptr<AS::Mutex> __instanceLock__;
 
   NSLayoutManager *_layoutManager;
   NSTextStorage *_textStorage;
@@ -32,6 +25,7 @@
 }
 
 - (instancetype)initWithAttributedString:(NSAttributedString *)attributedString
+                               tintColor:(UIColor *)tintColor
                            lineBreakMode:(NSLineBreakMode)lineBreakMode
                     maximumNumberOfLines:(NSUInteger)maximumNumberOfLines
                           exclusionPaths:(NSArray *)exclusionPaths
@@ -39,15 +33,19 @@
 
 {
   if (self = [super init]) {
+    static AS::Mutex *mutex = NULL;
+    static dispatch_once_t onceToken;
     // Concurrently initialising TextKit components crashes (rdar://18448377) so we use a global lock.
-    // Allocate __staticMutex on the heap to prevent destruction at app exit (https://github.com/TextureGroup/Texture/issues/136)
-    static ASDN::StaticMutex& __staticMutex = *new ASDN::StaticMutex;
-    ASDN::StaticMutexLocker l(__staticMutex);
+    dispatch_once(&onceToken, ^{
+        mutex = new AS::Mutex();
+    });
+    if (mutex != NULL) {
+      mutex->lock();
+    }
     
-    __instanceLock__ = std::make_shared<ASDN::Mutex>();
+    __instanceLock__ = std::make_shared<AS::Mutex>();
     
     // Create the TextKit component stack with our default configuration.
-    
     _textStorage = [[NSTextStorage alloc] init];
     _layoutManager = [[ASLayoutManager alloc] init];
     _layoutManager.usesFontLeading = NO;
@@ -55,8 +53,19 @@
     
     // Instead of calling [NSTextStorage initWithAttributedString:], setting attributedString just after calling addlayoutManager can fix CJK language layout issues.
     // See https://github.com/facebook/AsyncDisplayKit/issues/2894
-    if (attributedString) {
+    if (attributedString && attributedString.length > 0) {
       [_textStorage setAttributedString:attributedString];
+
+      // Apply tint color if specified and if foreground color is undefined for attributedString
+      NSRange limit = NSMakeRange(0, attributedString.length);
+      // Look for previous attributes that define foreground color
+      UIColor *attributeValue = (UIColor *)[attributedString attribute:NSForegroundColorAttributeName atIndex:limit.location effectiveRange:NULL];
+      if (attributeValue == nil) {
+        // None are found, apply tint color if available. Fallback to "black" text color
+        if (tintColor) {
+          [_textStorage addAttributes:@{ NSForegroundColorAttributeName : tintColor } range:limit];
+        }
+      }
     }
     
     _textContainer = [[NSTextContainer alloc] initWithSize:constrainedSize];
@@ -66,18 +75,24 @@
     _textContainer.maximumNumberOfLines = maximumNumberOfLines;
     _textContainer.exclusionPaths = exclusionPaths;
     [_layoutManager addTextContainer:_textContainer];
+    
+    if (mutex != NULL) {
+      mutex->unlock();
+    }
   }
   return self;
 }
 
-- (void)performBlockWithLockedTextKitComponents:(void (^)(NSLayoutManager *,
-                                                          NSTextStorage *,
-                                                          NSTextContainer *))block
+- (void)performBlockWithLockedTextKitComponents:(NS_NOESCAPE void (^)(NSLayoutManager *,
+                                                                      NSTextStorage *,
+                                                                      NSTextContainer *))block
 {
-  ASDN::MutexSharedLocker l(__instanceLock__);
+  AS::MutexLocker l(*__instanceLock__);
   if (block) {
     block(_layoutManager, _textStorage, _textContainer);
   }
 }
 
 @end
+
+#endif

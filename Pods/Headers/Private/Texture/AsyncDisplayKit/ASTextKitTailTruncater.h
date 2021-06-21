@@ -1,1 +1,0 @@
-../../../../Texture/Source/TextKit/ASTextKitTailTruncater.h

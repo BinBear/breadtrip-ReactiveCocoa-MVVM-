@@ -2,17 +2,9 @@
 //  ASElementMap.h
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <Foundation/Foundation.h>
@@ -30,6 +22,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 AS_SUBCLASSING_RESTRICTED
 @interface ASElementMap : NSObject <NSCopying, NSFastEnumeration>
+
+/**
+ * The total number of elements in this map.
+ */
+@property (readonly) NSUInteger count;
 
 /**
  * The number of sections (of items) in this map.
@@ -64,9 +61,19 @@ AS_SUBCLASSING_RESTRICTED
 @property (copy, readonly) NSArray<ASCollectionElement *> *itemElements;
 
 /**
- * Returns the index path that corresponds to the same element in @c map at the given @c indexPath. O(1)
+ * Returns the index path that corresponds to the same element in @c map at the given @c indexPath.
+ * O(1) for items, fast O(N) for sections.
+ *
+ * Note you can pass "section index paths" of length 1 and get a corresponding section index path.
  */
 - (nullable NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath fromMap:(ASElementMap *)map;
+
+/**
+ * Returns the section index into the receiver that corresponds to the same element in @c map at @c sectionIndex. Fast O(N).
+ *
+ * Returns @c NSNotFound if the section does not exist in the receiver.
+ */
+- (NSInteger)convertSection:(NSInteger)sectionIndex fromMap:(ASElementMap *)map;
 
 /**
  * Returns the index path for the given element. O(1)
@@ -99,7 +106,7 @@ AS_SUBCLASSING_RESTRICTED
 /**
  * A very terse description e.g. { itemCounts = [ <S0: 1> <S1: 16> ] }
  */
-@property (atomic, readonly) NSString *smallDescription;
+@property (readonly) NSString *smallDescription;
 
 #pragma mark - Initialization -- Only Useful to ASDataController
 

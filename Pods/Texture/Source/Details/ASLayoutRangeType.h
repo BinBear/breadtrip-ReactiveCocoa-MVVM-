@@ -2,17 +2,9 @@
 //  ASLayoutRangeType.h
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <Foundation/Foundation.h>
@@ -23,16 +15,16 @@ typedef struct {
   CGFloat trailingBufferScreenfuls;
 } ASRangeTuningParameters;
 
-FOUNDATION_EXPORT ASRangeTuningParameters const ASRangeTuningParametersZero;
+ASDK_EXTERN ASRangeTuningParameters const ASRangeTuningParametersZero;
 
-FOUNDATION_EXPORT BOOL ASRangeTuningParametersEqualToRangeTuningParameters(ASRangeTuningParameters lhs, ASRangeTuningParameters rhs);
+ASDK_EXTERN BOOL ASRangeTuningParametersEqualToRangeTuningParameters(ASRangeTuningParameters lhs, ASRangeTuningParameters rhs);
 
 /**
  * Each mode has a complete set of tuning parameters for range types.
  * Depending on some conditions (including interface state and direction of the scroll view, state of rendering engine, etc),
  * a range controller can choose which mode it should use at a given time.
  */
-typedef NS_ENUM(NSInteger, ASLayoutRangeMode) {
+typedef NS_ENUM(char, ASLayoutRangeMode) {
   ASLayoutRangeModeUnspecified = -1,
   
   /**

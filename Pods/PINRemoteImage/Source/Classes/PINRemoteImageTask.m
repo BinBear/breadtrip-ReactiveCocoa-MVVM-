@@ -13,7 +13,7 @@
 
 @interface PINRemoteImageTask ()
 {
-    NSMutableDictionary<NSUUID *, PINRemoteImageCallbacks *> *_callbackBlocks;
+    NSMutableDictionary<NSUUID *, PINRemoteImageCallbacks *> *_callbackBlocks; // We need to copy/retain `NSUUID`, because `PINRemoteImageManager` has a weak table `UUIDs` to store all UUIDs.
 }
 
 @end
@@ -48,7 +48,7 @@
     completion.progressDownloadBlock = progressDownloadBlock;
     
     [self.lock lockWithBlock:^{
-        [_callbackBlocks setObject:completion forKey:UUID];
+        [self->_callbackBlocks setObject:completion forKey:UUID];
     }];
 }
 
@@ -68,7 +68,7 @@
 {
     __block NSDictionary *callbackBlocks;
     [self.lock lockWithBlock:^{
-        callbackBlocks = [_callbackBlocks copy];
+        callbackBlocks = [self->_callbackBlocks copy];
     }];
     return callbackBlocks;
 }
@@ -115,12 +115,12 @@
 {
     __block BOOL noMoreCompletions;
     [self.lock lockWithBlock:^{
-        noMoreCompletions = [self l_cancelWithUUID:UUID resume:resume];
+        noMoreCompletions = [self l_cancelWithUUID:UUID];
     }];
     return noMoreCompletions;
 }
 
-- (BOOL)l_cancelWithUUID:(NSUUID *)UUID resume:(PINResume **)resume
+- (BOOL)l_cancelWithUUID:(NSUUID *)UUID
 {
     BOOL noMoreCompletions = NO;
     [self l_removeCallbackWithUUID:UUID];

@@ -1,12 +1,9 @@
 //
 //  ASTextUtilities.h
-//  Modified from YYText <https://github.com/ibireme/YYText>
+//  Texture
 //
-//  Created by ibireme on 15/4/6.
-//  Copyright (c) 2015 ibireme.
-//
-//  This source code is licensed under the MIT-style license found in the
-//  LICENSE file in the root directory of this source tree.
+//  Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <UIKit/UIKit.h>
@@ -135,7 +132,6 @@ static inline CGFloat ASTextEmojiGetDescentWithFontSize(CGFloat fontSize) {
   } else {
     return 0.3125 * fontSize;
   }
-  return 0;
 }
 
 /**
@@ -164,13 +160,13 @@ static inline CGRect ASTextEmojiGetGlyphBoundingRectWithFontSize(CGFloat fontSiz
  Get the character set which should rotate in vertical form.
  @return The shared character set.
  */
-NSCharacterSet *ASTextVerticalFormRotateCharacterSet();
+NSCharacterSet *ASTextVerticalFormRotateCharacterSet(void);
 
 /**
  Get the character set which should rotate and move in vertical form.
  @return The shared character set.
  */
-NSCharacterSet *ASTextVerticalFormRotateAndMoveCharacterSet();
+NSCharacterSet *ASTextVerticalFormRotateAndMoveCharacterSet(void);
 
 
 /// Get the transform rotation.

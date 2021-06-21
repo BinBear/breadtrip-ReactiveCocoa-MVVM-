@@ -2,17 +2,9 @@
 //  ASCollectionView+Undeprecated.h
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <AsyncDisplayKit/ASCollectionView.h>
@@ -65,9 +57,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout;
 
-@property (nonatomic, assign) CGFloat leadingScreensForBatching;
+@property (nonatomic) CGFloat leadingScreensForBatching;
 
-@property (nonatomic, assign) BOOL inverted;
+@property (nonatomic) BOOL inverted;
 
 @property (nonatomic, readonly) ASScrollDirection scrollDirection;
 
@@ -75,9 +67,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<ASCollectionViewLayoutInspecting> layoutInspector;
 
-@property (nonatomic, assign) UIEdgeInsets contentInset;
+@property (nonatomic) UIEdgeInsets contentInset;
 
-@property (nonatomic, assign) CGPoint contentOffset;
+@property (nonatomic) CGPoint contentOffset;
 
 /**
  * Tuning parameters for a range type in full mode.
@@ -154,7 +146,7 @@ NS_ASSUME_NONNULL_BEGIN
  *                    Boolean parameter that contains the value YES if all of the related animations completed successfully or
  *                    NO if they were interrupted. This parameter may be nil. If supplied, the block is run on the main thread.
  */
-- (void)performBatchAnimated:(BOOL)animated updates:(nullable AS_NOESCAPE void (^)())updates completion:(nullable void (^)(BOOL finished))completion;
+- (void)performBatchAnimated:(BOOL)animated updates:(nullable AS_NOESCAPE void (^)(void))updates completion:(nullable void (^)(BOOL finished))completion;
 
 /**
  *  Perform a batch of updates asynchronously.  This method must be called from the main thread.
@@ -165,7 +157,7 @@ NS_ASSUME_NONNULL_BEGIN
  *                    Boolean parameter that contains the value YES if all of the related animations completed successfully or
  *                    NO if they were interrupted. This parameter may be nil. If supplied, the block is run on the main thread.
  */
-- (void)performBatchUpdates:(nullable AS_NOESCAPE void (^)())updates completion:(nullable void (^)(BOOL finished))completion;
+- (void)performBatchUpdates:(nullable AS_NOESCAPE void (^)(void))updates completion:(nullable void (^)(BOOL finished))completion;
 
 /**
  * Triggers a relayout of all nodes.
@@ -295,6 +287,11 @@ NS_ASSUME_NONNULL_BEGIN
  *    collection node instead.
  */
 - (nullable NSIndexPath *)indexPathForNode:(ASCellNode *)cellNode AS_WARN_UNUSED_RESULT;
+
+/**
+ *  Invalidates and recalculates the cached sizes stored for pass-through cells used in interop mode.
+ */
+- (void)invalidateFlowLayoutDelegateMetrics;
 
 - (void)setContentOffset:(CGPoint)contentOffset animated:(BOOL)animated;
 

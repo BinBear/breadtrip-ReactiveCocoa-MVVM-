@@ -2,17 +2,9 @@
 //  ASCollectionLayout.mm
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <AsyncDisplayKit/ASCollectionLayout.h>
@@ -157,6 +149,21 @@ static const ASScrollDirection kASStaticScrollDirection = (ASScrollDirectionRigh
     _layout = nil;
   }
 }
+
+/**
+ * NOTE: It is suggested practice on the Web to override invalidationContextForInteractivelyMovingItems… and call out to the
+ * data source to move the item (so that if e.g. the item size depends on the data, you get the data you expect). However, as of iOS 11 this
+ * doesn't work, because UICV machinery will also call out to the data source to move the item after the interaction is done. The result is
+ * that your data source state will be incorrect due to this last move call. Plus it's just an API violation.
+ *
+ * Things tried:
+ *   - Doing the speculative data source moves, and then UNDOING the last one in invalidationContextForEndingInteractiveMovementOfItems…
+ *     but this does not work because the UICV machinery informs its data source before it calls that method on us, so we are too late.
+ *
+ * The correct practice is to use the UIDataSourceTranslating API introduced in iOS 11. Currently Texture does not support this API but we can
+ * build it if there is demand. We could add an id<UIDataSourceTranslating> field onto the layout context object, and the layout client can
+ * use data source index paths when it reads nodes or other data source data.
+ */
 
 - (CGSize)collectionViewContentSize
 {
@@ -331,7 +338,12 @@ static const ASScrollDirection kASStaticScrollDirection = (ASScrollDirectionRigh
   if (NSUInteger count = blockingAttrs.count) {
     ASDispatchApply(count, queue, 0, ^(size_t i) {
       UICollectionViewLayoutAttributes *attrs = blockingAttrs[i];
-      ASCellNode *node = [elements elementForItemAtIndexPath:attrs.indexPath].node;
+      ASCellNode *node;
+      if (attrs.representedElementKind == nil) {
+        node = [elements elementForItemAtIndexPath:attrs.indexPath].node;
+      } else {
+        node = [elements supplementaryElementOfKind:attrs.representedElementKind atIndexPath:attrs.indexPath].node;
+      }
       CGSize expectedSize = attrs.frame.size;
       if (! CGSizeEqualToSize(expectedSize, node.calculatedSize)) {
         [node layoutThatFits:ASCollectionLayoutElementSizeRangeFromSize(expectedSize)];
@@ -346,7 +358,12 @@ static const ASScrollDirection kASStaticScrollDirection = (ASScrollDirectionRigh
       __strong ASElementMap *strongElements = weakElements;
       if (strongElements) {
         UICollectionViewLayoutAttributes *attrs = nonBlockingAttrs[i];
-        ASCellNode *node = [elements elementForItemAtIndexPath:attrs.indexPath].node;
+        ASCellNode *node;
+        if (attrs.representedElementKind == nil) {
+          node = [elements elementForItemAtIndexPath:attrs.indexPath].node;
+        } else {
+          node = [elements supplementaryElementOfKind:attrs.representedElementKind atIndexPath:attrs.indexPath].node;
+        }
         CGSize expectedSize = attrs.frame.size;
         if (! CGSizeEqualToSize(expectedSize, node.calculatedSize)) {
           [node layoutThatFits:ASCollectionLayoutElementSizeRangeFromSize(expectedSize)];

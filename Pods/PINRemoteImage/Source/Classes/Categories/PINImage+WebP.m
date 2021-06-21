@@ -8,12 +8,17 @@
 
 #import "PINImage+WebP.h"
 
-#ifdef PIN_WEBP
+#if PIN_WEBP
+
+#if SWIFT_PACKAGE
+@import libwebp;
+#else
 #import "webp/decode.h"
+#endif
 
 static void releaseData(void *info, const void *data, size_t size)
 {
-    free((void *)data);
+    WebPFree((void *)data);
 }
 
 @implementation PINImage (PINWebP)

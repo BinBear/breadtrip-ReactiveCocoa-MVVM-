@@ -2,30 +2,27 @@
 //  ASTextKitAttributes.h
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #pragma once
 
 #import <UIKit/UIKit.h>
+
+#import <AsyncDisplayKit/ASAvailability.h>
+
+#if AS_ENABLE_TEXTNODE
+
 #import <AsyncDisplayKit/ASEqualityHelpers.h>
 
-extern NSString *const ASTextKitTruncationAttributeName;
+ASDK_EXTERN NSString *const ASTextKitTruncationAttributeName;
 /**
  Use ASTextKitEntityAttribute as the value of this attribute to embed a link or other interactable content inside the
  text.
  */
-extern NSString *const ASTextKitEntityAttributeName;
+ASDK_EXTERN NSString *const ASTextKitEntityAttributeName;
 
 /**
  All NSObject values in this struct should be copied when passed into the TextComponent.
@@ -88,6 +85,10 @@ struct ASTextKitAttributes {
   NSArray *pointSizeScaleFactors;
 
   /**
+   The tint color to use in drawing the text foreground color. Only applied if the attributedString does not define foreground color
+   */
+  UIColor *tintColor;
+  /**
    We provide an explicit copy function so we can use aggregate initializer syntax while providing copy semantics for
    the NSObjects inside.
    */
@@ -105,6 +106,7 @@ struct ASTextKitAttributes {
       shadowOpacity,
       shadowRadius,
       pointSizeScaleFactors,
+      [tintColor copy]
     };
   };
 
@@ -122,8 +124,11 @@ struct ASTextKitAttributes {
     && ASObjectIsEqual(avoidTailTruncationSet, other.avoidTailTruncationSet)
     && ASObjectIsEqual(shadowColor, other.shadowColor)
     && ASObjectIsEqual(attributedString, other.attributedString)
-    && ASObjectIsEqual(truncationAttributedString, other.truncationAttributedString);
+    && ASObjectIsEqual(truncationAttributedString, other.truncationAttributedString)
+    && ASObjectIsEqual(tintColor, other.tintColor);
   }
 
   size_t hash() const;
 };
+
+#endif

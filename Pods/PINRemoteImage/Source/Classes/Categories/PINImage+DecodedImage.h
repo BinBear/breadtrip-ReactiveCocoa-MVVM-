@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+#import "PINRemoteImageMacros.h"
+
 #if PIN_TARGET_IOS
 #import <UIKit/UIKit.h>
 #elif PIN_TARGET_MAC
 #import <Cocoa/Cocoa.h>
 #endif
-
-#import "PINRemoteImageMacros.h"
 
 #if !PIN_TARGET_IOS
 @interface NSImage (PINiOSMapping)
@@ -39,5 +39,6 @@ NSData * __nullable PINImagePNGRepresentation(PINImage * __nonnull image);
 #if PIN_TARGET_IOS
 + (nullable PINImage *)pin_decodedImageWithCGImageRef:(nonnull CGImageRef)imageRef orientation:(UIImageOrientation) orientation;
 #endif
++ (nullable CGImageRef)pin_decodedImageRefWithCGImageRef:(nonnull CGImageRef)imageRef;
 
 @end

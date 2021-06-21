@@ -2,15 +2,26 @@
 //  HTFindFeedModel.m
 //  HeartTrip
 //
-//  Created by 熊彬 on 16/11/29.
-//  Copyright © 2016年 BinBear. All rights reserved.
+//  Created by vin on 2021/5/24.
+//  Copyright © 2021 Vin. All rights reserved.
 //
 
 #import "HTFindFeedModel.h"
 
+@implementation HTFindUserModel
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"ID"  : @"id"};
+}
+@end
+
+@implementation HTFindProductModel
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"ID"  : @"id"};
+}
+@end
+
 @implementation HTFindFeedModel
-+ (NSDictionary *)mj_objectClassInArray
-{
-    return @{@"liked_users" : @"HTFindUserModel"};
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@"liked_users" : [HTFindUserModel class]};
 }
 @end

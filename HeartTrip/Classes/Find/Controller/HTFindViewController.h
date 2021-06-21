@@ -2,12 +2,17 @@
 //  HTFindViewController.h
 //  HeartTrip
 //
-//  Created by 熊彬 on 16/9/18.
-//  Copyright © 2016年 BinBear. All rights reserved.
+//  Created by vin on 2021/4/18.
+//  Copyright © 2021 BinBear. All rights reserved.
 //
 
 #import "HTBaseViewController.h"
+#import "HTFindViewModel.h"
 
-@interface HTFindViewController : HTBaseViewController
+NS_ASSUME_NONNULL_BEGIN
+
+@interface HTFindViewController : HTBaseViewController <HTFindViewModel *>
 
 @end
+
+NS_ASSUME_NONNULL_END

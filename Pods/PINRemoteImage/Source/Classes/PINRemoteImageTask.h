@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#if SWIFT_PACKAGE
+@import PINOperation;
+#else
 #import <PINOperation/PINOperation.h>
+#endif
 
 #import "PINRemoteImageCallbacks.h"
 #import "PINRemoteImageManager.h"
@@ -24,9 +29,8 @@
 @property (nonatomic, weak, nullable) PINRemoteImageManager *manager;
 
 @property (nonatomic, strong, nullable) id<PINRequestRetryStrategy> retryStrategy;
-#if PINRemoteImageLogging
+
 @property (nonatomic, copy, nullable) NSString *key;
-#endif
 
 - (_Nonnull instancetype)init NS_UNAVAILABLE;
 - (_Nonnull instancetype)initWithManager:(nonnull PINRemoteImageManager *)manager NS_DESIGNATED_INITIALIZER;

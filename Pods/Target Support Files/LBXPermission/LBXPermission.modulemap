@@ -1,0 +1,6 @@
+framework module LBXPermission {
+  umbrella header "LBXPermission-umbrella.h"
+
+  export *
+  module * { export * }
+}

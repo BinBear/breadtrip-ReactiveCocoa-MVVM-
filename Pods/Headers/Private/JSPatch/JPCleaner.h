@@ -1,1 +1,0 @@
-../../../JSPatch/Extensions/JPCleaner.h

@@ -1,0 +1,6 @@
+framework module MMKVCore {
+  umbrella header "MMKVCore-umbrella.h"
+
+  export *
+  module * { export * }
+}

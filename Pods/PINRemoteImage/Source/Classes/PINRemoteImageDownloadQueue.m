@@ -10,7 +10,6 @@
 
 #import "PINURLSessionManager.h"
 #import "PINRemoteLock.h"
-#import "NSURLSessionTask+Timing.h"
 
 @interface PINRemoteImageDownloadQueue ()
 {
@@ -37,7 +36,7 @@
 {
     if (self = [super init]) {
         _maxNumberOfConcurrentDownloads = maxNumberOfConcurrentDownloads;
-        
+
         _lock = [[PINRemoteLock alloc] initWithName:@"PINRemoteImageDownloadQueue Lock"];
         _highPriorityQueuedOperations = [[NSMutableOrderedSet alloc] init];
         _defaultPriorityQueuedOperations = [[NSMutableOrderedSet alloc] init];
@@ -69,20 +68,21 @@
                                                priority:(PINRemoteImageManagerPriority)priority
                                       completionHandler:(PINRemoteImageDownloadCompletion)completionHandler
 {
-    NSURLSessionDataTask *dataTask = [sessionManager dataTaskWithRequest:request completionHandler:^(NSURLSessionTask *task, NSError *error) {
-        completionHandler(task.response, error);
-        [self lock];
-            [_runningTasks removeObject:task];
-        [self unlock];
-        
-        [self scheduleDownloadsIfNeeded];
-    }];
-    [dataTask PIN_setupSessionTaskObserver];
-    
+    NSURLSessionDataTask *dataTask = [sessionManager dataTaskWithRequest:request
+                                                                priority:priority
+                                                       completionHandler:^(NSURLSessionTask *task, NSError *error) {
+                                                           completionHandler(task.response, error);
+                                                           [self lock];
+                                                               [self->_runningTasks removeObject:task];
+                                                           [self unlock];
+
+                                                           [self scheduleDownloadsIfNeeded];
+                                                       }];
+
     [self setQueuePriority:priority forTask:dataTask addIfNecessary:YES];
-    
+
     [self scheduleDownloadsIfNeeded];
-    
+
     return dataTask;
 }
 
@@ -106,7 +106,6 @@
             NSURLSessionDataTask *task = [queue firstObject];
             [queue removeObjectAtIndex:0];
             [task resume];
-            
             
             [_runningTasks addObject:task];
         }

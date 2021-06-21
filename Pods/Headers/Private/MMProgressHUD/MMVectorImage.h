@@ -1,1 +1,0 @@
-../../../MMProgressHUD/Source/MMVectorImage.h

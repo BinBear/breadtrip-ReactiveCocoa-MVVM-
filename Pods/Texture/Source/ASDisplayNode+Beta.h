@@ -2,52 +2,30 @@
 //  ASDisplayNode+Beta.h
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <AsyncDisplayKit/ASAvailability.h>
 #import <AsyncDisplayKit/ASDisplayNode.h>
 #import <AsyncDisplayKit/ASLayoutRangeType.h>
-#import <AsyncDisplayKit/ASEventLog.h>
 
 #if YOGA
   #import YOGA_HEADER_PATH
   #import <AsyncDisplayKit/ASYogaUtilities.h>
+  #import <AsyncDisplayKit/ASDisplayNode+Yoga.h>
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
 
-ASDISPLAYNODE_EXTERN_C_BEGIN
-void ASPerformBlockOnMainThread(void (^block)());
-void ASPerformBlockOnBackgroundThread(void (^block)()); // DISPATCH_QUEUE_PRIORITY_DEFAULT
-ASDISPLAYNODE_EXTERN_C_END
-
-#if ASEVENTLOG_ENABLE
-  #define ASDisplayNodeLogEvent(node, ...) [node.eventLog logEventWithBacktrace:(AS_SAVE_EVENT_BACKTRACES ? [NSThread callStackSymbols] : nil) format:__VA_ARGS__]
-#else
-  #define ASDisplayNodeLogEvent(node, ...)
-#endif
-
-#if ASEVENTLOG_ENABLE
-  #define ASDisplayNodeGetEventLog(node) node.eventLog
-#else
-  #define ASDisplayNodeGetEventLog(node) nil
-#endif
+ASDK_EXTERN void ASPerformBlockOnMainThread(void (^block)(void));
+ASDK_EXTERN void ASPerformBlockOnBackgroundThread(void (^block)(void)); // DISPATCH_QUEUE_PRIORITY_DEFAULT
 
 /**
  * Bitmask to indicate what performance measurements the cell should record.
  */
-typedef NS_OPTIONS(NSUInteger, ASDisplayNodePerformanceMeasurementOptions) {
+typedef NS_OPTIONS(unsigned char, ASDisplayNodePerformanceMeasurementOptions) {
   ASDisplayNodePerformanceMeasurementOptionLayoutSpec = 1 << 0,
   ASDisplayNodePerformanceMeasurementOptionLayoutComputation = 1 << 1
 };
@@ -60,6 +38,19 @@ typedef struct {
 } ASDisplayNodePerformanceMeasurements;
 
 @interface ASDisplayNode (Beta)
+
+/**
+ * ASTableView and ASCollectionView now throw exceptions on invalid updates
+ * like their UIKit counterparts. If YES, these classes will log messages
+ * on invalid updates rather than throwing exceptions.
+ *
+ * Note that even if AsyncDisplayKit's exception is suppressed, the app may still crash
+ * as it proceeds with an invalid update.
+ *
+ * This property defaults to NO. It will be removed in a future release.
+ */
++ (BOOL)suppressesInvalidCollectionUpdateExceptions AS_WARN_UNUSED_RESULT ASDISPLAYNODE_DEPRECATED_MSG("Collection update exceptions are thrown if assertions are enabled.");
++ (void)setSuppressesInvalidCollectionUpdateExceptions:(BOOL)suppresses;
 
 /**
  * @abstract Recursively ensures node and all subnodes are displayed.
@@ -75,42 +66,49 @@ typedef struct {
  * restoring context if necessary. Restoring can be done in contextDidDisplayNodeContent
  * This block can be called from *any* thread and it is unsafe to access any UIKit main thread properties from it.
  */
-@property (nonatomic, copy, nullable) ASDisplayNodeContextModifier willDisplayNodeContentWithRenderingContext;
+@property (nullable) ASDisplayNodeContextModifier willDisplayNodeContentWithRenderingContext;
 
 /**
  * @abstract allow modification of a context after the node's content is drawn
  */
-@property (nonatomic, copy, nullable) ASDisplayNodeContextModifier didDisplayNodeContentWithRenderingContext;
+@property (nullable) ASDisplayNodeContextModifier didDisplayNodeContentWithRenderingContext;
 
 /**
  * @abstract A bitmask representing which actions (layout spec, layout generation) should be measured.
  */
-@property (nonatomic, assign) ASDisplayNodePerformanceMeasurementOptions measurementOptions;
+@property ASDisplayNodePerformanceMeasurementOptions measurementOptions;
 
 /**
  * @abstract A simple struct representing performance measurements collected.
  */
-@property (nonatomic, assign, readonly) ASDisplayNodePerformanceMeasurements performanceMeasurements;
-
-#if ASEVENTLOG_ENABLE
-/*
- * @abstract The primitive event tracing object. You shouldn't directly use it to log event. Use the ASDisplayNodeLogEvent macro instead.
- */
-@property (nonatomic, strong, readonly) ASEventLog *eventLog;
-#endif
+@property (readonly) ASDisplayNodePerformanceMeasurements performanceMeasurements;
 
 /**
  * @abstract Whether this node acts as an accessibility container. If set to YES, then this node's accessibility label will represent
  * an aggregation of all child nodes' accessibility labels. Nodes in this node's subtree that are also accessibility containers will
  * not be included in this aggregation, and will be exposed as separate accessibility elements to UIKit.
  */
-@property (nonatomic, assign) BOOL isAccessibilityContainer;
+@property BOOL isAccessibilityContainer;
+
+/**
+ * @abstract Returns the default accessibility property values set by Texture on this node. For
+ * example, the default accessibility label for a text node may be its text content, while most
+ * other nodes would have nil default labels.
+ */
+@property (nullable, readonly, copy) NSString *defaultAccessibilityLabel;
+@property (nullable, readonly, copy) NSString *defaultAccessibilityHint;
+@property (nullable, readonly, copy) NSString *defaultAccessibilityValue;
+@property (nullable, readonly, copy) NSString *defaultAccessibilityIdentifier;
+@property (readonly) UIAccessibilityTraits defaultAccessibilityTraits;
 
 /**
  * @abstract Invoked when a user performs a custom action on an accessible node. Nodes that are children of accessibility containers, have
  * an accessibity label and have an interactive UIAccessibilityTrait will automatically receive custom-action handling.
+ *
+ * @return Return a boolean value that determine whether to propagate through the responder chain.
+ * To halt propagation, return YES; otherwise, return NO.
  */
-- (void)performAccessibilityCustomAction:(UIAccessibilityCustomAction *)action;
+- (BOOL)performAccessibilityCustomAction:(UIAccessibilityCustomAction *)action;
 
 /**
  * @abstract Currently used by ASNetworkImageNode and ASMultiplexImageNode to allow their placeholders to stay if they are loading an image from the network.
@@ -125,7 +123,14 @@ typedef struct {
  * this hook could be called up to 1 + (pJPEGcount * pJPEGrenderCount) times. The render count depends on how many times the downloader calls the
  * progressImage block.
  */
-- (void)hierarchyDisplayDidFinish;
+AS_CATEGORY_IMPLEMENTABLE
+- (void)hierarchyDisplayDidFinish NS_REQUIRES_SUPER;
+
+/**
+ * Only called on the root during yoga layout.
+ */
+AS_CATEGORY_IMPLEMENTABLE
+- (void)willCalculateLayout:(ASSizeRange)constrainedSize NS_REQUIRES_SUPER;
 
 /**
  * Only ASLayoutRangeModeVisibleOnly or ASLayoutRangeModeLowMemory are recommended.  Default is ASLayoutRangeModeVisibleOnly,
@@ -162,52 +167,5 @@ typedef struct {
 - (void)enableSubtreeRasterization;
 
 @end
-
-#pragma mark - Yoga Layout Support
-
-#if YOGA
-
-extern void ASDisplayNodePerformBlockOnEveryYogaChild(ASDisplayNode * _Nullable node, void(^block)(ASDisplayNode *node));
-
-@interface ASDisplayNode (Yoga)
-
-@property (nonatomic, strong, nullable) NSArray *yogaChildren;
-
-- (void)addYogaChild:(ASDisplayNode *)child;
-- (void)removeYogaChild:(ASDisplayNode *)child;
-- (void)insertYogaChild:(ASDisplayNode *)child atIndex:(NSUInteger)index;
-
-- (void)semanticContentAttributeDidChange:(UISemanticContentAttribute)attribute;
-
-@property (nonatomic, assign) BOOL yogaLayoutInProgress;
-@property (nonatomic, strong, nullable) ASLayout *yogaCalculatedLayout;
-
-// These methods are intended to be used internally to Texture, and should not be called directly.
-- (BOOL)shouldHaveYogaMeasureFunc;
-- (void)invalidateCalculatedYogaLayout;
-- (void)calculateLayoutFromYogaRoot:(ASSizeRange)rootConstrainedSize;
-
-@end
-
-@interface ASLayoutElementStyle (Yoga)
-
-- (YGNodeRef)yogaNodeCreateIfNeeded;
-@property (nonatomic, assign, readonly) YGNodeRef yogaNode;
-
-@property (nonatomic, assign, readwrite) ASStackLayoutDirection flexDirection;
-@property (nonatomic, assign, readwrite) YGDirection direction;
-@property (nonatomic, assign, readwrite) ASStackLayoutJustifyContent justifyContent;
-@property (nonatomic, assign, readwrite) ASStackLayoutAlignItems alignItems;
-@property (nonatomic, assign, readwrite) YGPositionType positionType;
-@property (nonatomic, assign, readwrite) ASEdgeInsets position;
-@property (nonatomic, assign, readwrite) ASEdgeInsets margin;
-@property (nonatomic, assign, readwrite) ASEdgeInsets padding;
-@property (nonatomic, assign, readwrite) ASEdgeInsets border;
-@property (nonatomic, assign, readwrite) CGFloat aspectRatio;
-@property (nonatomic, assign, readwrite) YGWrap flexWrap;
-
-@end
-
-#endif
 
 NS_ASSUME_NONNULL_END

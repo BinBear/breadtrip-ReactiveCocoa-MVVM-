@@ -1,0 +1,476 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		03FA30261803DF32675C25B647F755D3 /* CAAnimation+YALTabBarViewAnimations.h in Headers */ = {isa = PBXBuildFile; fileRef = 465D2FB53E9647452631BB575227A522 /* CAAnimation+YALTabBarViewAnimations.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0B1D0ACF96CE842C8C4DA165C429561A /* UIView+Insets.h in Headers */ = {isa = PBXBuildFile; fileRef = F458D6283A41063598393307B2E0AF4C /* UIView+Insets.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1261B1CDC40EFC6CF2F05ABD29E5F173 /* UIView+Insets.m in Sources */ = {isa = PBXBuildFile; fileRef = 327D77C82D0C8CD53E3F689DD48ED2A1 /* UIView+Insets.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		13368F0262D5BD234A0A2CCD4107EDB3 /* YALTabBarItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AC54ECAB0C5C6DC2DBCB3564BB90DAD /* YALTabBarItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		157F4B8F24C591F91A4FC86BFD271E61 /* YALAnimatingTabBarConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E53C428A6D840D1519A2760CDE1380 /* YALAnimatingTabBarConstants.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		2EEFC5CB59C1FC56F1302124BDD160A4 /* YALCustomHeightTabBar.h in Headers */ = {isa = PBXBuildFile; fileRef = E8730A6D26DE70CD60ADFD275CF86D68 /* YALCustomHeightTabBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		31732D5EB2540E78C1A22D3F5BCF261F /* YALFoldingTabBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 3C433CA782175550707620CDA7B04A22 /* YALFoldingTabBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		39805054EB6ED04226F8F260266CB44D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68F1F9587F5C481D05C71CB87B9E34DF /* UIKit.framework */; };
+		55DB826476A60BB62FC0AEB83D690382 /* CATransaction+TransactionWithAnimationsAndCompletion.h in Headers */ = {isa = PBXBuildFile; fileRef = 43E8B2FCD595E084B27011AD038586B0 /* CATransaction+TransactionWithAnimationsAndCompletion.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65A4149C4D3530DE51E3DA1BB135E2BD /* YALFoldingTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 677230AF4DB606681698E044B6F840D2 /* YALFoldingTabBar.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		6D071C8353B79C778FAFA96EF414ACE0 /* CATransaction+TransactionWithAnimationsAndCompletion.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D409275FAD9CEA6D0D05570948FEEED /* CATransaction+TransactionWithAnimationsAndCompletion.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		7BA674B4FEDDFC92D5691E648CF8AF4E /* FoldingTabBar-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 04E083C1E7C832FF54304A08196BE084 /* FoldingTabBar-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7EF2BFEE4899AD9C1ACE21264C158618 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8414221A1B749BEE8AF092665D22AB2F /* Foundation.framework */; };
+		97B3B0E4FD6BB60914043D861DC02461 /* YALFoldingTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2086DD93987CCE857B14EE8B3EAAD2E /* YALFoldingTabBarController.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		AA5A7E4EFB9F193320DB8A75848A7778 /* CAAnimation+YALTabBarViewAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF0E49CBC8468EF97D17E0F4673B9E0 /* CAAnimation+YALTabBarViewAnimations.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		B91D22984841AD24E4BD5207CAB73BF0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D57F57673188F5319BE9F98AF08F55 /* QuartzCore.framework */; };
+		BB138C7843A40B80474F8C777E30001F /* YALSpringAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = D24BBF4F110E28B31CB7648918B67BB9 /* YALSpringAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BBB445544A0756F8AC007D1380F66CE3 /* YALTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 212C90B029141349F000025324027940 /* YALTabBarItem.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		BD24E97C1D576117080639C5D576C5AF /* FoldingTabBar-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 61206910205D21DFDDA54DFA8528D2DF /* FoldingTabBar-dummy.m */; };
+		BDA7266C250FDD120C494AF5FDC85A46 /* YALFoldingTabBarController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B21296F13329A73D74F7E5401B86BE8 /* YALFoldingTabBarController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4B234ECCCB299A6B98CB952BB557D83 /* YALCustomHeightTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E57A2F800B4F65B3C8A186EF7EB846B5 /* YALCustomHeightTabBar.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		EC45D245EFD7DE7C22BF510E4D104A1F /* FoldingTabBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 7984A6A7BEEDC0B8A8FF0428D7AE5990 /* FoldingTabBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC8C0745F260003B08D01A35DC44D9C0 /* YALSpringAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = C748E338EB344BBBBA7940952B075BCF /* YALSpringAnimation.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		F33429997C1DC6C16BE4F3E42A4C5252 /* YALAnimatingTabBarConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 70149DE2B91B09EC3EC6A532E216B977 /* YALAnimatingTabBarConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		03D57F57673188F5319BE9F98AF08F55 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		04E083C1E7C832FF54304A08196BE084 /* FoldingTabBar-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FoldingTabBar-umbrella.h"; sourceTree = "<group>"; };
+		19E53C428A6D840D1519A2760CDE1380 /* YALAnimatingTabBarConstants.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YALAnimatingTabBarConstants.m; path = FoldingTabBar/Constants/YALAnimatingTabBarConstants.m; sourceTree = "<group>"; };
+		212C90B029141349F000025324027940 /* YALTabBarItem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YALTabBarItem.m; path = FoldingTabBar/Model/TabBarItem/YALTabBarItem.m; sourceTree = "<group>"; };
+		327D77C82D0C8CD53E3F689DD48ED2A1 /* UIView+Insets.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+Insets.m"; path = "FoldingTabBar/Category/UIView/UIView+Insets.m"; sourceTree = "<group>"; };
+		36AE7A249697C602816DDCA50EB4BA1F /* FoldingTabBar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FoldingTabBar.release.xcconfig; sourceTree = "<group>"; };
+		39446099BF937F977B222E8B1223B4E8 /* FoldingTabBar-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "FoldingTabBar-Info.plist"; sourceTree = "<group>"; };
+		3C433CA782175550707620CDA7B04A22 /* YALFoldingTabBar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YALFoldingTabBar.h; path = FoldingTabBar/View/FoldingTabBar/YALFoldingTabBar.h; sourceTree = "<group>"; };
+		43E8B2FCD595E084B27011AD038586B0 /* CATransaction+TransactionWithAnimationsAndCompletion.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "CATransaction+TransactionWithAnimationsAndCompletion.h"; path = "FoldingTabBar/Category/CATransaction/CATransaction+TransactionWithAnimationsAndCompletion/CATransaction+TransactionWithAnimationsAndCompletion.h"; sourceTree = "<group>"; };
+		465D2FB53E9647452631BB575227A522 /* CAAnimation+YALTabBarViewAnimations.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "CAAnimation+YALTabBarViewAnimations.h"; path = "FoldingTabBar/Category/CAAnimation/CAAnimation+YALTabBarViewAnimations/CAAnimation+YALTabBarViewAnimations.h"; sourceTree = "<group>"; };
+		5AC54ECAB0C5C6DC2DBCB3564BB90DAD /* YALTabBarItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YALTabBarItem.h; path = FoldingTabBar/Model/TabBarItem/YALTabBarItem.h; sourceTree = "<group>"; };
+		5AF0E49CBC8468EF97D17E0F4673B9E0 /* CAAnimation+YALTabBarViewAnimations.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "CAAnimation+YALTabBarViewAnimations.m"; path = "FoldingTabBar/Category/CAAnimation/CAAnimation+YALTabBarViewAnimations/CAAnimation+YALTabBarViewAnimations.m"; sourceTree = "<group>"; };
+		61206910205D21DFDDA54DFA8528D2DF /* FoldingTabBar-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FoldingTabBar-dummy.m"; sourceTree = "<group>"; };
+		677230AF4DB606681698E044B6F840D2 /* YALFoldingTabBar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YALFoldingTabBar.m; path = FoldingTabBar/View/FoldingTabBar/YALFoldingTabBar.m; sourceTree = "<group>"; };
+		68F1F9587F5C481D05C71CB87B9E34DF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		6D409275FAD9CEA6D0D05570948FEEED /* CATransaction+TransactionWithAnimationsAndCompletion.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "CATransaction+TransactionWithAnimationsAndCompletion.m"; path = "FoldingTabBar/Category/CATransaction/CATransaction+TransactionWithAnimationsAndCompletion/CATransaction+TransactionWithAnimationsAndCompletion.m"; sourceTree = "<group>"; };
+		70149DE2B91B09EC3EC6A532E216B977 /* YALAnimatingTabBarConstants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YALAnimatingTabBarConstants.h; path = FoldingTabBar/Constants/YALAnimatingTabBarConstants.h; sourceTree = "<group>"; };
+		7984A6A7BEEDC0B8A8FF0428D7AE5990 /* FoldingTabBar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FoldingTabBar.h; path = FoldingTabBar/Resources/FoldingTabBar.h; sourceTree = "<group>"; };
+		7B21296F13329A73D74F7E5401B86BE8 /* YALFoldingTabBarController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YALFoldingTabBarController.h; path = FoldingTabBar/Controller/FoldingTabBarController/YALFoldingTabBarController.h; sourceTree = "<group>"; };
+		8014744557968CFDC41A9A2DEF146493 /* FoldingTabBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FoldingTabBar.framework; path = FoldingTabBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8414221A1B749BEE8AF092665D22AB2F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		9A19D1D7405E2A868B238CFB18D54559 /* FoldingTabBar.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = FoldingTabBar.modulemap; sourceTree = "<group>"; };
+		9BF9058FC14D504B21CBBA29B2FA79F3 /* FoldingTabBar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FoldingTabBar.debug.xcconfig; sourceTree = "<group>"; };
+		C748E338EB344BBBBA7940952B075BCF /* YALSpringAnimation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YALSpringAnimation.m; path = FoldingTabBar/Animation/YALSpringAnimation/YALSpringAnimation.m; sourceTree = "<group>"; };
+		D24BBF4F110E28B31CB7648918B67BB9 /* YALSpringAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YALSpringAnimation.h; path = FoldingTabBar/Animation/YALSpringAnimation/YALSpringAnimation.h; sourceTree = "<group>"; };
+		E57A2F800B4F65B3C8A186EF7EB846B5 /* YALCustomHeightTabBar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YALCustomHeightTabBar.m; path = FoldingTabBar/View/CustomHeightTabBar/YALCustomHeightTabBar.m; sourceTree = "<group>"; };
+		E8730A6D26DE70CD60ADFD275CF86D68 /* YALCustomHeightTabBar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YALCustomHeightTabBar.h; path = FoldingTabBar/View/CustomHeightTabBar/YALCustomHeightTabBar.h; sourceTree = "<group>"; };
+		EE531F649B5E0FDE221B20D24C5EAA47 /* FoldingTabBar-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FoldingTabBar-prefix.pch"; sourceTree = "<group>"; };
+		F2086DD93987CCE857B14EE8B3EAAD2E /* YALFoldingTabBarController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YALFoldingTabBarController.m; path = FoldingTabBar/Controller/FoldingTabBarController/YALFoldingTabBarController.m; sourceTree = "<group>"; };
+		F458D6283A41063598393307B2E0AF4C /* UIView+Insets.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+Insets.h"; path = "FoldingTabBar/Category/UIView/UIView+Insets.h"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		62B2FD36FE6FBF06A648729331D3A948 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7EF2BFEE4899AD9C1ACE21264C158618 /* Foundation.framework in Frameworks */,
+				B91D22984841AD24E4BD5207CAB73BF0 /* QuartzCore.framework in Frameworks */,
+				39805054EB6ED04226F8F260266CB44D /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1C02256C017D1411480E7FD00581DA36 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8014744557968CFDC41A9A2DEF146493 /* FoldingTabBar.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2A471D52FA1A90426AF6682850E0E723 /* FoldingTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				465D2FB53E9647452631BB575227A522 /* CAAnimation+YALTabBarViewAnimations.h */,
+				5AF0E49CBC8468EF97D17E0F4673B9E0 /* CAAnimation+YALTabBarViewAnimations.m */,
+				43E8B2FCD595E084B27011AD038586B0 /* CATransaction+TransactionWithAnimationsAndCompletion.h */,
+				6D409275FAD9CEA6D0D05570948FEEED /* CATransaction+TransactionWithAnimationsAndCompletion.m */,
+				7984A6A7BEEDC0B8A8FF0428D7AE5990 /* FoldingTabBar.h */,
+				F458D6283A41063598393307B2E0AF4C /* UIView+Insets.h */,
+				327D77C82D0C8CD53E3F689DD48ED2A1 /* UIView+Insets.m */,
+				70149DE2B91B09EC3EC6A532E216B977 /* YALAnimatingTabBarConstants.h */,
+				19E53C428A6D840D1519A2760CDE1380 /* YALAnimatingTabBarConstants.m */,
+				E8730A6D26DE70CD60ADFD275CF86D68 /* YALCustomHeightTabBar.h */,
+				E57A2F800B4F65B3C8A186EF7EB846B5 /* YALCustomHeightTabBar.m */,
+				3C433CA782175550707620CDA7B04A22 /* YALFoldingTabBar.h */,
+				677230AF4DB606681698E044B6F840D2 /* YALFoldingTabBar.m */,
+				7B21296F13329A73D74F7E5401B86BE8 /* YALFoldingTabBarController.h */,
+				F2086DD93987CCE857B14EE8B3EAAD2E /* YALFoldingTabBarController.m */,
+				D24BBF4F110E28B31CB7648918B67BB9 /* YALSpringAnimation.h */,
+				C748E338EB344BBBBA7940952B075BCF /* YALSpringAnimation.m */,
+				5AC54ECAB0C5C6DC2DBCB3564BB90DAD /* YALTabBarItem.h */,
+				212C90B029141349F000025324027940 /* YALTabBarItem.m */,
+				3FB9CE264D2477BD5AB51173D0532874 /* Support Files */,
+			);
+			name = FoldingTabBar;
+			path = FoldingTabBar;
+			sourceTree = "<group>";
+		};
+		3FB9CE264D2477BD5AB51173D0532874 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				9A19D1D7405E2A868B238CFB18D54559 /* FoldingTabBar.modulemap */,
+				61206910205D21DFDDA54DFA8528D2DF /* FoldingTabBar-dummy.m */,
+				39446099BF937F977B222E8B1223B4E8 /* FoldingTabBar-Info.plist */,
+				EE531F649B5E0FDE221B20D24C5EAA47 /* FoldingTabBar-prefix.pch */,
+				04E083C1E7C832FF54304A08196BE084 /* FoldingTabBar-umbrella.h */,
+				9BF9058FC14D504B21CBBA29B2FA79F3 /* FoldingTabBar.debug.xcconfig */,
+				36AE7A249697C602816DDCA50EB4BA1F /* FoldingTabBar.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/FoldingTabBar";
+			sourceTree = "<group>";
+		};
+		5C529FCDED799AFD15CE4676EAB1C5E7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C3D0AB7B4E0B20B40CAEAA03069B2CE8 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B2C5A7D8AFB2F02BAE583C9E52B77FFB = {
+			isa = PBXGroup;
+			children = (
+				2A471D52FA1A90426AF6682850E0E723 /* FoldingTabBar */,
+				5C529FCDED799AFD15CE4676EAB1C5E7 /* Frameworks */,
+				1C02256C017D1411480E7FD00581DA36 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C3D0AB7B4E0B20B40CAEAA03069B2CE8 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				8414221A1B749BEE8AF092665D22AB2F /* Foundation.framework */,
+				03D57F57673188F5319BE9F98AF08F55 /* QuartzCore.framework */,
+				68F1F9587F5C481D05C71CB87B9E34DF /* UIKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		AF67B17D91986A40003950B4F02F18AB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03FA30261803DF32675C25B647F755D3 /* CAAnimation+YALTabBarViewAnimations.h in Headers */,
+				55DB826476A60BB62FC0AEB83D690382 /* CATransaction+TransactionWithAnimationsAndCompletion.h in Headers */,
+				7BA674B4FEDDFC92D5691E648CF8AF4E /* FoldingTabBar-umbrella.h in Headers */,
+				EC45D245EFD7DE7C22BF510E4D104A1F /* FoldingTabBar.h in Headers */,
+				0B1D0ACF96CE842C8C4DA165C429561A /* UIView+Insets.h in Headers */,
+				F33429997C1DC6C16BE4F3E42A4C5252 /* YALAnimatingTabBarConstants.h in Headers */,
+				2EEFC5CB59C1FC56F1302124BDD160A4 /* YALCustomHeightTabBar.h in Headers */,
+				31732D5EB2540E78C1A22D3F5BCF261F /* YALFoldingTabBar.h in Headers */,
+				BDA7266C250FDD120C494AF5FDC85A46 /* YALFoldingTabBarController.h in Headers */,
+				BB138C7843A40B80474F8C777E30001F /* YALSpringAnimation.h in Headers */,
+				13368F0262D5BD234A0A2CCD4107EDB3 /* YALTabBarItem.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		621EB81363A427286BCE0A453AB78E4A /* FoldingTabBar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA1E920760E73ED9E06614B9AB691782 /* Build configuration list for PBXNativeTarget "FoldingTabBar" */;
+			buildPhases = (
+				AF67B17D91986A40003950B4F02F18AB /* Headers */,
+				0826C747C62B540EF441287A38825057 /* Sources */,
+				62B2FD36FE6FBF06A648729331D3A948 /* Frameworks */,
+				AA8B904C15EF9A54C1D204ABB0EBE85F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FoldingTabBar;
+			productName = FoldingTabBar;
+			productReference = 8014744557968CFDC41A9A2DEF146493 /* FoldingTabBar.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		920910BAE5488FA1B219F5AC01231E1D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1100;
+			};
+			buildConfigurationList = 6BEF04AD1898BCCF1B0BE26EFEC80CFF /* Build configuration list for PBXProject "FoldingTabBar" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B2C5A7D8AFB2F02BAE583C9E52B77FFB;
+			productRefGroup = 1C02256C017D1411480E7FD00581DA36 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				621EB81363A427286BCE0A453AB78E4A /* FoldingTabBar */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA8B904C15EF9A54C1D204ABB0EBE85F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0826C747C62B540EF441287A38825057 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA5A7E4EFB9F193320DB8A75848A7778 /* CAAnimation+YALTabBarViewAnimations.m in Sources */,
+				6D071C8353B79C778FAFA96EF414ACE0 /* CATransaction+TransactionWithAnimationsAndCompletion.m in Sources */,
+				BD24E97C1D576117080639C5D576C5AF /* FoldingTabBar-dummy.m in Sources */,
+				1261B1CDC40EFC6CF2F05ABD29E5F173 /* UIView+Insets.m in Sources */,
+				157F4B8F24C591F91A4FC86BFD271E61 /* YALAnimatingTabBarConstants.m in Sources */,
+				D4B234ECCCB299A6B98CB952BB557D83 /* YALCustomHeightTabBar.m in Sources */,
+				65A4149C4D3530DE51E3DA1BB135E2BD /* YALFoldingTabBar.m in Sources */,
+				97B3B0E4FD6BB60914043D861DC02461 /* YALFoldingTabBarController.m in Sources */,
+				EC8C0745F260003B08D01A35DC44D9C0 /* YALSpringAnimation.m in Sources */,
+				BBB445544A0756F8AC007D1380F66CE3 /* YALTabBarItem.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		62AE05FF2EBA5206FF1EE1E18D8CA000 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		7CD3E0FE28837E485E696F1E709DA449 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		88C7C51371EF4558F15D406335D585CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9BF9058FC14D504B21CBBA29B2FA79F3 /* FoldingTabBar.debug.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/FoldingTabBar/FoldingTabBar-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/FoldingTabBar/FoldingTabBar-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/FoldingTabBar/FoldingTabBar.modulemap";
+				PRODUCT_MODULE_NAME = FoldingTabBar;
+				PRODUCT_NAME = FoldingTabBar;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E4EB70C895639CBFFE7A9F3E6B56B954 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 36AE7A249697C602816DDCA50EB4BA1F /* FoldingTabBar.release.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/FoldingTabBar/FoldingTabBar-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/FoldingTabBar/FoldingTabBar-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/FoldingTabBar/FoldingTabBar.modulemap";
+				PRODUCT_MODULE_NAME = FoldingTabBar;
+				PRODUCT_NAME = FoldingTabBar;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6BEF04AD1898BCCF1B0BE26EFEC80CFF /* Build configuration list for PBXProject "FoldingTabBar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7CD3E0FE28837E485E696F1E709DA449 /* Debug */,
+				62AE05FF2EBA5206FF1EE1E18D8CA000 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA1E920760E73ED9E06614B9AB691782 /* Build configuration list for PBXNativeTarget "FoldingTabBar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				88C7C51371EF4558F15D406335D585CC /* Debug */,
+				E4EB70C895639CBFFE7A9F3E6B56B954 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 920910BAE5488FA1B219F5AC01231E1D /* Project object */;
+}

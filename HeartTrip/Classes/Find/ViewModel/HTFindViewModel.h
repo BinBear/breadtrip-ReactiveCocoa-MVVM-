@@ -2,43 +2,25 @@
 //  HTFindViewModel.h
 //  HeartTrip
 //
-//  Created by 熊彬 on 16/11/30.
-//  Copyright © 2016年 BinBear. All rights reserved.
+//  Created by vin on 2021/4/18.
+//  Copyright © 2021 BinBear. All rights reserved.
 //
 
-#import "HTViewModel.h"
+#import "HTBaseViewModel.h"
+#import "HTFindFeedModel.h"
+#import "HTFindVideosModel.h"
 
-@interface HTFindViewModel : HTViewModel
+NS_ASSUME_NONNULL_BEGIN
 
-/**
- *  错误信号
- */
-@property (strong, nonatomic) RACSignal *feedConnectionErrors;
-/**
- *  更多数据请求
- */
-@property (strong, nonatomic) RACCommand *feedMoreDataCommand;
-/**
- *  更多数据错误信号
- */
-@property (strong, nonatomic) RACSignal *feedMoreConnectionErrors;
-/**
- *  feed详情
- */
-@property (strong, nonatomic) RACCommand *feedDetailCommand;
-/**
- *  评论详情
- */
-@property (strong, nonatomic) RACCommand *commentLinkCommand;
-/**
- *  活动流数组
- */
-@property (strong, nonatomic) NSArray *feedData;
-/**
- *  视频数组
- */
-@property (strong, nonatomic) NSArray *videoData;
+@interface HTFindViewModel : HTBaseViewModel
 
+/// feed
+@property (strong, nonatomic) NSMutableArray *feedData;
+/// video
+@property (strong, nonatomic) NSMutableArray *videoData;
 
-
+/// 列表
+@property (strong, nonatomic) RACCommand *listCommand;
 @end
+
+NS_ASSUME_NONNULL_END

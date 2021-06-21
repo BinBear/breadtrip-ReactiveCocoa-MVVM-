@@ -2,21 +2,14 @@
 //  UIImage+ASConvenience.h
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <UIKit/UIKit.h>
 #import <AsyncDisplayKit/ASBaseDefines.h>
+#import <AsyncDisplayKit/ASTraitCollection.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -40,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param imageName The name of the image to load
  *  @return The loaded image or nil
  */
-+ (UIImage *)as_imageNamed:(NSString *)imageName;
++ (nullable UIImage *)as_imageNamed:(NSString *)imageName NS_RETURNS_RETAINED;
 
 /**
  *  A version of imageNamed that caches results because loading an image is expensive.
@@ -51,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param traitCollection The traits associated with the intended environment for the image.
  *  @return The loaded image or nil
  */
-+ (UIImage *)as_imageNamed:(NSString *)imageName compatibleWithTraitCollection:(nullable UITraitCollection *)traitCollection;
++ (nullable UIImage *)as_imageNamed:(NSString *)imageName compatibleWithTraitCollection:(nullable UITraitCollection *)traitCollection NS_RETURNS_RETAINED;
 
 @end
 
@@ -76,7 +69,20 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (UIImage *)as_resizableRoundedImageWithCornerRadius:(CGFloat)cornerRadius
                                           cornerColor:(nullable UIColor *)cornerColor
-                                            fillColor:(UIColor *)fillColor AS_WARN_UNUSED_RESULT;
+                                            fillColor:(UIColor *)fillColor NS_RETURNS_RETAINED AS_WARN_UNUSED_RESULT ASDISPLAYNODE_DEPRECATED_MSG("Use as_resizableRoundedImageWithCornerRadius:cornerColor:fillColor:traitCollection: instead");
+
+/**
+ * This generates a flat-color, rounded-corner resizeable image
+ *
+ * @param cornerRadius The radius of the rounded-corner
+ * @param cornerColor  The fill color of the corners (For Alpha corners use clearColor)
+ * @param fillColor    The fill color of the rounded-corner image
+ * @param traitCollection The trait collection.
+ */
++ (UIImage *)as_resizableRoundedImageWithCornerRadius:(CGFloat)cornerRadius
+                                          cornerColor:(nullable UIColor *)cornerColor
+                                            fillColor:(UIColor *)fillColor
+                                      traitCollection:(ASPrimitiveTraitCollection) traitCollection NS_RETURNS_RETAINED AS_WARN_UNUSED_RESULT;
 
 /**
  * This generates a flat-color, rounded-corner resizeable image with a border
@@ -91,7 +97,23 @@ NS_ASSUME_NONNULL_BEGIN
                                           cornerColor:(UIColor *)cornerColor
                                             fillColor:(UIColor *)fillColor
                                           borderColor:(nullable UIColor *)borderColor
-                                          borderWidth:(CGFloat)borderWidth AS_WARN_UNUSED_RESULT;
+                                          borderWidth:(CGFloat)borderWidth NS_RETURNS_RETAINED AS_WARN_UNUSED_RESULT ASDISPLAYNODE_DEPRECATED_MSG("Use as_resizableRoundedImageWithCornerRadius:cornerColor:fillColor:borderColor:borderWidth:traitCollection: instead");
+
+/**
+ * This generates a flat-color, rounded-corner resizeable image with a border
+ *
+ * @param cornerRadius The radius of the rounded-corner
+ * @param cornerColor  The fill color of the corners (For Alpha corners use clearColor)
+ * @param fillColor    The fill color of the rounded-corner image
+ * @param borderColor  The border color. Set to nil for no border.
+ * @param borderWidth  The border width. Dummy value if borderColor = nil.
+ * @param traitCollection           The trait collection.
+ */
++ (UIImage *)as_resizableRoundedImageWithCornerRadius:(CGFloat)cornerRadius
+                                          cornerColor:(UIColor *)cornerColor
+                                            fillColor:(UIColor *)fillColor
+                                          borderColor:(nullable UIColor *)borderColor
+                                          borderWidth:(CGFloat)borderWidth traitCollection:(ASPrimitiveTraitCollection) traitCollection NS_RETURNS_RETAINED AS_WARN_UNUSED_RESULT;
 
 /**
  * This generates a flat-color, rounded-corner resizeable image with a border
@@ -110,7 +132,30 @@ NS_ASSUME_NONNULL_BEGIN
                                           borderColor:(nullable UIColor *)borderColor
                                           borderWidth:(CGFloat)borderWidth
                                        roundedCorners:(UIRectCorner)roundedCorners
-                                                scale:(CGFloat)scale AS_WARN_UNUSED_RESULT;
+                                                scale:(CGFloat)scale NS_RETURNS_RETAINED AS_WARN_UNUSED_RESULT ASDISPLAYNODE_DEPRECATED_MSG("Use as_resizableRoundedImageWithCornerRadius:cornerColor:fillColor:borderColor:borderWidth:roundedCorners:traitCollection: instead");
+;
+
+/**
+ * This generates a flat-color, rounded-corner resizeable image with a border
+ *
+ * @param cornerRadius    The radius of the rounded-corner
+ * @param cornerColor     The fill color of the corners (For Alpha corners use clearColor)
+ * @param fillColor       The fill color of the rounded-corner image
+ * @param borderColor     The border color. Set to nil for no border.
+ * @param borderWidth     The border width. Dummy value if borderColor = nil.
+ * @param roundedCorners  Select individual or multiple corners to round. Set to UIRectCornerAllCorners to round all 4 corners.
+ * @param scale           The number of pixels per point. Provide 0.0 to use the screen scale.
+ * @param traitCollection           The trait collection.
+ */
++ (UIImage *)as_resizableRoundedImageWithCornerRadius:(CGFloat)cornerRadius
+                                          cornerColor:(nullable UIColor *)cornerColor
+                                            fillColor:(UIColor *)fillColor
+                                          borderColor:(nullable UIColor *)borderColor
+                                          borderWidth:(CGFloat)borderWidth
+                                       roundedCorners:(UIRectCorner)roundedCorners
+                                                scale:(CGFloat)scale
+                                      traitCollection:(ASPrimitiveTraitCollection) traitCollection
+NS_RETURNS_RETAINED AS_WARN_UNUSED_RESULT;
 
 @end
 

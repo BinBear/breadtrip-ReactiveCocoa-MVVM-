@@ -2,17 +2,9 @@
 //  ASCollectionNode.mm
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <AsyncDisplayKit/ASCollectionNode.h>
@@ -26,67 +18,191 @@
 #import <AsyncDisplayKit/ASDisplayNode+Beta.h>
 #import <AsyncDisplayKit/ASDisplayNode+Subclasses.h>
 #import <AsyncDisplayKit/ASDisplayNode+FrameworkPrivate.h>
-#import <AsyncDisplayKit/ASInternalHelpers.h>
 #import <AsyncDisplayKit/ASCellNode+Internal.h>
 #import <AsyncDisplayKit/_ASHierarchyChangeSet.h>
-#import <AsyncDisplayKit/AsyncDisplayKit+Debug.h>
 #import <AsyncDisplayKit/ASSectionContext.h>
-#import <AsyncDisplayKit/ASDataController.h>
 #import <AsyncDisplayKit/ASCollectionView+Undeprecated.h>
 #import <AsyncDisplayKit/ASThread.h>
 #import <AsyncDisplayKit/ASRangeController.h>
+#import <AsyncDisplayKit/ASAbstractLayoutController+FrameworkPrivate.h>
 
 #pragma mark - _ASCollectionPendingState
 
-@interface _ASCollectionPendingState : NSObject
-@property (weak, nonatomic) id <ASCollectionDelegate>   delegate;
-@property (weak, nonatomic) id <ASCollectionDataSource> dataSource;
-@property (strong, nonatomic) UICollectionViewLayout *collectionViewLayout;
-@property (nonatomic, assign) ASLayoutRangeMode rangeMode;
-@property (nonatomic, assign) BOOL allowsSelection; // default is YES
-@property (nonatomic, assign) BOOL allowsMultipleSelection; // default is NO
-@property (nonatomic, assign) BOOL inverted; //default is NO
-@property (nonatomic, assign) BOOL usesSynchronousDataLoading;
-@property (nonatomic, assign) CGFloat leadingScreensForBatching;
-@property (weak, nonatomic) id <ASCollectionViewLayoutInspecting> layoutInspector;
-@property (nonatomic, assign) UIEdgeInsets contentInset;
-@property (nonatomic, assign) CGPoint contentOffset;
-@property (nonatomic, assign) BOOL animatesContentOffset;
+@interface _ASCollectionPendingState : NSObject {
+@public
+  std::vector<std::vector<ASRangeTuningParameters>> _tuningParameters;
+
+  // Keep these enums by the bitfield struct to save memory.
+  ASLayoutRangeMode _rangeMode;
+  ASCellLayoutMode _cellLayoutMode;
+  struct {
+    unsigned int allowsSelection:1; // default is YES
+    unsigned int allowsMultipleSelection:1; // default is NO
+    unsigned int inverted:1; //default is NO
+    unsigned int alwaysBounceVertical:1;
+    unsigned int alwaysBounceHorizontal:1;
+    unsigned int animatesContentOffset:1;
+    unsigned int showsVerticalScrollIndicator:1;
+    unsigned int showsHorizontalScrollIndicator:1;
+    unsigned int pagingEnabled:1;
+  } _flags;
+}
+@property (nonatomic, weak) id <ASCollectionDelegate>   delegate;
+@property (nonatomic, weak) id <ASCollectionDataSource> dataSource;
+@property (nonatomic) UICollectionViewLayout *collectionViewLayout;
+@property (nonatomic) ASLayoutRangeMode rangeMode;
+@property (nonatomic) BOOL allowsSelection; // default is YES
+@property (nonatomic) BOOL allowsMultipleSelection; // default is NO
+@property (nonatomic) BOOL inverted; //default is NO
+@property (nonatomic) ASCellLayoutMode cellLayoutMode;
+@property (nonatomic) CGFloat leadingScreensForBatching;
+@property (nonatomic, weak) id <ASCollectionViewLayoutInspecting> layoutInspector;
+@property (nonatomic) BOOL alwaysBounceVertical;
+@property (nonatomic) BOOL alwaysBounceHorizontal;
+@property (nonatomic) UIEdgeInsets contentInset;
+@property (nonatomic) CGPoint contentOffset;
+@property (nonatomic) BOOL animatesContentOffset;
+@property (nonatomic) BOOL showsVerticalScrollIndicator;
+@property (nonatomic) BOOL showsHorizontalScrollIndicator;
+@property (nonatomic) BOOL pagingEnabled;
 @end
 
 @implementation _ASCollectionPendingState
 
+#pragma mark Lifecycle
+
 - (instancetype)init
 {
   self = [super init];
   if (self) {
     _rangeMode = ASLayoutRangeModeUnspecified;
-    _allowsSelection = YES;
-    _allowsMultipleSelection = NO;
-    _inverted = NO;
+    _tuningParameters = [ASAbstractLayoutController defaultTuningParameters];
+    _flags.allowsSelection = YES;
+    _flags.allowsMultipleSelection = NO;
+    _flags.inverted = NO;
     _contentInset = UIEdgeInsetsZero;
     _contentOffset = CGPointZero;
-    _animatesContentOffset = NO;
+    _flags.animatesContentOffset = NO;
+    _flags.showsVerticalScrollIndicator = YES;
+    _flags.showsHorizontalScrollIndicator = YES;
+    _flags.pagingEnabled = NO;
   }
   return self;
 }
-@end
 
-// TODO: Add support for tuning parameters in the pending state
-#if 0  // This is not used yet, but will provide a way to avoid creating the view to set range values.
-@implementation _ASCollectionPendingState {
-  std::vector<std::vector<ASRangeTuningParameters>> _tuningParameters;
-}
+#pragma mark Properties
 
-- (instancetype)init
+- (ASLayoutRangeMode)rangeMode
 {
-  self = [super init];
-  if (self) {
-    _tuningParameters = std::vector<std::vector<ASRangeTuningParameters>> (ASLayoutRangeModeCount, std::vector<ASRangeTuningParameters> (ASLayoutRangeTypeCount));
-    _rangeMode = ASLayoutRangeModeUnspecified;
-  }
-  return self;
+  return _rangeMode;
 }
+
+- (void)setRangeMode:(ASLayoutRangeMode)rangeMode
+{
+  _rangeMode = rangeMode;
+}
+
+- (ASCellLayoutMode)cellLayoutMode
+{
+  return _cellLayoutMode;
+}
+
+- (void)setCellLayoutMode:(ASCellLayoutMode)cellLayoutMode
+{
+  _cellLayoutMode = cellLayoutMode;
+}
+
+- (BOOL)allowsSelection
+{
+  return _flags.allowsSelection;
+}
+
+- (void)setAllowsSelection:(BOOL)allowsSelection
+{
+  _flags.allowsSelection = allowsSelection;
+}
+
+- (BOOL)allowsMultipleSelection
+{
+  return _flags.allowsMultipleSelection;
+}
+
+- (void)setAllowsMultipleSelection:(BOOL)allowsMultipleSelection
+{
+  _flags.allowsMultipleSelection = allowsMultipleSelection;
+}
+
+- (BOOL)inverted
+{
+  return _flags.inverted;
+}
+
+-(void)setInverted:(BOOL)inverted
+{
+  _flags.inverted = inverted;
+}
+
+-(BOOL)alwaysBounceVertical
+{
+  return _flags.alwaysBounceVertical;
+}
+
+-(void)setAlwaysBounceVertical:(BOOL)alwaysBounceVertical
+{
+  _flags.alwaysBounceVertical = alwaysBounceVertical;
+}
+
+-(BOOL)alwaysBounceHorizontal
+{
+  return _flags.alwaysBounceHorizontal;
+}
+
+-(void)setAlwaysBounceHorizontal:(BOOL)alwaysBounceHorizontal
+{
+  _flags.alwaysBounceHorizontal = alwaysBounceHorizontal;
+}
+
+- (BOOL)animatesContentOffset
+{
+  return _flags.animatesContentOffset;
+}
+
+-(void)setAnimatesContentOffset:(BOOL)animatesContentOffset
+{
+  _flags.animatesContentOffset = animatesContentOffset;
+}
+
+- (BOOL)showsVerticalScrollIndicator
+{
+  return _flags.showsVerticalScrollIndicator;
+}
+
+- (void)setShowsVerticalScrollIndicator:(BOOL)showsVerticalScrollIndicator
+{
+  _flags.showsVerticalScrollIndicator = showsVerticalScrollIndicator;
+}
+
+-(BOOL)showsHorizontalScrollIndicator
+{
+  return _flags.showsHorizontalScrollIndicator;
+}
+
+- (void)setShowsHorizontalScrollIndicator:(BOOL)showsHorizontalScrollIndicator
+{
+  _flags.showsHorizontalScrollIndicator = showsHorizontalScrollIndicator;
+}
+
+-(BOOL)pagingEnabled
+{
+  return _flags.pagingEnabled;
+}
+
+- (void)setPagingEnabled:(BOOL)pagingEnabled
+{
+  _flags.pagingEnabled = pagingEnabled;
+}
+
+#pragma mark Tuning Parameters
 
 - (ASRangeTuningParameters)tuningParametersForRangeType:(ASLayoutRangeType)rangeType
 {
@@ -111,17 +227,17 @@
 }
 
 @end
-#endif
 
 #pragma mark - ASCollectionNode
 
 @interface ASCollectionNode ()
 {
-  ASDN::RecursiveMutex _environmentStateLock;
+  AS::RecursiveMutex _environmentStateLock;
   Class _collectionViewClass;
   id<ASBatchFetchingDelegate> _batchFetchingDelegate;
 }
 @property (nonatomic) _ASCollectionPendingState *pendingState;
+@property (nonatomic, weak) ASRangeController *rangeController;
 @end
 
 @implementation ASCollectionNode
@@ -166,11 +282,23 @@
     __weak __typeof__(self) weakSelf = self;
     [self setViewBlock:^{
       __typeof__(self) strongSelf = weakSelf;
-      return [[[strongSelf collectionViewClass] alloc] _initWithFrame:frame collectionViewLayout:strongSelf->_pendingState.collectionViewLayout layoutFacilitator:layoutFacilitator owningNode:strongSelf eventLog:ASDisplayNodeGetEventLog(strongSelf)];
+      return [[[strongSelf collectionViewClass] alloc] _initWithFrame:frame collectionViewLayout:strongSelf->_pendingState.collectionViewLayout layoutFacilitator:layoutFacilitator owningNode:strongSelf];
     }];
   }
   return self;
 }
+
+#if ASDISPLAYNODE_ASSERTIONS_ENABLED
+- (void)dealloc
+{
+  if (self.nodeLoaded) {
+    __weak UIView *view = self.view;
+    ASPerformBlockOnMainThread(^{
+      ASDisplayNodeCAssertNil(view.superview, @"Node's view should be removed from hierarchy.");
+    });
+  }
+}
+#endif
 
 #pragma mark ASDisplayNode
 
@@ -180,24 +308,59 @@
   
   ASCollectionView *view = self.view;
   view.collectionNode    = self;
+ 
+  _rangeController = view.rangeController;
   
   if (_pendingState) {
     _ASCollectionPendingState *pendingState = _pendingState;
-    self.pendingState               = nil;
-    view.asyncDelegate              = pendingState.delegate;
-    view.asyncDataSource            = pendingState.dataSource;
-    view.inverted                   = pendingState.inverted;
-    view.allowsSelection            = pendingState.allowsSelection;
-    view.allowsMultipleSelection    = pendingState.allowsMultipleSelection;
-    view.usesSynchronousDataLoading = pendingState.usesSynchronousDataLoading;
-    view.layoutInspector            = pendingState.layoutInspector;
-    view.contentInset               = pendingState.contentInset;
-    
-    if (pendingState.rangeMode != ASLayoutRangeModeUnspecified) {
-      [view.rangeController updateCurrentRangeWithMode:pendingState.rangeMode];
+    self.pendingState                   = nil;
+    view.asyncDelegate                  = pendingState.delegate;
+    view.asyncDataSource                = pendingState.dataSource;
+    view.inverted                       = pendingState.inverted;
+    view.allowsSelection                = pendingState.allowsSelection;
+    view.allowsMultipleSelection        = pendingState.allowsMultipleSelection;
+    view.cellLayoutMode                 = pendingState.cellLayoutMode;
+    view.layoutInspector                = pendingState.layoutInspector;
+    view.showsVerticalScrollIndicator   = pendingState.showsVerticalScrollIndicator;
+    view.showsHorizontalScrollIndicator = pendingState.showsHorizontalScrollIndicator;
+#if !TARGET_OS_TV
+    view.pagingEnabled                  = pendingState.pagingEnabled;
+#endif
+
+    // Only apply these flags if they're enabled; the view might come with them turned on.
+    if (pendingState.alwaysBounceVertical) {
+      view.alwaysBounceVertical = YES;
+    }
+    if (pendingState.alwaysBounceHorizontal) {
+      view.alwaysBounceHorizontal = YES;
     }
 
-    [view setContentOffset:pendingState.contentOffset animated:pendingState.animatesContentOffset];
+    UIEdgeInsets contentInset = pendingState.contentInset;
+    if (!UIEdgeInsetsEqualToEdgeInsets(contentInset, UIEdgeInsetsZero)) {
+      view.contentInset = contentInset;
+    }
+
+    CGPoint contentOffset = pendingState.contentOffset;
+    if (!CGPointEqualToPoint(contentOffset, CGPointZero)) {
+      [view setContentOffset:contentOffset animated:pendingState.animatesContentOffset];
+    }
+    
+    const auto tuningParametersVector = pendingState->_tuningParameters;
+    const auto tuningParametersVectorSize = tuningParametersVector.size();
+    for (NSInteger rangeMode = 0; rangeMode < tuningParametersVectorSize; rangeMode++) {
+      const auto tuningparametersRangeModeVector = tuningParametersVector[rangeMode];
+      const auto tuningParametersVectorRangeModeSize = tuningparametersRangeModeVector.size();
+      for (NSInteger rangeType = 0; rangeType < tuningParametersVectorRangeModeSize; rangeType++) {
+        ASRangeTuningParameters tuningParameters = tuningparametersRangeModeVector[rangeType];
+        [_rangeController setTuningParameters:tuningParameters
+                                 forRangeMode:(ASLayoutRangeMode)rangeMode
+                                    rangeType:(ASLayoutRangeType)rangeType];
+      }
+    }
+    
+    if (pendingState.rangeMode != ASLayoutRangeModeUnspecified) {
+      [_rangeController updateCurrentRangeWithMode:pendingState.rangeMode];
+    }
     
     // Don't need to set collectionViewLayout to the view as the layout was already used to init the view in view block.
   }
@@ -223,11 +386,12 @@
 - (void)didEnterPreloadState
 {
   [super didEnterPreloadState];
+  // ASCollectionNode is often nested inside of other collections. In this case, ASHierarchyState's RangeManaged bit will be set.
   // Intentionally allocate the view here and trigger a layout pass on it, which in turn will trigger the intial data load.
   // We can get rid of this call later when ASDataController, ASRangeController and ASCollectionLayout can operate without the view.
   // TODO (ASCL) If this node supports async layout, kick off the initial data load without allocating the view
-  if (CGRectEqualToRect(self.bounds, CGRectZero) == NO) {
-    [[self view] layoutIfNeeded];
+  if (ASHierarchyStateIncludesRangeManaged(self.hierarchyState) && CGRectEqualToRect(self.bounds, CGRectZero) == NO) {
+    [self.view layoutIfNeeded];
   }
 }
 
@@ -257,12 +421,6 @@
 - (ASDataController *)dataController
 {
   return self.view.dataController;
-}
-
-// TODO: Implement this without the view.
-- (ASRangeController *)rangeController
-{
-  return self.view.rangeController;
 }
 
 - (_ASCollectionPendingState *)pendingState
@@ -423,6 +581,104 @@
   }
 }
 
+- (void)setAlwaysBounceVertical:(BOOL)alwaysBounceVertical
+{
+  if ([self pendingState]) {
+    _pendingState.alwaysBounceVertical = alwaysBounceVertical;
+  } else {
+    ASDisplayNodeAssert([self isNodeLoaded], @"ASCollectionNode should be loaded if pendingState doesn't exist");
+    self.view.alwaysBounceVertical = alwaysBounceVertical;
+  }
+}
+
+- (BOOL)alwaysBounceVertical
+{
+  if ([self pendingState]) {
+    return _pendingState.alwaysBounceVertical;
+  } else {
+    return self.view.alwaysBounceVertical;
+  }
+}
+
+- (void)setAlwaysBounceHorizontal:(BOOL)alwaysBounceHorizontal
+{
+  if ([self pendingState]) {
+    _pendingState.alwaysBounceHorizontal = alwaysBounceHorizontal;
+  } else {
+    ASDisplayNodeAssert([self isNodeLoaded], @"ASCollectionNode should be loaded if pendingState doesn't exist");
+    self.view.alwaysBounceHorizontal = alwaysBounceHorizontal;
+  }
+}
+
+- (BOOL)alwaysBounceHorizontal
+{
+  if ([self pendingState]) {
+    return _pendingState.alwaysBounceHorizontal;
+  } else {
+    return self.view.alwaysBounceHorizontal;
+  }
+}
+
+- (void)setShowsVerticalScrollIndicator:(BOOL)showsVerticalScrollIndicator
+{
+  if ([self pendingState]) {
+    _pendingState.showsVerticalScrollIndicator = showsVerticalScrollIndicator;
+  } else {
+    ASDisplayNodeAssert([self isNodeLoaded], @"ASCollectionNode should be loaded if pendingState doesn't exist");
+    self.view.showsVerticalScrollIndicator = showsVerticalScrollIndicator;
+  }
+}
+
+- (BOOL)showsVerticalScrollIndicator
+{
+  if ([self pendingState]) {
+    return _pendingState.showsVerticalScrollIndicator;
+  } else {
+    return self.view.showsVerticalScrollIndicator;
+  }
+}
+
+- (void)setShowsHorizontalScrollIndicator:(BOOL)showsHorizontalScrollIndicator
+{
+  if ([self pendingState]) {
+    _pendingState.showsHorizontalScrollIndicator = showsHorizontalScrollIndicator;
+  } else {
+    ASDisplayNodeAssert([self isNodeLoaded], @"ASCollectionNode should be loaded if pendingState doesn't exist");
+    self.view.showsHorizontalScrollIndicator = showsHorizontalScrollIndicator;
+  }
+}
+
+- (BOOL)showsHorizontalScrollIndicator
+{
+  if ([self pendingState]) {
+    return _pendingState.showsHorizontalScrollIndicator;
+  } else {
+    return self.view.showsHorizontalScrollIndicator;
+  }
+}
+
+#if !TARGET_OS_TV
+- (void)setPagingEnabled:(BOOL)pagingEnabled
+{
+  if ([self pendingState]) {
+    _pendingState.pagingEnabled = pagingEnabled;
+  } else {
+    ASDisplayNodeAssert([self isNodeLoaded],
+                        @"ASCollectionNode should be loaded if pendingState doesn't exist");
+    self.view.pagingEnabled = pagingEnabled;
+  }
+}
+
+- (BOOL)isPagingEnabled
+{
+  if ([self pendingState]) {
+    return _pendingState.pagingEnabled;
+  } else {
+    return self.view.isPagingEnabled;
+  }
+}
+#endif
+
 - (void)setCollectionViewLayout:(UICollectionViewLayout *)layout
 {
   if ([self pendingState]) {
@@ -523,21 +779,21 @@
   return _batchFetchingDelegate;
 }
 
-- (BOOL)usesSynchronousDataLoading
+- (ASCellLayoutMode)cellLayoutMode
 {
   if ([self pendingState]) {
-    return _pendingState.usesSynchronousDataLoading; 
+    return _pendingState.cellLayoutMode;
   } else {
-    return self.view.usesSynchronousDataLoading;
+    return self.view.cellLayoutMode;
   }
 }
 
-- (void)setUsesSynchronousDataLoading:(BOOL)usesSynchronousDataLoading
+- (void)setCellLayoutMode:(ASCellLayoutMode)cellLayoutMode
 {
   if ([self pendingState]) {
-    _pendingState.usesSynchronousDataLoading = usesSynchronousDataLoading; 
+    _pendingState.cellLayoutMode = cellLayoutMode;
   } else {
-    self.view.usesSynchronousDataLoading = usesSynchronousDataLoading;
+    self.view.cellLayoutMode = cellLayoutMode;
   }
 }
 
@@ -545,22 +801,30 @@
 
 - (ASRangeTuningParameters)tuningParametersForRangeType:(ASLayoutRangeType)rangeType
 {
-  return [self.rangeController tuningParametersForRangeMode:ASLayoutRangeModeFull rangeType:rangeType];
+  return [self tuningParametersForRangeMode:ASLayoutRangeModeFull rangeType:rangeType];
 }
 
 - (void)setTuningParameters:(ASRangeTuningParameters)tuningParameters forRangeType:(ASLayoutRangeType)rangeType
 {
-  [self.rangeController setTuningParameters:tuningParameters forRangeMode:ASLayoutRangeModeFull rangeType:rangeType];
+  [self setTuningParameters:tuningParameters forRangeMode:ASLayoutRangeModeFull rangeType:rangeType];
 }
 
 - (ASRangeTuningParameters)tuningParametersForRangeMode:(ASLayoutRangeMode)rangeMode rangeType:(ASLayoutRangeType)rangeType
 {
-  return [self.rangeController tuningParametersForRangeMode:rangeMode rangeType:rangeType];
+  if ([self pendingState]) {
+    return [_pendingState tuningParametersForRangeMode:rangeMode rangeType:rangeType];
+  } else {
+    return [self.rangeController tuningParametersForRangeMode:rangeMode rangeType:rangeType];
+  }
 }
 
 - (void)setTuningParameters:(ASRangeTuningParameters)tuningParameters forRangeMode:(ASLayoutRangeMode)rangeMode rangeType:(ASLayoutRangeType)rangeType
 {
-  return [self.rangeController setTuningParameters:tuningParameters forRangeMode:rangeMode rangeType:rangeType];
+  if ([self pendingState]) {
+    [_pendingState setTuningParameters:tuningParameters forRangeMode:rangeMode rangeType:rangeType];
+  } else {
+    return [self.rangeController setTuningParameters:tuningParameters forRangeMode:rangeMode rangeType:rangeType];
+  }
 }
 
 #pragma mark - Selection
@@ -708,7 +972,7 @@
   [self.view registerSupplementaryNodeOfKind:elementKind];
 }
 
-- (void)performBatchAnimated:(BOOL)animated updates:(void (^)())updates completion:(void (^)(BOOL))completion
+- (void)performBatchAnimated:(BOOL)animated updates:(NS_NOESCAPE void (^)())updates completion:(void (^)(BOOL))completion
 {
   ASDisplayNodeAssertMainThread();
   if (self.nodeLoaded) {
@@ -723,7 +987,7 @@
   }
 }
 
-- (void)performBatchUpdates:(void (^)())updates completion:(void (^)(BOOL))completion
+- (void)performBatchUpdates:(NS_NOESCAPE void (^)())updates completion:(void (^)(BOOL))completion
 {
   [self performBatchAnimated:UIView.areAnimationsEnabled updates:updates completion:completion];
 }
@@ -733,12 +997,32 @@
   return (self.nodeLoaded ? [self.view isProcessingUpdates] : NO);
 }
 
-- (void)onDidFinishProcessingUpdates:(nullable void (^)())completion
+- (void)onDidFinishProcessingUpdates:(void (^)())completion
 {
+  if (!completion) {
+    return;
+  }
   if (!self.nodeLoaded) {
     completion();
   } else {
     [self.view onDidFinishProcessingUpdates:completion];
+  }
+}
+
+- (BOOL)isSynchronized
+{
+  return (self.nodeLoaded ? [self.view isSynchronized] : YES);
+}
+
+- (void)onDidFinishSynchronizing:(void (^)())completion
+{
+  if (!completion) {
+    return;
+  }
+  if (!self.nodeLoaded) {
+    completion();
+  } else {
+    [self.view onDidFinishSynchronizing:completion];
   }
 }
 
@@ -750,10 +1034,13 @@
   }
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
 - (void)waitUntilAllUpdatesAreCommitted
 {
   [self waitUntilAllUpdatesAreProcessed];
 }
+#pragma clang diagnostic pop
 
 - (void)reloadDataWithCompletion:(void (^)())completion
 {
@@ -784,6 +1071,8 @@
   }
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
 - (void)beginUpdates
 {
   ASDisplayNodeAssertMainThread();
@@ -802,6 +1091,14 @@
   ASDisplayNodeAssertMainThread();
   if (self.nodeLoaded) {
     [self.view endUpdatesAnimated:animated completion:completion];
+  }
+}
+#pragma clang diagnostic pop
+
+- (void)invalidateFlowLayoutDelegateMetrics {
+  ASDisplayNodeAssertMainThread();
+  if (self.nodeLoaded) {
+    [self.view invalidateFlowLayoutDelegateMetrics];
   }
 }
 
@@ -892,6 +1189,38 @@ ASLayoutElementCollectionTableSetTraitCollection(_environmentStateLock)
   [result addObject:@{ @"dataSource" : ASObjectDescriptionMakeTiny(self.dataSource) }];
   [result addObject:@{ @"delegate" : ASObjectDescriptionMakeTiny(self.delegate) }];
   return result;
+}
+
+#pragma mark - UIGestureRecognizerDelegate Methods
+// The value returned below are default implementation of UIKit's UIGestureRecognizerDelegate
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceivePress:(UIPress *)press
+{
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return NO;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return NO;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return NO;
 }
 
 #pragma mark - Private methods

@@ -1,0 +1,52 @@
+//
+//  HeartTripPrefixHeader.pch
+//  HeartTrip
+//
+//  Created by 熊彬 on 16/9/12.
+//  Copyright © 2016年 BinBear. All rights reserved.
+//
+
+#ifndef HeartTripPrefixHeader_pch
+#define HeartTripPrefixHeader_pch
+
+// 基础组件
+#import <VinBaseComponents/CommonElement.h>
+#import <VinBaseComponents/HTEnumMarcos.h>
+#import <VinBaseComponents/HTMapValueManager.h>
+#import <VinBaseComponents/RACSubject+Extension.h>
+#import <VinBaseComponents/RACCommand+Extension.h>
+#import <VinBaseComponents/NSObject+RACExtension.h>
+#import <VinBaseComponents/UITableView+BlockExtention.h>
+#import <VinBaseComponents/UICollectionView+BlockExtention.h>
+#import <VinBaseComponents/HTCycleView.h>
+#import <VinBaseComponents/HTSegmentView.h>
+
+
+
+// 三方库
+#import <CocoaLumberjack/CocoaLumberjack.h>
+#import <YYModel/YYModel.h>
+#import <YYCategories/YYCategories.h>
+#import <QMUIKit/QMUIKit.h>
+#import <IQKeyboardManager/IQKeyboardManager.h>
+#import <Masonry/Masonry.h>
+#import <SDWebImage/SDWebImage.h>
+#import <KafkaRefresh/KafkaRefresh.h>
+#import "QTEventBus+AppModule.h"
+
+
+
+// 本地文件
+#import "HTAppdelegate.h"
+#import "HTApplicationService.h"
+#import "HTCategory.h"
+#import "HTConfig.h"
+#import "HTConst.h"
+#import "RACCommand+Request.h"
+#import "RACCommand+HTRoute.h"
+#import <HeartTrip-Swift.h>
+#import "HTUtilsMethod.h"
+#import "HTTipsViewKit.h"
+#import "HTHUD+EmptyView.h"
+
+#endif /* HeartTripPrefixHeader_pch */

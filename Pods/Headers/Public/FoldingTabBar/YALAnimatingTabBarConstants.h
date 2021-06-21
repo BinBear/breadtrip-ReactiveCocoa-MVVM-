@@ -1,1 +1,0 @@
-../../../FoldingTabBar/FoldingTabBar/Constants/YALAnimatingTabBarConstants.h

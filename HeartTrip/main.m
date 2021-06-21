@@ -10,7 +10,9 @@
 #import "HTAppDelegate.h"
 
 int main(int argc, char * argv[]) {
+    NSString * appDelegateClassName;
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([HTAppDelegate class]));
+        appDelegateClassName = NSStringFromClass([HTAppDelegate class]);
     }
+    return UIApplicationMain(argc, argv, nil, appDelegateClassName);
 }

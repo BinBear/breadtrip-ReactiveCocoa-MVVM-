@@ -1,1 +1,0 @@
-../../../../Texture/Source/Details/ASDelegateProxy.h

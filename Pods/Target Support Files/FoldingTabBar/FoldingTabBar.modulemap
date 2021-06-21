@@ -1,0 +1,6 @@
+framework module FoldingTabBar {
+  umbrella header "FoldingTabBar-umbrella.h"
+
+  export *
+  module * { export * }
+}

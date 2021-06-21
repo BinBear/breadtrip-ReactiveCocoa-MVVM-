@@ -2,35 +2,25 @@
 //  ASRangeController.mm
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <AsyncDisplayKit/ASRangeController.h>
 
 #import <AsyncDisplayKit/_ASHierarchyChangeSet.h>
 #import <AsyncDisplayKit/ASAssert.h>
-#import <AsyncDisplayKit/ASCellNode+Internal.h>
 #import <AsyncDisplayKit/ASCollectionElement.h>
+#import <AsyncDisplayKit/ASCollectionView.h>
 #import <AsyncDisplayKit/ASDisplayNodeExtras.h>
 #import <AsyncDisplayKit/ASDisplayNodeInternal.h> // Required for interfaceState and hierarchyState setter methods.
 #import <AsyncDisplayKit/ASElementMap.h>
-#import <AsyncDisplayKit/ASInternalHelpers.h>
 #import <AsyncDisplayKit/ASSignpost.h>
-#import <AsyncDisplayKit/ASTwoDimensionalArrayUtils.h>
-#import <AsyncDisplayKit/ASWeakSet.h>
 
-#import <AsyncDisplayKit/ASDisplayNode+FrameworkPrivate.h>
+#import <AsyncDisplayKit/ASCellNode+Internal.h>
 #import <AsyncDisplayKit/AsyncDisplayKit+Debug.h>
+#import <AsyncDisplayKit/ASCollectionView+Undeprecated.h>
 
 #define AS_RANGECONTROLLER_LOG_UPDATE_FREQ 0
 
@@ -45,6 +35,7 @@
   NSSet<NSIndexPath *> *_allPreviousIndexPaths;
   NSHashTable<ASCellNode *> *_visibleNodes;
   ASLayoutRangeMode _currentRangeMode;
+  BOOL _contentHasBeenScrolled;
   BOOL _preserveCurrentRangeMode;
   BOOL _didRegisterForNodeDisplayNotifications;
   CFTimeInterval _pendingDisplayNodesTimestamp;
@@ -77,6 +68,7 @@ static UIApplicationState __ApplicationState = UIApplicationStateActive;
   
   _rangeIsValid = YES;
   _currentRangeMode = ASLayoutRangeModeUnspecified;
+  _contentHasBeenScrolled = NO;
   _preserveCurrentRangeMode = NO;
   _previousScrollDirection = ASScrollDirectionDown | ASScrollDirectionRight;
   
@@ -152,10 +144,14 @@ static UIApplicationState __ApplicationState = UIApplicationStateActive;
 - (void)updateIfNeeded
 {
   if (_needsRangeUpdate) {
-    _needsRangeUpdate = NO;
-      
-    [self _updateVisibleNodeIndexPaths];
+    [self updateRanges];
   }
+}
+
+- (void)updateRanges
+{
+  _needsRangeUpdate = NO;
+  [self _updateVisibleNodeIndexPaths];
 }
 
 - (void)updateCurrentRangeWithMode:(ASLayoutRangeMode)rangeMode
@@ -210,7 +206,11 @@ static UIApplicationState __ApplicationState = UIApplicationStateActive;
   if (!_layoutController || !_dataSource) {
     return;
   }
-  
+
+  if (![_delegate rangeControllerShouldUpdateRanges:self]) {
+    return;
+  }
+
 #if AS_RANGECONTROLLER_LOG_UPDATE_FREQ
   _updateCountThisFrame += 1;
 #endif
@@ -222,11 +222,7 @@ static UIApplicationState __ApplicationState = UIApplicationStateActive;
   auto visibleElements = [_dataSource visibleElementsForRangeController:self];
   NSHashTable *newVisibleNodes = [NSHashTable hashTableWithOptions:NSHashTableObjectPointerPersonality];
 
-  if (visibleElements.count == 0) { // if we don't have any visibleNodes currently (scrolled before or after content)...
-    [self _setVisibleNodes:newVisibleNodes];
-    return; // don't do anything for this update, but leave _rangeIsValid == NO to make sure we update it later
-  }
-  ASSignpostStart(ASSignpostRangeControllerUpdate);
+  ASSignpostStart(RangeControllerUpdate, _dataSource, "%@", ASObjectDescriptionMakeTiny(_dataSource));
 
   // Get the scroll direction. Default to using the previous one, if they're not scrolling.
   ASScrollDirection scrollDirection = [_dataSource scrollDirectionForRangeController:self];
@@ -234,12 +230,29 @@ static UIApplicationState __ApplicationState = UIApplicationStateActive;
     scrollDirection = _previousScrollDirection;
   }
   _previousScrollDirection = scrollDirection;
-  
+
+  if (visibleElements.count == 0) { // if we don't have any visibleNodes currently (scrolled before or after content)...
+    // Verify the actual state by checking the layout with a "VisibleOnly" range.
+    // This allows us to avoid thrashing through -didExitVisibleState in the case of -reloadData, since that generates didEndDisplayingCell calls.
+    // Those didEndDisplayingCell calls result in items being removed from the visibleElements returned by the _dataSource, even though the layout remains correct.
+    visibleElements = [_layoutController elementsForScrolling:scrollDirection rangeMode:ASLayoutRangeModeVisibleOnly rangeType:ASLayoutRangeTypeDisplay map:map];
+    for (ASCollectionElement *element in visibleElements) {
+      [newVisibleNodes addObject:element.node];
+    }
+    [self _setVisibleNodes:newVisibleNodes];
+    ASSignpostEnd(RangeControllerUpdate, _dataSource, "");
+    return; // don't do anything for this update, but leave _rangeIsValid == NO to make sure we update it later
+  }
+
   ASInterfaceState selfInterfaceState = [self interfaceState];
   ASLayoutRangeMode rangeMode = _currentRangeMode;
-  // If the range mode is explicitly set via updateCurrentRangeWithMode: it will last in that mode until the
-  // range controller becomes visible again or explicitly changes the range mode again
-  if ((!_preserveCurrentRangeMode && ASInterfaceStateIncludesVisible(selfInterfaceState)) || [[self class] isFirstRangeUpdateForRangeMode:rangeMode]) {
+  BOOL updateRangeMode = (!_preserveCurrentRangeMode && _contentHasBeenScrolled);
+
+  // If we've never scrolled before, we never update the range mode, so it doesn't jump into Full too early.
+  // This can happen if we have multiple, noisy updates occurring from application code before the user has engaged.
+  // If the range mode is explicitly set via updateCurrentRangeWithMode:, we'll preserve that for at least one update cycle.
+  // Once the user has scrolled and the range is visible, we'll always resume managing the range mode automatically.
+  if ((updateRangeMode && ASInterfaceStateIncludesVisible(selfInterfaceState)) || [[self class] isFirstRangeUpdateForRangeMode:rangeMode]) {
     rangeMode = [ASRangeController rangeModeForInterfaceState:selfInterfaceState currentRangeMode:_currentRangeMode];
   }
 
@@ -266,7 +279,7 @@ static UIApplicationState __ApplicationState = UIApplicationStateActive;
   } else {
     if (emptyDisplayRange == YES) {
       displayElements = [NSHashTable hashTableWithOptions:NSHashTableObjectPointerPersonality];
-    } if (equalDisplayVisible == YES) {
+    } else if (equalDisplayVisible == YES) {
       displayElements = visibleElements;
     } else {
       // Calculating only the Display range means the Preload range is either the same as Display or Visible.
@@ -335,23 +348,20 @@ static UIApplicationState __ApplicationState = UIApplicationStateActive;
         }
       }
     } else {
-      // If selfInterfaceState isn't visible, then visibleIndexPaths represents what /will/ be immediately visible at the
-      // instant we come onscreen.  So, preload and display all of those things, but don't waste resources preloading yet.
-      // We handle this as a separate case to minimize set operations for offscreen preloading, including containsObject:.
-      
-      if ([allCurrentIndexPaths containsObject:indexPath]) {
-        // DO NOT set Visible: even though these elements are in the visible range / "viewport",
-        // our overall container object is itself not visible yet.  The moment it becomes visible, we will run the condition above
-        
-        // Set Layout, Preload
+      // If selfInterfaceState isn't visible, then visibleIndexPaths represents either what /will/ be immediately visible at the
+      // instant we come onscreen, or what /will/ no longer be visible at the instant we come offscreen.
+      // So, preload and display all of those things, but don't waste resources displaying others.
+      //
+      // DO NOT set Visible: even though these elements are in the visible range / "viewport",
+      // our overall container object is itself not yet, or no longer, visible.
+      // The moment it becomes visible, we will run the condition above.
+      if ([visibleIndexPaths containsObject:indexPath]) {
         interfaceState |= ASInterfaceStatePreload;
-        
         if (rangeMode != ASLayoutRangeModeLowMemory) {
-          // Add Display.
-          // We might be looking at an indexPath that was previously in-range, but now we need to clear it.
-          // In that case we'll just set it back to MeasureLayout.  Only set Display | Preload if in allCurrentIndexPaths.
           interfaceState |= ASInterfaceStateDisplay;
         }
+      } else if ([displayIndexPaths containsObject:indexPath]) {
+        interfaceState |= ASInterfaceStatePreload;
       }
     }
 
@@ -362,7 +372,7 @@ static UIApplicationState __ApplicationState = UIApplicationStateActive;
         [newVisibleNodes addObject:node];
       }
       // Skip the many method calls of the recursive operation if the top level cell node already has the right interfaceState.
-      if (node.interfaceState != interfaceState) {
+      if (node.pendingInterfaceState != interfaceState) {
 #if ASRangeControllerLoggingEnabled
         [modifiedIndexPaths addObject:indexPath];
 #endif
@@ -386,10 +396,7 @@ static UIApplicationState __ApplicationState = UIApplicationStateActive;
   if (ASDisplayNode.shouldShowRangeDebugOverlay) {
     ASScrollDirection scrollableDirections = ASScrollDirectionUp | ASScrollDirectionDown;
     if ([_dataSource isKindOfClass:NSClassFromString(@"ASCollectionView")]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
-      scrollableDirections = (ASScrollDirection)[_dataSource performSelector:@selector(scrollableDirections)];
-#pragma clang diagnostic pop
+        scrollableDirections = ((ASCollectionView *)_dataSource).scrollableDirections;
     }
     
     [self updateRangeController:self
@@ -412,10 +419,10 @@ static UIApplicationState __ApplicationState = UIApplicationStateActive;
 //    NSLog(@"custom: %@", visibleNodePathsSet);
 //  }
   [modifiedIndexPaths sortUsingSelector:@selector(compare:)];
-  NSLog(@"Range update complete; modifiedIndexPaths: %@", [self descriptionWithIndexPaths:modifiedIndexPaths]);
+  NSLog(@"Range update complete; modifiedIndexPaths: %@, rangeMode: %d", [self descriptionWithIndexPaths:modifiedIndexPaths], rangeMode);
 #endif
   
-  ASSignpostEnd(ASSignpostRangeControllerUpdate);
+  ASSignpostEnd(RangeControllerUpdate, _dataSource, "");
 }
 
 #pragma mark - Notification observers
@@ -508,6 +515,7 @@ static UIApplicationState __ApplicationState = UIApplicationStateActive;
 // Skip the many method calls of the recursive operation if the top level cell node already has the right interfaceState.
 - (void)clearContents
 {
+  ASDisplayNodeAssertMainThread();
   for (ASCollectionElement *element in [_dataSource elementMapForRangeController:self]) {
     ASCellNode *node = element.nodeIfAllocated;
     if (ASInterfaceStateIncludesDisplay(node.interfaceState)) {
@@ -518,6 +526,7 @@ static UIApplicationState __ApplicationState = UIApplicationStateActive;
 
 - (void)clearPreloadedData
 {
+  ASDisplayNodeAssertMainThread();
   for (ASCollectionElement *element in [_dataSource elementMapForRangeController:self]) {
     ASCellNode *node = element.nodeIfAllocated;
     if (ASInterfaceStateIncludesPreload(node.interfaceState)) {

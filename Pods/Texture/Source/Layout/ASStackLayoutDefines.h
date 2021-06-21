@@ -2,31 +2,29 @@
 //  ASStackLayoutDefines.h
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <AsyncDisplayKit/ASBaseDefines.h>
 
 /** The direction children are stacked in */
-typedef NS_ENUM(NSUInteger, ASStackLayoutDirection) {
+typedef NS_ENUM(unsigned char, ASStackLayoutDirection) {
   /** Children are stacked vertically */
   ASStackLayoutDirectionVertical,
   /** Children are stacked horizontally */
   ASStackLayoutDirectionHorizontal,
+#if YOGA
+  /** Children are stacked vertically, but in reverse. Only used by Yoga spec. */
+  ASStackLayoutDirectionVerticalReverse,
+  /** Children are stacked horizontally, but in reverse. Only used by Yoga spec. */
+  ASStackLayoutDirectionHorizontalReverse,
+#endif
 };
 
 /** If no children are flexible, how should this spec justify its children in the available space? */
-typedef NS_ENUM(NSUInteger, ASStackLayoutJustifyContent) {
+typedef NS_ENUM(unsigned char, ASStackLayoutJustifyContent) {
   /**
    On overflow, children overflow out of this spec's bounds on the right/bottom side.
    On underflow, children are left/top-aligned within this spec's bounds.
@@ -60,7 +58,7 @@ typedef NS_ENUM(NSUInteger, ASStackLayoutJustifyContent) {
 };
 
 /** Orientation of children along cross axis */
-typedef NS_ENUM(NSUInteger, ASStackLayoutAlignItems) {
+typedef NS_ENUM(unsigned char, ASStackLayoutAlignItems) {
   /** Align children to start of cross axis */
   ASStackLayoutAlignItemsStart,
   /** Align children with end of cross axis */
@@ -80,7 +78,7 @@ typedef NS_ENUM(NSUInteger, ASStackLayoutAlignItems) {
  Each child may override their parent stack's cross axis alignment.
  @see ASStackLayoutAlignItems
  */
-typedef NS_ENUM(NSUInteger, ASStackLayoutAlignSelf) {
+typedef NS_ENUM(unsigned char, ASStackLayoutAlignSelf) {
   /** Inherit alignment value from containing stack. */
   ASStackLayoutAlignSelfAuto,
   /** Align to start of cross axis */
@@ -94,13 +92,13 @@ typedef NS_ENUM(NSUInteger, ASStackLayoutAlignSelf) {
 };
 
 /** Whether children are stacked into a single or multiple lines. */
-typedef NS_ENUM(NSUInteger, ASStackLayoutFlexWrap) {
+typedef NS_ENUM(unsigned char, ASStackLayoutFlexWrap) {
   ASStackLayoutFlexWrapNoWrap,
   ASStackLayoutFlexWrapWrap,
 };
 
 /** Orientation of lines along cross axis if there are multiple lines. */
-typedef NS_ENUM(NSUInteger, ASStackLayoutAlignContent) {
+typedef NS_ENUM(unsigned char, ASStackLayoutAlignContent) {
   ASStackLayoutAlignContentStart,
   ASStackLayoutAlignContentCenter,
   ASStackLayoutAlignContentEnd,
@@ -110,7 +108,7 @@ typedef NS_ENUM(NSUInteger, ASStackLayoutAlignContent) {
 };
 
 /** Orientation of children along horizontal axis */
-typedef NS_ENUM(NSUInteger, ASHorizontalAlignment) {
+typedef NS_ENUM(unsigned char, ASHorizontalAlignment) {
   /** No alignment specified. Default value */
   ASHorizontalAlignmentNone,
   /** Left aligned */
@@ -130,7 +128,7 @@ typedef NS_ENUM(NSUInteger, ASHorizontalAlignment) {
 };
 
 /** Orientation of children along vertical axis */
-typedef NS_ENUM(NSUInteger, ASVerticalAlignment) {
+typedef NS_ENUM(unsigned char, ASVerticalAlignment) {
   /** No alignment specified. Default value */
   ASVerticalAlignmentNone,
   /** Top aligned */

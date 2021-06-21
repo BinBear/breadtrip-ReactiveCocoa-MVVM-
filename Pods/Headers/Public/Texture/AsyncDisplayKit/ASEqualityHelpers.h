@@ -1,1 +1,0 @@
-../../../../Texture/Source/Base/ASEqualityHelpers.h

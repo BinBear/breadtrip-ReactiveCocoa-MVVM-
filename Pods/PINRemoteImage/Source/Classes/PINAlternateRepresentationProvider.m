@@ -8,18 +8,20 @@
 
 #import "PINAlternateRepresentationProvider.h"
 
+#import "PINCachedAnimatedImage.h"
 #import "NSData+ImageDetectors.h"
-#if USE_FLANIMATED_IMAGE
-#import <FLAnimatedImage/FLAnimatedImage.h>
-#endif
 
 @implementation PINAlternateRepresentationProvider
 
 - (id)alternateRepresentationWithData:(NSData *)data options:(PINRemoteImageManagerDownloadOptions)options
 {
-#if USE_FLANIMATED_IMAGE
-    if ([data pin_isGIF]) {
-        return [FLAnimatedImage animatedImageWithGIFData:data];
+#if PIN_WEBP
+    if ([data pin_isAnimatedGIF] || [data pin_isAnimatedWebP]) {
+        return [[PINCachedAnimatedImage alloc] initWithAnimatedImageData:data];
+    }
+#else
+    if ([data pin_isAnimatedGIF]) {
+        return [[PINCachedAnimatedImage alloc] initWithAnimatedImageData:data];
     }
 #endif
     return nil;

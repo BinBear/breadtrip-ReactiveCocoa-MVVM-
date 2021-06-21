@@ -59,4 +59,10 @@
 /// gesture. 0 by default, which means it will ignore this limit.
 @property (nonatomic, assign) CGFloat fd_interactivePopMaxAllowedInitialDistanceToLeftEdge;
 
+@property (nonatomic,copy) void(^holdOffGestureCallback)(void); // 拦截关闭手势及回调
+
 @end
+
+
+
+

@@ -2,12 +2,8 @@
 //  ASCollectionLayoutCache.mm
 //  Texture
 //
-//  Copyright (c) 2017-present, Pinterest, Inc.  All rights reserved.
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <AsyncDisplayKit/ASCollectionLayoutCache.h>
@@ -17,8 +13,10 @@
 #import <AsyncDisplayKit/ASElementMap.h>
 #import <AsyncDisplayKit/ASThread.h>
 
+using AS::MutexLocker;
+
 @implementation ASCollectionLayoutCache {
-  ASDN::Mutex __instanceLock__;
+  AS::Mutex __instanceLock__;
 
   /**
    * The underlying data structure of this cache.
@@ -50,7 +48,7 @@
     return nil;
   }
 
-  ASDN::MutexLocker l(__instanceLock__);
+  MutexLocker l(__instanceLock__);
   return [[_map objectForKey:elements] objectForKey:context];
 }
 
@@ -61,7 +59,7 @@
     return;
   }
 
-  ASDN::MutexLocker l(__instanceLock__);
+  MutexLocker l(__instanceLock__);
   auto innerMap = [_map objectForKey:elements];
   if (innerMap == nil) {
     innerMap = [NSMapTable strongToStrongObjectsMapTable];
@@ -77,13 +75,13 @@
     return;
   }
 
-  ASDN::MutexLocker l(__instanceLock__);
+  MutexLocker l(__instanceLock__);
   [[_map objectForKey:elements] removeObjectForKey:context];
 }
 
 - (void)removeAllLayouts
 {
-  ASDN::MutexLocker l(__instanceLock__);
+  MutexLocker l(__instanceLock__);
   [_map removeAllObjects];
 }
 

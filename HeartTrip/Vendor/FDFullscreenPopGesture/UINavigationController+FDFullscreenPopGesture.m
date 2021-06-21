@@ -38,6 +38,8 @@
         return NO;
     }
     
+    
+    
     // Ignore when the active view controller doesn't allow interactive pop.
     UIViewController *topViewController = self.navigationController.viewControllers.lastObject;
     if (topViewController.fd_interactivePopDisabled) {
@@ -59,6 +61,11 @@
     // Prevent calling the handler when the gesture begins in an opposite direction.
     CGPoint translation = [gestureRecognizer translationInView:gestureRecognizer.view];
     if (translation.x <= 0) {
+        return NO;
+    }
+    
+    if (topViewController.holdOffGestureCallback) {
+        topViewController.holdOffGestureCallback();
         return NO;
     }
     
@@ -236,7 +243,6 @@ typedef void (^_FDViewControllerWillAppearInjectBlock)(UIViewController *viewCon
     SEL key = @selector(fd_viewControllerBasedNavigationBarAppearanceEnabled);
     objc_setAssociatedObject(self, key, @(enabled), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
-
 @end
 
 @implementation UIViewController (FDFullscreenPopGesture)
@@ -275,6 +281,16 @@ typedef void (^_FDViewControllerWillAppearInjectBlock)(UIViewController *viewCon
 {
     SEL key = @selector(fd_interactivePopMaxAllowedInitialDistanceToLeftEdge);
     objc_setAssociatedObject(self, key, @(MAX(0, distance)), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (void(^)(void))holdOffGestureCallback
+{
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setHoldOffGestureCallback:(void (^)(void))holdOffGestureCallback
+{
+    objc_setAssociatedObject(self, @selector(holdOffGestureCallback), holdOffGestureCallback, OBJC_ASSOCIATION_COPY);
 }
 
 @end

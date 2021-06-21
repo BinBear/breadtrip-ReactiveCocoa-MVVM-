@@ -1,0 +1,6 @@
+framework module KafkaRefresh {
+  umbrella header "KafkaRefresh-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -2,17 +2,9 @@
 //  ASInternalHelpers.h
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import "ASAvailability.h"
@@ -20,45 +12,46 @@
 #import <UIKit/UIKit.h>
 
 #import <AsyncDisplayKit/ASBaseDefines.h>
+#import <AsyncDisplayKit/ASDisplayNodeExtras.h>
+#import <AsyncDisplayKit/ASImageProtocols.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-ASDISPLAYNODE_EXTERN_C_BEGIN
+ASDK_EXTERN void ASInitializeFrameworkMainThread(void);
 
-BOOL ASSubclassOverridesSelector(Class superclass, Class subclass, SEL selector);
-BOOL ASSubclassOverridesClassSelector(Class superclass, Class subclass, SEL selector);
+ASDK_EXTERN BOOL ASDefaultAllowsGroupOpacity(void);
+ASDK_EXTERN BOOL ASDefaultAllowsEdgeAntialiasing(void);
+
+ASDK_EXTERN BOOL ASSubclassOverridesSelector(Class superclass, Class subclass, SEL selector);
+ASDK_EXTERN BOOL ASSubclassOverridesClassSelector(Class superclass, Class subclass, SEL selector);
 
 /// Replace a method from the given class with a block and returns the original method IMP
-IMP ASReplaceMethodWithBlock(Class c, SEL origSEL, id block);
+ASDK_EXTERN IMP ASReplaceMethodWithBlock(Class c, SEL origSEL, id block);
 
 /// Dispatches the given block to the main queue if not already running on the main thread
-void ASPerformBlockOnMainThread(void (^block)());
+ASDK_EXTERN void ASPerformBlockOnMainThread(void (^block)(void));
 
 /// Dispatches the given block to a background queue with priority of DISPATCH_QUEUE_PRIORITY_DEFAULT if not already run on a background queue
-void ASPerformBlockOnBackgroundThread(void (^block)()); // DISPATCH_QUEUE_PRIORITY_DEFAULT
+ASDK_EXTERN void ASPerformBlockOnBackgroundThread(void (^block)(void)); // DISPATCH_QUEUE_PRIORITY_DEFAULT
 
 /// For deallocation of objects on a background thread without GCD overhead / thread explosion
-void ASPerformBackgroundDeallocation(id object);
+ASDK_EXTERN void ASPerformBackgroundDeallocation(id __strong _Nullable * _Nonnull object);
 
-CGFloat ASScreenScale();
+ASDK_EXTERN CGFloat ASScreenScale(void);
 
-CGSize ASFloorSizeValues(CGSize s);
+ASDK_EXTERN CGSize ASFloorSizeValues(CGSize s);
 
-CGFloat ASFloorPixelValue(CGFloat f);
+ASDK_EXTERN CGFloat ASFloorPixelValue(CGFloat f);
 
-CGPoint ASCeilPointValues(CGPoint p);
+ASDK_EXTERN CGPoint ASCeilPointValues(CGPoint p);
 
-CGSize ASCeilSizeValues(CGSize s);
+ASDK_EXTERN CGSize ASCeilSizeValues(CGSize s);
 
-CGFloat ASCeilPixelValue(CGFloat f);
+ASDK_EXTERN CGFloat ASCeilPixelValue(CGFloat f);
 
-CGFloat ASRoundPixelValue(CGFloat f);
+ASDK_EXTERN CGFloat ASRoundPixelValue(CGFloat f);
 
-BOOL ASClassRequiresMainThreadDeallocation(Class _Nullable c);
-
-Class _Nullable ASGetClassFromType(const char * _Nullable type);
-
-ASDISPLAYNODE_EXTERN_C_END
+ASDK_EXTERN Class _Nullable ASGetClassFromType(const char * _Nullable type);
 
 ASDISPLAYNODE_INLINE BOOL ASImageAlphaInfoIsOpaque(CGImageAlphaInfo info) {
   switch (info) {
@@ -80,7 +73,7 @@ ASDISPLAYNODE_INLINE BOOL ASImageAlphaInfoIsOpaque(CGImageAlphaInfo info) {
  @param withoutAnimation Set to `YES` to perform given block without animation
  @param block Perform UIView geometry changes within the passed block
  */
-ASDISPLAYNODE_INLINE void ASPerformBlockWithoutAnimation(BOOL withoutAnimation, void (^block)()) {
+ASDISPLAYNODE_INLINE void ASPerformBlockWithoutAnimation(BOOL withoutAnimation, void (^block)(void)) {
   if (withoutAnimation) {
     [UIView performWithoutAnimation:block];
   } else {
@@ -95,8 +88,42 @@ ASDISPLAYNODE_INLINE void ASBoundsAndPositionForFrame(CGRect rect, CGPoint origi
                           rect.origin.y + rect.size.height * anchorPoint.y);
 }
 
+ASDISPLAYNODE_INLINE UIEdgeInsets ASConcatInsets(UIEdgeInsets insetsA, UIEdgeInsets insetsB)
+{
+  insetsA.top += insetsB.top;
+  insetsA.left += insetsB.left;
+  insetsA.bottom += insetsB.bottom;
+  insetsA.right += insetsB.right;
+  return insetsA;
+}
+
+ASDISPLAYNODE_INLINE AS_WARN_UNUSED_RESULT ASImageDownloaderPriority ASImageDownloaderPriorityWithInterfaceState(ASInterfaceState interfaceState) {
+  if (ASInterfaceStateIncludesVisible(interfaceState)) {
+    return ASImageDownloaderPriorityVisible;
+  }
+
+  if (ASInterfaceStateIncludesDisplay(interfaceState)) {
+    return ASImageDownloaderPriorityImminent;
+  }
+
+  if (ASInterfaceStateIncludesPreload(interfaceState)) {
+    return ASImageDownloaderPriorityPreload;
+  }
+
+  return ASImageDownloaderPriorityPreload;
+}
+
 @interface NSIndexPath (ASInverseComparison)
 - (NSComparisonResult)asdk_inverseCompare:(NSIndexPath *)otherIndexPath;
 @end
 
+/**
+ * Create an NSMutableSet that uses pointers for hash & equality.
+ */
+ASDK_EXTERN NSMutableSet *ASCreatePointerBasedMutableSet(void);
+
 NS_ASSUME_NONNULL_END
+
+#ifndef AS_INITIALIZE_FRAMEWORK_MANUALLY
+#define AS_INITIALIZE_FRAMEWORK_MANUALLY 0
+#endif

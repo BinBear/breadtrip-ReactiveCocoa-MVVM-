@@ -2,17 +2,9 @@
 //  ASTableNode.h
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <AsyncDisplayKit/ASBlockTypes.h>
@@ -36,34 +28,34 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init; // UITableViewStylePlain
 - (instancetype)initWithStyle:(UITableViewStyle)style NS_DESIGNATED_INITIALIZER;
 
-@property (strong, nonatomic, readonly) ASTableView *view;
+@property (readonly) ASTableView *view;
 
 // These properties can be set without triggering the view to be created, so it's fine to set them in -init.
-@property (weak, nonatomic) id <ASTableDelegate>   delegate;
-@property (weak, nonatomic) id <ASTableDataSource> dataSource;
+@property (nonatomic, weak) id <ASTableDelegate>   delegate;
+@property (nonatomic, weak) id <ASTableDataSource> dataSource;
 
 /**
  * The number of screens left to scroll before the delegate -tableNode:beginBatchFetchingWithContext: is called.
  *
  * Defaults to two screenfuls.
  */
-@property (nonatomic, assign) CGFloat leadingScreensForBatching;
+@property (nonatomic) CGFloat leadingScreensForBatching;
 
 /*
  * A Boolean value that determines whether the table will be flipped.
  * If the value of this property is YES, the first cell node will be at the bottom of the table (as opposed to the top by default). This is useful for chat/messaging apps. The default value is NO.
  */
-@property (nonatomic, assign) BOOL inverted;
+@property (nonatomic) BOOL inverted;
 
 /**
  * The distance that the content view is inset from the table node edges. Defaults to UIEdgeInsetsZero.
  */
-@property (nonatomic, assign) UIEdgeInsets contentInset;
+@property (nonatomic) UIEdgeInsets contentInset;
 
 /**
  * The offset of the content view's origin from the table node's origin. Defaults to CGPointZero.
  */
-@property (nonatomic, assign) CGPoint contentOffset;
+@property (nonatomic) CGPoint contentOffset;
 
 /**
  * Sets the offset from the content node’s origin to the table node’s origin.
@@ -83,28 +75,34 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * default is NO.
  */
-@property (nonatomic, assign) BOOL automaticallyAdjustsContentOffset;
+@property (nonatomic) BOOL automaticallyAdjustsContentOffset;
+
+/**
+ * A Boolean value that determines whether paging is enabled for the scroll view.
+ * The default value of this property is NO.
+ */
+@property (nonatomic, getter=isPagingEnabled) BOOL pagingEnabled __TVOS_PROHIBITED;
 
 /*
  * A Boolean value that determines whether users can select a row.
  * If the value of this property is YES (the default), users can select rows. If you set it to NO, they cannot select rows. Setting this property affects cell selection only when the table view is not in editing mode. If you want to restrict selection of cells in editing mode, use `allowsSelectionDuringEditing`.
  */
-@property (nonatomic, assign) BOOL allowsSelection;
+@property (nonatomic) BOOL allowsSelection;
 /*
  * A Boolean value that determines whether users can select cells while the table view is in editing mode.
  * If the value of this property is YES, users can select rows during editing. The default value is NO. If you want to restrict selection of cells regardless of mode, use allowsSelection.
  */
-@property (nonatomic, assign) BOOL allowsSelectionDuringEditing;
+@property (nonatomic) BOOL allowsSelectionDuringEditing;
 /*
  * A Boolean value that determines whether users can select more than one row outside of editing mode.
  * This property controls whether multiple rows can be selected simultaneously outside of editing mode. When the value of this property is YES, each row that is tapped acquires a selected appearance. Tapping the row again removes the selected appearance. If you access indexPathsForSelectedRows, you can get the index paths that identify the selected rows.
  */
-@property (nonatomic, assign) BOOL allowsMultipleSelection;
+@property (nonatomic) BOOL allowsMultipleSelection;
 /*
  * A Boolean value that controls whether users can select more than one cell simultaneously in editing mode.
  * The default value of this property is NO. If you set it to YES, check marks appear next to selected rows in editing mode. In addition, UITableView does not query for editing styles when it goes into editing mode. If you access indexPathsForSelectedRows, you can get the index paths that identify the selected rows.
  */
-@property (nonatomic, assign) BOOL allowsMultipleSelectionDuringEditing;
+@property (nonatomic) BOOL allowsMultipleSelectionDuringEditing;
 
 /**
  * Tuning parameters for a range type in full mode.
@@ -172,7 +170,7 @@ NS_ASSUME_NONNULL_BEGIN
  * the main thread.
  * @warning This method is substantially more expensive than UITableView's version.
  */
-- (void)reloadDataWithCompletion:(nullable void (^)())completion;
+- (void)reloadDataWithCompletion:(nullable void (^)(void))completion;
 
 /**
  * Reload everything from scratch, destroying the working range and all cached nodes.
@@ -198,7 +196,7 @@ NS_ASSUME_NONNULL_BEGIN
  *                    Boolean parameter that contains the value YES if all of the related animations completed successfully or
  *                    NO if they were interrupted. This parameter may be nil. If supplied, the block is run on the main thread.
  */
-- (void)performBatchAnimated:(BOOL)animated updates:(nullable AS_NOESCAPE void (^)())updates completion:(nullable void (^)(BOOL finished))completion;
+- (void)performBatchAnimated:(BOOL)animated updates:(nullable AS_NOESCAPE void (^)(void))updates completion:(nullable void (^)(BOOL finished))completion;
 
 /**
  *  Perform a batch of updates asynchronously with animations in the batch. This method must be called from the main thread.
@@ -209,7 +207,7 @@ NS_ASSUME_NONNULL_BEGIN
  *                    Boolean parameter that contains the value YES if all of the related animations completed successfully or
  *                    NO if they were interrupted. This parameter may be nil. If supplied, the block is run on the main thread.
  */
-- (void)performBatchUpdates:(nullable AS_NOESCAPE void (^)())updates completion:(nullable void (^)(BOOL finished))completion;
+- (void)performBatchUpdates:(nullable AS_NOESCAPE void (^)(void))updates completion:(nullable void (^)(BOOL finished))completion;
 
 /**
  *  Returns YES if the ASCollectionNode is still processing changes from performBatchUpdates:.
@@ -238,7 +236,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Calling -waitUntilAllUpdatesAreProcessed is one way to flush any pending update completion blocks.
  */
-- (void)onDidFinishProcessingUpdates:(nullable void (^)())didFinishProcessingUpdates;
+- (void)onDidFinishProcessingUpdates:(void (^)(void))didFinishProcessingUpdates;
 
 /**
  *  Blocks execution of the main thread until all section and item updates are committed to the view. This method must be called from the main thread.
@@ -444,7 +442,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @discussion This method must be called from the main thread.
  */
-@property (nonatomic, readonly, nullable) NSIndexPath *indexPathForSelectedRow;
+@property (nullable, nonatomic, copy, readonly) NSIndexPath *indexPathForSelectedRow;
 
 @property (nonatomic, readonly, nullable) NSArray<NSIndexPath *> *indexPathsForSelectedRows;
 
@@ -576,6 +574,29 @@ NS_ASSUME_NONNULL_BEGIN
  * @deprecated The data source is always accessed on the main thread, and this method will not be called.
  */
 - (void)tableViewUnlockDataSource:(ASTableView *)tableView ASDISPLAYNODE_DEPRECATED_MSG("Data source accesses are on the main thread. Method will not be called.");
+
+/**
+ * Generate a unique identifier for an element in a table. This helps state restoration persist the scroll position
+ *  of a table view even when the data in that table changes. See the documentation for UIDataSourceModelAssociation for more information.
+ *
+ * @param indexPath The index path of the requested node.
+ *
+ * @param tableNode The sender.
+ *
+ * @return a unique identifier for the element at the given path. Return nil if the index path does not exist in the table.
+ */
+- (nullable NSString *)modelIdentifierForElementAtIndexPath:(NSIndexPath *)indexPath inNode:(ASTableNode *)tableNode;
+
+/**
+ * Similar to -tableView:cellForRowAtIndexPath:. See the documentation for UIDataSourceModelAssociation for more information.
+ *
+ * @param identifier The model identifier of the element, previously generated by a call to modelIdentifierForElementAtIndexPath.
+ *
+ * @param tableNode The sender.
+ *
+ * @return the index path to the current position of the matching element in the table. Return nil if the element is not found.
+ */
+- (nullable NSIndexPath *)indexPathForElementWithModelIdentifier:(NSString *)identifier inNode:(ASTableNode *)tableNode;
 
 @end
 

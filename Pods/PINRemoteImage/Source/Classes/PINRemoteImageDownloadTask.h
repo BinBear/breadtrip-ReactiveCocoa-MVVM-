@@ -6,7 +6,11 @@
 //
 //
 
+#if SWIFT_PACKAGE
+@import PINOperation;
+#else
 #import <PINOperation/PINOperation.h>
+#endif
 
 #import "PINRemoteImageManager+Private.h"
 #import "PINRemoteImageTask.h"
@@ -15,12 +19,10 @@
 
 @interface PINRemoteImageDownloadTask : PINRemoteImageTask
 
-@property (nonatomic, strong, nullable) NSURL *URL;
+@property (nonatomic, strong, nullable, readonly) NSURL *URL;
 @property (nonatomic, copy, nullable) NSString *ifRange;
 @property (nonatomic, copy, readonly, nullable) NSData *data;
 
-@property (nonatomic, readonly) float bytesPerSecond;
-@property (nonatomic, readonly) float startAdjustedBytesPerSecond;
 @property (nonatomic, readonly) CFTimeInterval estimatedRemainingTime;
 
 - (void)scheduleDownloadWithRequest:(nonnull NSURLRequest *)request

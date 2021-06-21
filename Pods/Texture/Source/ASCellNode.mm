@@ -2,17 +2,9 @@
 //  ASCellNode.mm
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <AsyncDisplayKit/ASCellNode+Internal.h>
@@ -25,12 +17,10 @@
 #import <AsyncDisplayKit/ASTableView+Undeprecated.h>
 #import <AsyncDisplayKit/_ASDisplayView.h>
 #import <AsyncDisplayKit/ASDisplayNode+Subclasses.h>
-#import <AsyncDisplayKit/ASDisplayNode+Beta.h>
 #import <AsyncDisplayKit/ASTextNode.h>
 #import <AsyncDisplayKit/ASCollectionNode.h>
-#import <AsyncDisplayKit/ASTableNode.h>
 
-#import <AsyncDisplayKit/ASViewController.h>
+#import <AsyncDisplayKit/ASDKViewController.h>
 #import <AsyncDisplayKit/ASInsetLayoutSpec.h>
 #import <AsyncDisplayKit/ASDisplayNodeInternal.h>
 
@@ -43,7 +33,11 @@
   ASDisplayNodeDidLoadBlock _viewControllerDidLoadBlock;
   ASDisplayNode *_viewControllerNode;
   UIViewController *_viewController;
+  UICollectionViewLayoutAttributes *_layoutAttributes;
   BOOL _suspendInteractionDelegate;
+  BOOL _selected;
+  BOOL _highlighted;
+  BOOL _neverShowPlaceholders;
 }
 
 @end
@@ -58,6 +52,7 @@
 
   // Use UITableViewCell defaults
   _selectionStyle = UITableViewCellSelectionStyleDefault;
+  _focusStyle = UITableViewCellFocusStyleDefault;
   self.clipsToBounds = YES;
 
   return self;
@@ -84,10 +79,10 @@
     _viewController = _viewControllerBlock();
     _viewControllerBlock = nil;
 
-    if ([_viewController isKindOfClass:[ASViewController class]]) {
-      ASViewController *asViewController = (ASViewController *)_viewController;
+    if ([_viewController isKindOfClass:[ASDKViewController class]]) {
+      ASDKViewController *asViewController = (ASDKViewController *)_viewController;
       _viewControllerNode = asViewController.node;
-      [_viewController view];
+      [_viewController loadViewIfNeeded];
     } else {
       // Careful to avoid retain cycle
       UIViewController *viewController = _viewController;
@@ -132,29 +127,42 @@
   }
 }
 
+- (BOOL)isSelected
+{
+  return ASLockedSelf(_selected);
+}
+
 - (void)setSelected:(BOOL)selected
 {
-  if (_selected != selected) {
-    _selected = selected;
+  if (ASLockedSelfCompareAssign(_selected, selected)) {
     if (!_suspendInteractionDelegate) {
-      [_interactionDelegate nodeSelectedStateDidChange:self];
+      ASPerformBlockOnMainThread(^{
+        [self->_interactionDelegate nodeSelectedStateDidChange:self];
+      });
     }
   }
 }
 
+- (BOOL)isHighlighted
+{
+  return ASLockedSelf(_highlighted);
+}
+
 - (void)setHighlighted:(BOOL)highlighted
 {
-  if (_highlighted != highlighted) {
-    _highlighted = highlighted;
+  if (ASLockedSelfCompareAssign(_highlighted, highlighted)) {
     if (!_suspendInteractionDelegate) {
-      [_interactionDelegate nodeHighlightedStateDidChange:self];
+      ASPerformBlockOnMainThread(^{
+        [self->_interactionDelegate nodeHighlightedStateDidChange:self];
+      });
     }
   }
 }
 
 - (void)__setSelectedFromUIKit:(BOOL)selected;
 {
-  if (selected != _selected) {
+  // Note: Race condition could mean redundant sets. Risk is low.
+  if (ASLockedSelf(_selected != selected)) {
     _suspendInteractionDelegate = YES;
     self.selected = selected;
     _suspendInteractionDelegate = NO;
@@ -163,7 +171,8 @@
 
 - (void)__setHighlightedFromUIKit:(BOOL)highlighted;
 {
-  if (highlighted != _highlighted) {
+  // Note: Race condition could mean redundant sets. Risk is low.
+  if (ASLockedSelf(_highlighted != highlighted)) {
     _suspendInteractionDelegate = YES;
     self.highlighted = highlighted;
     _suspendInteractionDelegate = NO;
@@ -189,6 +198,11 @@
     [self view];
   }
   return _viewController;
+}
+
+- (id<ASRangeManagingNode>)owningNode
+{
+  return self.collectionElement.owningNode;
 }
 
 #pragma clang diagnostic push
@@ -224,11 +238,15 @@
 
 #pragma clang diagnostic pop
 
+- (UICollectionViewLayoutAttributes *)layoutAttributes
+{
+  return ASLockedSelf(_layoutAttributes);
+}
+
 - (void)setLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
 {
   ASDisplayNodeAssertMainThread();
-  if (ASObjectIsEqual(layoutAttributes, _layoutAttributes) == NO) {
-    _layoutAttributes = layoutAttributes;
+  if (ASLockedSelfCompareAssignObjects(_layoutAttributes, layoutAttributes)) {
     if (layoutAttributes != nil) {
       [self applyLayoutAttributes:layoutAttributes];
     }
@@ -292,7 +310,7 @@
   // in which case it is not valid to perform a convertRect (this actually crashes on iOS 8).
   UIScrollView *scrollView = (_scrollView != nil && view.superview != nil && [view isDescendantOfView:_scrollView]) ? _scrollView : nil;
   if (scrollView) {
-    cellFrame = [view convertRect:view.bounds toView:_scrollView];
+    cellFrame = [view convertRect:view.bounds toView:scrollView];
   }
   
   // If we did not convert, we'll pass along CGRectZero and a nil scrollView.  The EventInvisible call is thus equivalent to
@@ -309,7 +327,7 @@
   
   UIScrollView *scrollView = self.scrollView;
   
-  ASDisplayNode *owningNode = scrollView.asyncdisplaykit_node;
+  id<ASRangeManagingNode> owningNode = self.owningNode;
   if ([owningNode isKindOfClass:[ASCollectionNode class]]) {
     NSIndexPath *ip = [(ASCollectionNode *)owningNode indexPathForNode:self];
     if (ip != nil) {
@@ -351,13 +369,36 @@
   return NO;
 }
 
+- (BOOL)shouldUseUIKitCell
+{
+  return NO;
+}
+
+@end
+
+
+#pragma mark -
+#pragma mark ASWrapperCellNode
+
+// TODO: Consider if other calls, such as willDisplayCell, should be bridged to this class.
+@implementation ASWrapperCellNode : ASCellNode
+
+- (BOOL)shouldUseUIKitCell
+{
+  return YES;
+}
+
 @end
 
 
 #pragma mark -
 #pragma mark ASTextCellNode
 
-@implementation ASTextCellNode
+@implementation ASTextCellNode {
+  NSDictionary<NSAttributedStringKey, id> *_textAttributes;
+  UIEdgeInsets _textInsets;
+  NSString *_text;
+}
 
 static const CGFloat kASTextCellNodeDefaultFontSize = 18.0f;
 static const CGFloat kASTextCellNodeDefaultHorizontalPadding = 15.0f;
@@ -395,39 +436,53 @@ static const CGFloat kASTextCellNodeDefaultVerticalPadding = 11.0f;
     return UIEdgeInsetsMake(kASTextCellNodeDefaultVerticalPadding, kASTextCellNodeDefaultHorizontalPadding, kASTextCellNodeDefaultVerticalPadding, kASTextCellNodeDefaultHorizontalPadding);
 }
 
+- (NSDictionary *)textAttributes
+{
+  return ASLockedSelf(_textAttributes);
+}
+
 - (void)setTextAttributes:(NSDictionary *)textAttributes
 {
   ASDisplayNodeAssertNotNil(textAttributes, @"Invalid text attributes");
-  
-  _textAttributes = [textAttributes copy];
-  
-  [self updateAttributedText];
+  ASLockScopeSelf();
+  if (ASCompareAssignCopy(_textAttributes, textAttributes)) {
+    [self locked_updateAttributedText];
+  }
+}
+
+- (UIEdgeInsets)textInsets
+{
+  return ASLockedSelf(_textInsets);
 }
 
 - (void)setTextInsets:(UIEdgeInsets)textInsets
 {
-  _textInsets = textInsets;
+  if (ASLockedSelfCompareAssignCustom(_textInsets, textInsets, UIEdgeInsetsEqualToEdgeInsets)) {
+    [self setNeedsLayout];
+  }
+}
 
-  [self setNeedsLayout];
+- (NSString *)text
+{
+  return ASLockedSelf(_text);
 }
 
 - (void)setText:(NSString *)text
 {
-  if (ASObjectIsEqual(_text, text)) return;
-
-  _text = [text copy];
-  
-  [self updateAttributedText];
+  ASLockScopeSelf();
+  if (ASCompareAssignCopy(_text, text)) {
+    [self locked_updateAttributedText];
+  }
 }
 
-- (void)updateAttributedText
+- (void)locked_updateAttributedText
 {
   if (_text == nil) {
     _textNode.attributedText = nil;
     return;
   }
   
-  _textNode.attributedText = [[NSAttributedString alloc] initWithString:self.text attributes:self.textAttributes];
+  _textNode.attributedText = [[NSAttributedString alloc] initWithString:_text attributes:_textAttributes];
   [self setNeedsLayout];
 }
 

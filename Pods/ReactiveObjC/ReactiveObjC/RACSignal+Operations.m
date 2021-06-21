@@ -29,10 +29,7 @@
 #import <libkern/OSAtomic.h>
 #import <objc/runtime.h>
 
-NSString * const RACSignalErrorDomain = @"RACSignalErrorDomain";
-
-const NSInteger RACSignalErrorTimedOut = 1;
-const NSInteger RACSignalErrorNoMatchingCase = 2;
+NSErrorDomain const RACSignalErrorDomain = @"RACSignalErrorDomain";
 
 // Subscribes to the given signal with the given blocks.
 //
@@ -331,7 +328,7 @@ static RACDisposable *subscribeForever (RACSignal *signal, void (^next)(id), voi
 		RACSerialDisposable *timerDisposable = [[RACSerialDisposable alloc] init];
 		NSMutableArray *values = [NSMutableArray array];
 
-		void (^flushValues)() = ^{
+		void (^flushValues)(void) = ^{
 			@synchronized (values) {
 				[timerDisposable.disposable dispose];
 
@@ -456,7 +453,7 @@ static RACDisposable *subscribeForever (RACSignal *signal, void (^next)(id), voi
 	}] setNameWithFormat:@"+combineLatest: %@", signals];
 }
 
-+ (RACSignal *)combineLatest:(id<NSFastEnumeration>)signals reduce:(id (^)())reduceBlock {
++ (RACSignal *)combineLatest:(id<NSFastEnumeration>)signals reduce:(RACGenericReduceBlock)reduceBlock {
 	NSCParameterAssert(reduceBlock != nil);
 
 	RACSignal *result = [self combineLatest:signals];

@@ -2,37 +2,37 @@
 //  ASImageNode+AnimatedImagePrivate.h
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <AsyncDisplayKit/ASThread.h>
 
-extern NSString *const ASAnimatedImageDefaultRunLoopMode;
+#define ASAnimatedImageDefaultRunLoopMode NSRunLoopCommonModes
 
 @interface ASImageNode ()
 {
-  ASDN::Mutex _displayLinkLock;
+  AS::Mutex _displayLinkLock;
   id <ASAnimatedImageProtocol> _animatedImage;
-  BOOL _animatedImagePaused;
   NSString *_animatedImageRunLoopMode;
   CADisplayLink *_displayLink;
+  NSUInteger _lastSuccessfulFrameIndex;
   
   //accessed on main thread only
   CFTimeInterval _playHead;
   NSUInteger _playedLoops;
+
+  // Group the BOOLs into a bitfield struct to save memory.
+  struct {
+    unsigned int animatedImagePaused:1;
+    unsigned int cropEnabled:1; // Defaults to YES.
+    unsigned int forceUpscaling:1; //Defaults to NO.
+    unsigned int regenerateFromImageAsset:1; //Defaults to NO.
+  } _imageNodeFlags;
 }
 
-@property (nonatomic, assign) CFTimeInterval lastDisplayLinkFire;
+@property (nonatomic) CFTimeInterval lastDisplayLinkFire;
 
 @end
 
