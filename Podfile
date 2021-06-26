@@ -23,12 +23,12 @@ target 'HeartTrip' do
   hearttrip_services
   
   # 三方组件
+  pod 'CocoaLumberjack'
   pod 'QMUIKit'
   pod 'KafkaRefresh'
   pod 'Masonry'
   pod 'IQKeyboardManager'
   pod 'SDWebImage'
-  pod 'iCarousel'
   pod 'lottie-ios'
   pod 'Texture'
   pod 'YYModel'

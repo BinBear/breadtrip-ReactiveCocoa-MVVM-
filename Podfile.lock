@@ -35,7 +35,6 @@ PODS:
     - GCDWebServer/Core
   - GCDWebServer/WebUploader (3.5.4):
     - GCDWebServer/Core
-  - iCarousel (1.8.3)
   - IQKeyboardManager (6.5.6)
   - KafkaRefresh (1.5.0):
     - KafkaRefresh/Category (= 1.5.0)
@@ -78,9 +77,9 @@ PODS:
   - LookinServer (1.0.2)
   - lottie-ios (3.2.3)
   - Masonry (1.1.0)
-  - MMKV (1.2.9):
-    - MMKVCore (~> 1.2.9)
-  - MMKVCore (1.2.9)
+  - MMKV (1.2.10):
+    - MMKVCore (~> 1.2.10)
+  - MMKVCore (1.2.10)
   - PINCache (3.0.3):
     - PINCache/Arc-exception-safe (= 3.0.3)
     - PINCache/Core (= 3.0.3)
@@ -417,9 +416,9 @@ PODS:
   - QMUIKit/QMUIResources (4.2.3)
   - QMUIKit/QMUIWeakObjectContainer (4.2.3)
   - ReactiveObjC (3.1.1)
-  - Realm (10.8.0):
-    - Realm/Headers (= 10.8.0)
-  - Realm/Headers (10.8.0)
+  - Realm (10.8.1):
+    - Realm/Headers (= 10.8.1)
+  - Realm/Headers (10.8.1)
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
@@ -469,7 +468,6 @@ PODS:
     - VinBaseComponents/NetWorking/TaskInfo (= 0.1.9)
   - VinBaseComponents/NetWorking/Base (0.1.9):
     - AFNetworking
-    - CocoaLumberjack
     - VinBaseComponents/NetWorking/Cache
     - VinBaseComponents/NetWorking/TaskInfo
     - VinBaseComponents/RACExtentions
@@ -494,10 +492,10 @@ PODS:
 
 DEPENDENCIES:
   - Bugly
+  - CocoaLumberjack
   - DoraemonKit/Core
   - FluentDarkModeKit
   - FoldingTabBar (from `https://github.com/BinBear/FoldingTabBar.iOS.git`)
-  - iCarousel
   - IQKeyboardManager
   - KafkaRefresh
   - LBXPermission
@@ -520,7 +518,6 @@ SPEC REPOS:
     - FluentDarkModeKit
     - FMDB
     - GCDWebServer
-    - iCarousel
     - IQKeyboardManager
     - KafkaRefresh
     - LBXPermission
@@ -553,7 +550,7 @@ CHECKOUT OPTIONS:
     :commit: 2ee8f3b1b2d5b18e7df81b2907c22794dfb1b6b8
     :git: https://github.com/BinBear/FoldingTabBar.iOS.git
   VinBaseComponents:
-    :commit: 841b701076104d9529fbd94b727de8c6544e5187
+    :commit: 536798ffbe61be57ff412254bf8b655c10e73efe
     :git: https://github.com/BinBear/VinBaseComponents.git
 
 SPEC CHECKSUMS:
@@ -565,29 +562,28 @@ SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   FoldingTabBar: b1817b36d15eedefd8e42f66abbd36fe4feabcf2
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
-  iCarousel: d782f635afac190c49bb8ee455882284cff8b85f
   IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
   KafkaRefresh: 01645b1509b8647809f6bb666629c80855bd3fdd
   LBXPermission: e7f860ce1280599fc196a8c5dee713cbb81354d4
   LookinServer: d6874df8b58096c8d463817b6baaa3abc21d31f7
   lottie-ios: c058aeafa76daa4cf64d773554bccc8385d0150e
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  MMKV: ce972c7bec17ec7aba068562820b829d4cee100c
-  MMKVCore: 27bf04f4376305c9c0187136a7b58a236ee83f9e
+  MMKV: 76033b9ace2006623308910a3afcc0e25eba3140
+  MMKVCore: b00e7a09ec77a1b916aef336eedd3b99ec249978
   PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
   PINOperation: 00c935935f1e8cf0d1e2d6b542e75b88fc3e5e20
   PINRemoteImage: f1295b29f8c5e640e25335a1b2bd9d805171bd01
   QMUIKit: c047f987b14be9f48df47cb934a2d21ccd7ef4b6
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
-  Realm: ad3c5cd762e5a5bc02080fc55aa04a0e43f98575
+  Realm: a2db54d9dcceddeba936b429f5b3d6610a109686
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   Texture: 2f109e937850d94d1d07232041c9c7313ccddb81
   UICKeyChainStore: ba3bff2c762b12db1e516f395c837dd25298b05e
-  VinBaseComponents: 1161bbe395a43dfc5a8e18d6612d3fc5d515cf5b
+  VinBaseComponents: 6866e3c838bb87ff25cdfb01b51bdff2989bbfbc
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 7d81fcfab30c70fe86cb5f7cdc04b3813fe60103
+PODFILE CHECKSUM: cf05b7bdcad6bfb575e3dcebe133eabd2554646d
 
 COCOAPODS: 1.10.1
