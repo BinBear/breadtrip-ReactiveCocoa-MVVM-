@@ -6,7 +6,7 @@
 ***
 
 ## ReactiveCocoa
-[ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa)（简称为RAC）,是由Github开源的一个应用于iOS和OS开发的框架,RAC具有函数式编程和响应式编程的特性。现在ReactiveCocoa已经到RAC5，支持swift3，由于项目是使用的OC,所以我使用的是ReactiveCocoa2.5。如果你的项目是纯OC，也可以使用[ReactiveObjC](https://github.com/ReactiveCocoa/ReactiveObjC)。
+[ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa)（简称为RAC）,是由Github开源的一个应用于iOS和OS开发的框架,RAC具有函数式编程和响应式编程的特性。由于项目是使用的OC,所以我使用的是ReactiveCocoa2.5。如果你的项目是纯OC，也可以使用[ReactiveObjC](https://github.com/ReactiveCocoa/ReactiveObjC)。
 
 
 ## MVVM
