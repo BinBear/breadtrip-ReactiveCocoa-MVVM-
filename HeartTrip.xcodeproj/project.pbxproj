@@ -265,7 +265,6 @@
 				75EBCA2C075D6291904D8F2B /* Pods-HeartTrip.debug.xcconfig */,
 				CA1B802504B263D9DBEF6AF3 /* Pods-HeartTrip.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -1178,6 +1177,10 @@
 				DEVELOPMENT_TEAM = C2DWDEDET2;
 				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HeartTrip/Vendor",
+				);
 				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/HeartTrip/Application/HeartTripPrefixHeader.pch";
@@ -1208,6 +1211,10 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = C2DWDEDET2;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HeartTrip/Vendor",
+				);
 				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/HeartTrip/Application/HeartTripPrefixHeader.pch";

@@ -31,6 +31,4 @@ NSString *separateNumberUseCommaWith(NSString *number);
 /// 数量小数位处理，超过10000则以 万 为单位
 NSString *countTextCharsForNumber(id number, NSInteger digit);
 
-/// 获取当前控制器
-UIViewController *currentViewController(void);
 @end

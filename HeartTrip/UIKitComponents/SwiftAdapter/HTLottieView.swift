@@ -11,7 +11,7 @@ import UIKit
 import Lottie
 
 
-@objc class HTLottieView: UIView {
+@objcMembers class HTLottieView: UIView {
     
     private let animationView = AnimationView()
     private var name = ""

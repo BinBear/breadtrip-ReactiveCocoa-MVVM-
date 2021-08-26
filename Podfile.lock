@@ -74,7 +74,7 @@ PODS:
   - LBXPermission (1.1.1):
     - LBXPermission/All (= 1.1.1)
   - LBXPermission/All (1.1.1)
-  - LookinServer (1.0.2)
+  - LookinServer (1.0.4)
   - lottie-ios (3.2.3)
   - Masonry (1.1.0)
   - MMKV (1.2.10):
@@ -416,9 +416,9 @@ PODS:
   - QMUIKit/QMUIResources (4.2.3)
   - QMUIKit/QMUIWeakObjectContainer (4.2.3)
   - ReactiveObjC (3.1.1)
-  - Realm (10.8.1):
-    - Realm/Headers (= 10.8.1)
-  - Realm/Headers (10.8.1)
+  - Realm (10.12.0):
+    - Realm/Headers (= 10.12.0)
+  - Realm/Headers (10.12.0)
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
@@ -443,46 +443,47 @@ PODS:
   - Texture/Video (3.0.0):
     - Texture/Core
   - UICKeyChainStore (2.2.1)
-  - VinBaseComponents (0.1.9):
-    - VinBaseComponents/BlockViewKit (= 0.1.9)
-    - VinBaseComponents/CocoaExtentions (= 0.1.9)
-    - VinBaseComponents/Components (= 0.1.9)
-    - VinBaseComponents/CycleViewKit (= 0.1.9)
-    - VinBaseComponents/NetWorking (= 0.1.9)
-    - VinBaseComponents/RACExtentions (= 0.1.9)
-    - VinBaseComponents/StorageLib (= 0.1.9)
-  - VinBaseComponents/BlockViewKit (0.1.9):
+  - VinBaseComponents (0.2.2):
+    - VinBaseComponents/BlockViewKit (= 0.2.2)
+    - VinBaseComponents/CocoaExtentions (= 0.2.2)
+    - VinBaseComponents/Components (= 0.2.2)
+    - VinBaseComponents/CycleViewKit (= 0.2.2)
+    - VinBaseComponents/NetWorking (= 0.2.2)
+    - VinBaseComponents/RACExtentions (= 0.2.2)
+    - VinBaseComponents/StorageLib (= 0.2.2)
+  - VinBaseComponents/BlockViewKit (0.2.2):
     - VinBaseComponents/CocoaExtentions
     - VinBaseComponents/RACExtentions
-  - VinBaseComponents/CocoaExtentions (0.1.9):
-    - VinBaseComponents/CocoaExtentions/Foundation (= 0.1.9)
-    - VinBaseComponents/CocoaExtentions/UIKit (= 0.1.9)
-  - VinBaseComponents/CocoaExtentions/Foundation (0.1.9)
-  - VinBaseComponents/CocoaExtentions/UIKit (0.1.9)
-  - VinBaseComponents/Components (0.1.9)
-  - VinBaseComponents/CycleViewKit (0.1.9):
+  - VinBaseComponents/CocoaExtentions (0.2.2):
+    - VinBaseComponents/CocoaExtentions/Foundation (= 0.2.2)
+    - VinBaseComponents/CocoaExtentions/UIKit (= 0.2.2)
+  - VinBaseComponents/CocoaExtentions/Foundation (0.2.2)
+  - VinBaseComponents/CocoaExtentions/UIKit (0.2.2):
+    - VinBaseComponents/CocoaExtentions/Foundation
+  - VinBaseComponents/Components (0.2.2)
+  - VinBaseComponents/CycleViewKit (0.2.2):
     - VinBaseComponents/RACExtentions
-  - VinBaseComponents/NetWorking (0.1.9):
-    - VinBaseComponents/NetWorking/Base (= 0.1.9)
-    - VinBaseComponents/NetWorking/Cache (= 0.1.9)
-    - VinBaseComponents/NetWorking/TaskInfo (= 0.1.9)
-  - VinBaseComponents/NetWorking/Base (0.1.9):
+  - VinBaseComponents/NetWorking (0.2.2):
+    - VinBaseComponents/NetWorking/Base (= 0.2.2)
+    - VinBaseComponents/NetWorking/Cache (= 0.2.2)
+    - VinBaseComponents/NetWorking/TaskInfo (= 0.2.2)
+  - VinBaseComponents/NetWorking/Base (0.2.2):
     - AFNetworking
     - VinBaseComponents/NetWorking/Cache
     - VinBaseComponents/NetWorking/TaskInfo
     - VinBaseComponents/RACExtentions
-  - VinBaseComponents/NetWorking/Cache (0.1.9):
+  - VinBaseComponents/NetWorking/Cache (0.2.2):
     - YYCache
-  - VinBaseComponents/NetWorking/TaskInfo (0.1.9)
-  - VinBaseComponents/RACExtentions (0.1.9):
+  - VinBaseComponents/NetWorking/TaskInfo (0.2.2)
+  - VinBaseComponents/RACExtentions (0.2.2):
     - ReactiveObjC
-  - VinBaseComponents/StorageLib (0.1.9):
-    - VinBaseComponents/StorageLib/MapKeyValueTool (= 0.1.9)
-    - VinBaseComponents/StorageLib/RealmStore (= 0.1.9)
-  - VinBaseComponents/StorageLib/MapKeyValueTool (0.1.9):
+  - VinBaseComponents/StorageLib (0.2.2):
+    - VinBaseComponents/StorageLib/MapKeyValueTool (= 0.2.2)
+    - VinBaseComponents/StorageLib/RealmStore (= 0.2.2)
+  - VinBaseComponents/StorageLib/MapKeyValueTool (0.2.2):
     - MMKV
     - UICKeyChainStore
-  - VinBaseComponents/StorageLib/RealmStore (0.1.9):
+  - VinBaseComponents/StorageLib/RealmStore (0.2.2):
     - Realm
   - YYCache (1.0.4)
   - YYCategories (1.0.4):
@@ -550,7 +551,7 @@ CHECKOUT OPTIONS:
     :commit: 2ee8f3b1b2d5b18e7df81b2907c22794dfb1b6b8
     :git: https://github.com/BinBear/FoldingTabBar.iOS.git
   VinBaseComponents:
-    :commit: 536798ffbe61be57ff412254bf8b655c10e73efe
+    :commit: 80bc29688b7aeff6fa5de96e30b60cd2eee689c3
     :git: https://github.com/BinBear/VinBaseComponents.git
 
 SPEC CHECKSUMS:
@@ -565,7 +566,7 @@ SPEC CHECKSUMS:
   IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
   KafkaRefresh: 01645b1509b8647809f6bb666629c80855bd3fdd
   LBXPermission: e7f860ce1280599fc196a8c5dee713cbb81354d4
-  LookinServer: d6874df8b58096c8d463817b6baaa3abc21d31f7
+  LookinServer: 743c1681771d0a8dcc38825325a080c3186404a5
   lottie-ios: c058aeafa76daa4cf64d773554bccc8385d0150e
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MMKV: 76033b9ace2006623308910a3afcc0e25eba3140
@@ -575,15 +576,15 @@ SPEC CHECKSUMS:
   PINRemoteImage: f1295b29f8c5e640e25335a1b2bd9d805171bd01
   QMUIKit: c047f987b14be9f48df47cb934a2d21ccd7ef4b6
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
-  Realm: a2db54d9dcceddeba936b429f5b3d6610a109686
+  Realm: 32488213acb44660539c619d620cec1bac046166
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   Texture: 2f109e937850d94d1d07232041c9c7313ccddb81
   UICKeyChainStore: ba3bff2c762b12db1e516f395c837dd25298b05e
-  VinBaseComponents: 6866e3c838bb87ff25cdfb01b51bdff2989bbfbc
+  VinBaseComponents: f139a8d5f7cc68a7305586c988c2abefa0bcddfc
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
 PODFILE CHECKSUM: cf05b7bdcad6bfb575e3dcebe133eabd2554646d
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.10.2

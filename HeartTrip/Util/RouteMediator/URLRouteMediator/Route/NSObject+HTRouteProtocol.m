@@ -124,7 +124,7 @@
                  animated:(BOOL)flag {
     UIViewController<HTViewControllerProtocol> *currentController = (UIViewController<HTViewControllerProtocol> *)UIViewController.vv_currentViewController;
     NSString *controllerName = NSStringFromClass(currentController.class);
-    if (ht_ProtocolAndSelector(viewController, @protocol(HTViewControllerProtocol), @selector(popFromViewController:parameter:))) {
+    if (vv_ProtocolAndSelector(viewController, @protocol(HTViewControllerProtocol), @selector(popFromViewController:parameter:))) {
         [viewController popFromViewController:controllerName parameter:parameter];
     }
     [currentController.navigationController popToViewController:viewController animated:flag];
@@ -203,7 +203,7 @@
         @weakify(presentedViewController);
         [currentController dismissViewControllerAnimated:flag completion:^{
             @strongify(presentedViewController);
-            if (ht_ProtocolAndSelector(presentedViewController, @protocol(HTViewControllerProtocol), @selector(dismissFromViewController:parameter:))) {
+            if (vv_ProtocolAndSelector(presentedViewController, @protocol(HTViewControllerProtocol), @selector(dismissFromViewController:parameter:))) {
                 [presentedViewController dismissFromViewController:controllerName parameter:parameter];
             }
             !block ?: block();

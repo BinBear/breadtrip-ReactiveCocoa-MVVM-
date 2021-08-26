@@ -9,8 +9,8 @@
 import UIKit
 import FluentDarkModeKit
 
-class HTDarkModeInit: NSObject {
-    @objc func toInit() {
+@objcMembers class HTDarkModeInit: NSObject {
+    func toInit() {
         let configuration = DMEnvironmentConfiguration()
         configuration.themeChangeHandler = {
             print("theme changed")

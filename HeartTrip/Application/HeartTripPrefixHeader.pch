@@ -10,7 +10,7 @@
 #define HeartTripPrefixHeader_pch
 
 // 基础组件
-#import <VinBaseComponents/CommonElement.h>
+#import <VinBaseComponents/VinCocoaExtention.h>
 #import <VinBaseComponents/HTEnumMarcos.h>
 #import <VinBaseComponents/HTMapValueManager.h>
 #import <VinBaseComponents/RACSubject+Extension.h>

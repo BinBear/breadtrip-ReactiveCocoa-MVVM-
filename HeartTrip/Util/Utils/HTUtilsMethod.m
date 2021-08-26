@@ -59,7 +59,7 @@ NSString *stringFormatterCommaWithNumber(id num, NSInteger precision, BOOL isSep
     }
     if (!amount) { return @"";}
     
-    NSString *str = [NSString stringFromNumber:amount fractionDigits:precision];
+    NSString *str = [NSString vv_stringFromNumber:amount fractionDigits:precision];
     if (isSeparate) {
         return separateNumberUseCommaWith(str);
     }else{
@@ -164,25 +164,6 @@ NSString *countTextCharsForNumber(id number, NSInteger digit){
     }
     
     return textNumber;
-}
-
-/// 获取当前控制器
-UIViewController *currentViewController(void){
-    UIViewController* vc = [UIApplication sharedApplication].keyWindow.rootViewController;
-    while (1) {
-      if ([vc isKindOfClass:[UITabBarController class]]) {
-          vc = ((UITabBarController*)vc).selectedViewController;
-      }
-      if ([vc isKindOfClass:[UINavigationController class]]) {
-          vc = ((UINavigationController*)vc).visibleViewController;
-      }
-      if (vc.presentedViewController) {
-          vc = vc.presentedViewController;
-      }else{
-         break;
-      }
-    }
-    return vc;
 }
 
 @end

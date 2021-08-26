@@ -25,7 +25,7 @@
         
         Class viewModelClass = NSClassFromString(viewModelName);
         
-        if (ht_ProtocolAndSelector(viewModelClass,
+        if (vv_ProtocolAndSelector(viewModelClass,
                                    @protocol(HTViewModelProtocol),
                                    @selector(viewModelWithParameter:))) {
             
@@ -37,7 +37,7 @@
                 if ([viewModel respondsToSelector:sel_registerName("setViewModelController:")]) {
                     ((void(*)(id, SEL, id))objc_msgSend)(viewModel, sel_registerName("setViewModelController:"), vc);
                 }
-                if (ht_ProtocolAndSelector(viewModel,
+                if (vv_ProtocolAndSelector(viewModel,
                                            @protocol(HTViewModelProtocol),
                                            @selector(viewModelLoad))) {
                     [vc bindViewModelWillLoad];
